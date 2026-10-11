@@ -31,10 +31,16 @@ public final class RegressionSuite {
         assertions += WeatherAnchorPowerRegression.run();
         assertions += CreativeComputationPolicyRegression.run();
         assertions += EquipmentRecipesRegression.run();
+        assertions += StarCoreStripperRegression.run();
+        assertions += ExtremeReactorRegression.run();
+        assertions += ConfigEditorRegression.run();
+        assertions += TagFilterStockBusRegression.run();
         assertions += PatternGeneratorRegression.run();
         assertions += BlackHoleFrameRegression.run();
         assertions += StellarForgeRegression.run();
         assertions += IvIsolationRegression.run();
+        assertions += IvBufferDispatchRegression.run();
+        assertions += IvVirtualIngredientRegression.run();
         assertions += IvDisplayRegression.run();
         assertions += IvCancellationRegression.run();
         assertions += SuperBufferAutoNameRegression.run();
@@ -77,7 +83,7 @@ public final class RegressionSuite {
                 "stellar fusion must extend the wireless multiple-recipes base class");
         check(!machine.contains("FusionReactorMachine.MANAGED_FIELD_HOLDER"),
                 "stellar fusion must not inherit the native fusion machine field holder");
-        check(machine.contains("FIXED_DURATION_TICKS = 20"), "stellar fusion keeps the fixed 20-tick batch");
+        check(machine.contains("FIXED_DURATION_TICKS = 20"), "stellar fusion keeps the fixed 20-tick batch default");
         check(machine.contains("setLimitedDuration(FIXED_DURATION_TICKS)"),
                 "stellar fusion must force the fixed batch duration on formation");
         check(machine.contains("return Integer.MAX_VALUE;") && machine.contains("getMultipleThreads()"),

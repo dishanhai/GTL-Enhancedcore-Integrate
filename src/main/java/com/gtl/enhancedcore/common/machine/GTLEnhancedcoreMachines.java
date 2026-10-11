@@ -37,6 +37,8 @@ public final class GTLEnhancedcoreMachines {
     private static volatile MultiblockMachineDefinition causalityTerminal;
     private static volatile MultiblockMachineDefinition infinitySingularityCompressor;
     private static volatile MultiblockMachineDefinition neutronControlFactory;
+    private static volatile MultiblockMachineDefinition starCoreStripper;
+    private static volatile MultiblockMachineDefinition extremeReactor;
     private static volatile MultiblockMachineDefinition platinumRefiningMatrix;
     private static volatile MultiblockMachineDefinition voidConstrainedMiningField;
     private static volatile MultiblockMachineDefinition dragonFieldProliferationCore;
@@ -75,6 +77,8 @@ public final class GTLEnhancedcoreMachines {
         causalityTerminal = SpecialMachineRegistration.registerCausalityTerminal();
         infinitySingularityCompressor = SpecialMachineRegistration.registerInfinitySingularityCompressor();
         neutronControlFactory = SpecialMachineRegistration.registerNeutronControlFactory();
+        starCoreStripper = SpecialMachineRegistration.registerStarCoreStripper();
+        extremeReactor = SpecialMachineRegistration.registerExtremeReactor();
         platinumRefiningMatrix = SpecialMachineRegistration.registerPlatinumRefiningMatrix();
         voidConstrainedMiningField = SpecialMachineRegistration.registerVoidConstrainedMiningField();
         dragonFieldProliferationCore = SpecialMachineRegistration.registerDragonFieldProliferationCore();
@@ -165,6 +169,14 @@ public final class GTLEnhancedcoreMachines {
         return neutronControlFactory;
     }
 
+    public static MultiblockMachineDefinition getStarCoreStripper() {
+        return starCoreStripper;
+    }
+
+    public static MultiblockMachineDefinition getExtremeReactor() {
+        return extremeReactor;
+    }
+
     public static MultiblockMachineDefinition getPlatinumRefiningMatrix() {
         return platinumRefiningMatrix;
     }
@@ -218,7 +230,8 @@ public final class GTLEnhancedcoreMachines {
                 creativeComputationReceiverHatch,
                 largeFurnace, steamPlatform, plasmaMachineTool, hadronRefinery, quantumMassArray,
                 fusionAssembler, weatherAnchor, causalityTerminal, infinitySingularityCompressor,
-                neutronControlFactory, platinumRefiningMatrix, voidConstrainedMiningField, dragonFieldProliferationCore,
+                neutronControlFactory, starCoreStripper, extremeReactor, platinumRefiningMatrix,
+                voidConstrainedMiningField, dragonFieldProliferationCore,
                 hyperstructuralChemicalDistorter, stellarConfinementFusionReactor,
                 basicOrePlant, processingPlus, assemblingPlus, separatingPlus, mixingPlus, integratedUniversalFactory));
         for (MachineDefinition definition : crystalResonators) if (definition != null) result.add(definition);

@@ -6,6 +6,7 @@ import com.gregtechceu.gtceu.api.pattern.BlockPattern;
 import com.gregtechceu.gtceu.api.pattern.MultiblockShapeInfo;
 import com.gtl.enhancedcore.common.structure.GtlMegastructurePatterns;
 import com.gtl.enhancedcore.common.structure.SpaceElevatorMaintenance;
+import com.gtl.enhancedcore.common.structure.NativeIsolationPatterns;
 import java.util.List;
 import java.util.function.Supplier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +20,8 @@ public abstract class GtlMegastructurePatternMixin {
         var definition = (MultiblockMachineDefinition) (Object) this;
         if (SpaceElevatorMaintenance.matches(definition.getId()))
             return Suppliers.memoize(() -> SpaceElevatorMaintenance.forbidden(original.get()));
+        if (NativeIsolationPatterns.targets(definition.getId()))
+            return Suppliers.memoize(() -> NativeIsolationPatterns.restrict(original.get()));
         if (!GtlMegastructurePatterns.targets(definition.getId())) return original;
         return GtlMegastructurePatterns.wrapFactory(definition.getId(), original);
     }

@@ -161,16 +161,45 @@
       "method": "assembler",
       "duration": 800,
       "ingredients": [
-        {"item": "gtceu:mv_bender", "count": 2},
-        {"item": "gtceu:mv_lathe", "count": 2},
-        {"item": "gtceu:mv_wiremill", "count": 2},
-        {"item": "gtlcore:multi_functional_casing", "count": 2},
-        {"item": "gtceu:mv_robot_arm", "count": 4},
-        {"item": "gtceu:mv_conveyor_module", "count": 4},
-        {"tag": "gtceu:circuits/mv", "count": 8},
-        {"item": "gtceu:double_aluminium_plate", "count": 8}
+        {
+          "item": "gtceu:mv_bender",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_lathe",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_wiremill",
+          "count": 2
+        },
+        {
+          "item": "gtlcore:multi_functional_casing",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_robot_arm",
+          "count": 4
+        },
+        {
+          "item": "gtceu:mv_conveyor_module",
+          "count": 4
+        },
+        {
+          "tag": "gtceu:circuits/mv",
+          "count": 8
+        },
+        {
+          "item": "gtceu:double_aluminium_plate",
+          "count": 8
+        }
       ],
-      "fluids": [{"fluid": "gtceu:soldering_alloy", "amount": 576}]
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 576
+        }
+      ]
     },
     {
       "output": "assembling_plus",
@@ -178,16 +207,45 @@
       "method": "assembler",
       "duration": 800,
       "ingredients": [
-        {"item": "gtceu:mv_assembler", "count": 2},
-        {"item": "gtceu:mv_circuit_assembler", "count": 2},
-        {"item": "gtceu:mv_forming_press", "count": 2},
-        {"item": "gtlcore:multi_functional_casing", "count": 2},
-        {"item": "gtceu:mv_robot_arm", "count": 4},
-        {"item": "gtceu:mv_conveyor_module", "count": 4},
-        {"tag": "gtceu:circuits/mv", "count": 8},
-        {"item": "gtceu:double_aluminium_plate", "count": 8}
+        {
+          "item": "gtceu:mv_assembler",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_circuit_assembler",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_forming_press",
+          "count": 2
+        },
+        {
+          "item": "gtlcore:multi_functional_casing",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_robot_arm",
+          "count": 4
+        },
+        {
+          "item": "gtceu:mv_conveyor_module",
+          "count": 4
+        },
+        {
+          "tag": "gtceu:circuits/mv",
+          "count": 8
+        },
+        {
+          "item": "gtceu:double_aluminium_plate",
+          "count": 8
+        }
       ],
-      "fluids": [{"fluid": "gtceu:soldering_alloy", "amount": 576}]
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 576
+        }
+      ]
     },
     {
       "output": "separating_plus",
@@ -195,16 +253,45 @@
       "method": "assembler",
       "duration": 800,
       "ingredients": [
-        {"item": "gtceu:mv_centrifuge", "count": 2},
-        {"item": "gtceu:mv_electrolyzer", "count": 2},
-        {"item": "gtceu:mv_thermal_centrifuge", "count": 2},
-        {"item": "gtlcore:multi_functional_casing", "count": 2},
-        {"item": "gtceu:mv_robot_arm", "count": 4},
-        {"item": "gtceu:mv_conveyor_module", "count": 4},
-        {"tag": "gtceu:circuits/mv", "count": 8},
-        {"item": "gtceu:double_aluminium_plate", "count": 8}
+        {
+          "item": "gtceu:mv_centrifuge",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_electrolyzer",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_thermal_centrifuge",
+          "count": 2
+        },
+        {
+          "item": "gtlcore:multi_functional_casing",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_robot_arm",
+          "count": 4
+        },
+        {
+          "item": "gtceu:mv_conveyor_module",
+          "count": 4
+        },
+        {
+          "tag": "gtceu:circuits/mv",
+          "count": 8
+        },
+        {
+          "item": "gtceu:double_aluminium_plate",
+          "count": 8
+        }
       ],
-      "fluids": [{"fluid": "gtceu:soldering_alloy", "amount": 576}]
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 576
+        }
+      ]
     },
     {
       "output": "mixing_plus",
@@ -212,16 +299,45 @@
       "method": "assembler",
       "duration": 800,
       "ingredients": [
-        {"item": "gtceu:mv_mixer", "count": 2},
-        {"item": "gtceu:mv_chemical_reactor", "count": 2},
-        {"item": "gtceu:mv_chemical_bath", "count": 2},
-        {"item": "gtlcore:multi_functional_casing", "count": 2},
-        {"item": "gtceu:mv_robot_arm", "count": 4},
-        {"item": "gtceu:mv_conveyor_module", "count": 4},
-        {"tag": "gtceu:circuits/mv", "count": 8},
-        {"item": "gtceu:double_aluminium_plate", "count": 8}
+        {
+          "item": "gtceu:mv_mixer",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_chemical_reactor",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_chemical_bath",
+          "count": 2
+        },
+        {
+          "item": "gtlcore:multi_functional_casing",
+          "count": 2
+        },
+        {
+          "item": "gtceu:mv_robot_arm",
+          "count": 4
+        },
+        {
+          "item": "gtceu:mv_conveyor_module",
+          "count": 4
+        },
+        {
+          "tag": "gtceu:circuits/mv",
+          "count": 8
+        },
+        {
+          "item": "gtceu:double_aluminium_plate",
+          "count": 8
+        }
       ],
-      "fluids": [{"fluid": "gtceu:soldering_alloy", "amount": 576}]
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 576
+        }
+      ]
     },
     {
       "output": "universal_joint_factory",
@@ -229,14 +345,37 @@
       "method": "assembler",
       "duration": 800,
       "ingredients": [
-        {"item": "gtl_enhancedcore:processing_plus", "count": 1},
-        {"item": "gtl_enhancedcore:assembling_plus", "count": 1},
-        {"item": "gtl_enhancedcore:separating_plus", "count": 1},
-        {"item": "gtl_enhancedcore:mixing_plus", "count": 1},
-        {"tag": "gtceu:circuits/mv", "count": 8},
-        {"item": "gtceu:phenolic_circuit_board", "count": 16}
+        {
+          "item": "gtl_enhancedcore:processing_plus",
+          "count": 1
+        },
+        {
+          "item": "gtl_enhancedcore:assembling_plus",
+          "count": 1
+        },
+        {
+          "item": "gtl_enhancedcore:separating_plus",
+          "count": 1
+        },
+        {
+          "item": "gtl_enhancedcore:mixing_plus",
+          "count": 1
+        },
+        {
+          "tag": "gtceu:circuits/mv",
+          "count": 8
+        },
+        {
+          "item": "gtceu:phenolic_circuit_board",
+          "count": 16
+        }
       ],
-      "fluids": [{"fluid": "gtceu:soldering_alloy", "amount": 576}]
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 576
+        }
+      ]
     },
     {
       "output": "basic_ore_processing_plant",
@@ -783,6 +922,68 @@
         {
           "fluid": "gtceu:soldering_alloy",
           "amount": 9216
+        }
+      ]
+    },
+    {
+      "output": "star_core_stripper",
+      "tier": "uhv",
+      "method": "assembly_line",
+      "duration": 4800,
+      "ingredients": [
+        {
+          "item": "gtceu:large_fragment_world_collection_machine",
+          "count": 4
+        },
+        {
+          "item": "gtceu:uhv_machine_hull",
+          "count": 8
+        },
+        {
+          "item": "gtceu:uhv_field_generator",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_sensor",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_emitter",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_electric_pump",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_robot_arm",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_electric_motor",
+          "count": 16
+        },
+        {
+          "tag": "gtceu:circuits/uhv",
+          "count": 16
+        },
+        {
+          "item": "gtceu:neutronium_plate",
+          "count": 64
+        },
+        {
+          "item": "gtlcore:iridium_casing",
+          "count": 64
+        },
+        {
+          "item": "gtceu:fusion_coil",
+          "count": 32
+        }
+      ],
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 18432
         }
       ]
     },
@@ -1788,6 +1989,76 @@
         {
           "fluid": "gtceu:polyetheretherketone",
           "amount": 4608
+        }
+      ]
+    },
+    {
+      "output": "extreme_reactor",
+      "tier": "uxv",
+      "method": "assembly_line",
+      "duration": 9600,
+      "ingredients": [
+        {
+          "item": "gtceu:advanced_hyper_reactor",
+          "count": 4
+        },
+        {
+          "item": "gtceu:uxv_machine_hull",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uxv_field_generator",
+          "count": 32
+        },
+        {
+          "item": "gtceu:uxv_electric_pump",
+          "count": 32
+        },
+        {
+          "item": "gtceu:uxv_emitter",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uxv_sensor",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uxv_robot_arm",
+          "count": 16
+        },
+        {
+          "item": "gtlcore:supercritical_turbine_casing",
+          "count": 64
+        },
+        {
+          "item": "gtlcore:ultimate_stellar_containment_casing",
+          "count": 64
+        },
+        {
+          "item": "gtlcore:uxv_hermetic_casing",
+          "count": 32
+        },
+        {
+          "item": "gtlcore:fusion_coil_mk2",
+          "count": 64
+        },
+        {
+          "item": "gtceu:neutronium_frame",
+          "count": 32
+        },
+        {
+          "tag": "gtceu:circuits/uxv",
+          "count": 16
+        }
+      ],
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 36864
+        },
+        {
+          "fluid": "gtceu:polyetheretherketone",
+          "amount": 18432
         }
       ]
     }

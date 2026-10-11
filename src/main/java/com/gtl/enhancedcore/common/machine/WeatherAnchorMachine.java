@@ -33,6 +33,7 @@ import net.minecraft.server.level.ServerLevel;
 public class WeatherAnchorMachine extends WorkableElectricMultiblockMachine {
 
     public static final int ANCHOR_TIER = GTValues.ZPM;
+    /** 供电安培数。 */
     public static final int ANCHOR_AMPS = 4;
     /** ZPM 4A = 524288 EU/t; low-voltage buffered energy cannot bypass the tier. */
     public static final long ANCHOR_EUT = GTValues.V[ANCHOR_TIER] * ANCHOR_AMPS;
@@ -40,6 +41,16 @@ public class WeatherAnchorMachine extends WorkableElectricMultiblockMachine {
     public static final long DAY_TIME = 1000L;
     /** 黑夜锚定时刻（ticks）。 */
     public static final long NIGHT_TIME = 13000L;
+
+    /** 固定供电安培数。 */
+    public static int anchorAmps() {
+        return ANCHOR_AMPS;
+    }
+
+    /** 固定 EU/t：ZPM 电压 × 安培数。 */
+    public static long anchorEut() {
+        return GTValues.V[ANCHOR_TIER] * anchorAmps();
+    }
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
             WeatherAnchorMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
@@ -102,7 +113,7 @@ public class WeatherAnchorMachine extends WorkableElectricMultiblockMachine {
         if (!(this.getLevel() instanceof ServerLevel serverLevel)) {
             return;
         }
-        if (!WeatherAnchorPower.tryConsume(this.energyContainer, GTValues.V[ANCHOR_TIER], ANCHOR_EUT)) return;
+        if (!WeatherAnchorPower.tryConsume(this.energyContainer, GTValues.V[ANCHOR_TIER], anchorEut())) return;
         applyAnchor(serverLevel.getServer().overworld(), this.getRecipeType());
         this.anchoring = true;
     }
@@ -126,9 +137,11 @@ public class WeatherAnchorMachine extends WorkableElectricMultiblockMachine {
     /** 按当前模式把主世界时间/天气写回目标值。 */
     private static void applyAnchor(ServerLevel overworld, GTRecipeType mode) {
         if (mode == GTLEnhancedcoreRecipeTypes.ANCHOR_DAY) {
-            overworld.setDayTime(Math.floorDiv(overworld.getDayTime(), 24000L) * 24000L + DAY_TIME);
+            long dayTime = DAY_TIME;
+            overworld.setDayTime(Math.floorDiv(overworld.getDayTime(), 24000L) * 24000L + dayTime);
         } else if (mode == GTLEnhancedcoreRecipeTypes.ANCHOR_NIGHT) {
-            overworld.setDayTime(Math.floorDiv(overworld.getDayTime(), 24000L) * 24000L + NIGHT_TIME);
+            long nightTime = NIGHT_TIME;
+            overworld.setDayTime(Math.floorDiv(overworld.getDayTime(), 24000L) * 24000L + nightTime);
         } else if (mode == GTLEnhancedcoreRecipeTypes.ANCHOR_CLEAR) {
             overworld.setWeatherParameters(6000, 0, false, false);
         } else if (mode == GTLEnhancedcoreRecipeTypes.ANCHOR_RAIN) {

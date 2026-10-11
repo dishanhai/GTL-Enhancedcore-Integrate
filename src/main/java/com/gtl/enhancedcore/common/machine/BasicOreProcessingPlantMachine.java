@@ -27,19 +27,19 @@ import com.gtladd.gtladditions.api.machine.multiblock.GTLAddWorkableElectricMult
  */
 public class BasicOreProcessingPlantMachine extends GTLAddWorkableElectricMultipleRecipesMachine {
 
-    /** 固定处理时长：40 tick = 2 秒（用户指定，勿改）。 */
+    /** 固定处理时长：40 tick = 2 秒。 */
     public static final int FIXED_DURATION = 40;
 
-    /** MV 基础并行（用户指定，勿改）。 */
+    /** MV 基础并行（默认值）。 */
     public static final int BASE_PARALLEL = 64;
 
-    /** 电压每高于 MV 一级增加的并行（用户指定，勿改）。 */
+    /** 电压每高于 MV 一级增加的并行（默认值）。 */
     public static final int PARALLEL_PER_TIER = 100;
 
-    /** MV 基础跨配方线程（用户指定，勿改）。 */
+    /** MV 基础跨配方线程（默认值）。 */
     public static final int BASE_THREADS = 1;
 
-    /** 电压每高于 MV 一级增加的跨配方线程（用户指定，勿改）。 */
+    /** 电压每高于 MV 一级增加的跨配方线程（默认值）。 */
     public static final int THREADS_PER_TIER = 2;
 
     /** 天球分歧引擎部件（GTLAdd 基类默认 setThreadPartMachine 为空实现，必须自行存储）。 */
@@ -58,7 +58,9 @@ public class BasicOreProcessingPlantMachine extends GTLAddWorkableElectricMultip
     /** 静态并行公式（唯一实现，注册端 tooltip 与运行端逻辑共用）。 */
     public static int parallelForVoltage(long maxVoltage) {
         int tier = GTUtil.getFloorTierByVoltage(maxVoltage);
-        return BASE_PARALLEL + PARALLEL_PER_TIER * Math.max(0, tier - GTValues.MV);
+        int base = BASE_PARALLEL;
+        int perTier = PARALLEL_PER_TIER;
+        return base + perTier * Math.max(0, tier - GTValues.MV);
     }
 
     /** 当前电压并行：由能源仓电压决定。 */
@@ -69,7 +71,9 @@ public class BasicOreProcessingPlantMachine extends GTLAddWorkableElectricMultip
     /** 当前跨配方线程：MV 基础 1，电压每高于 MV 一级 +2。 */
     public int getThreadsForTier() {
         int tier = this.getTier();
-        return Math.max(1, BASE_THREADS + THREADS_PER_TIER * Math.max(0, tier - GTValues.MV));
+        int base = BASE_THREADS;
+        int perTier = THREADS_PER_TIER;
+        return Math.max(1, base + perTier * Math.max(0, tier - GTValues.MV));
     }
 
     /** 总并行 = 电压并行（不支持并行控制仓，无仓倍率）。 */

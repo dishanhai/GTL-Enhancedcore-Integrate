@@ -1,6 +1,7 @@
 package com.gtl.enhancedcore;
 
 import com.gtl.enhancedcore.common.recipe.iv.IvNativeRecoveryState;
+import com.gtl.enhancedcore.common.recipe.iv.IvComputationProgress;
 import com.gtl.enhancedcore.common.recipe.iv.IvWorkBudget;
 import com.gtl.enhancedcore.common.util.FairRecipeSelector;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public final class IvNativeRecoveryRegression {
         controlMigration();
         powerGate();
         paymentBoundaries();
+        computationProgress();
         outputFairness();
         deterministicRecovery();
         randomizedRecovery();
@@ -27,6 +29,37 @@ public final class IvNativeRecoveryRegression {
 
     public static void main(String[] arguments) {
         System.out.println("Native recovery state tests passed: " + run() + " assertions");
+    }
+
+    private static void computationProgress() {
+        var first = new IvComputationProgress();
+        var second = new IvComputationProgress();
+        long total = 5_000_000_000L;
+        first.advance(total, 2_100_000_000L);
+        second.advance(total, 128);
+        check(first.completed(total) == 2_100_000_000L && second.completed(total) == 128,
+                "concurrent research orders keep independent long work ledgers");
+        int displayDuration = Integer.MAX_VALUE;
+        check(first.projected(total, displayDuration) > 0 && first.projected(total, displayDuration) < displayDuration,
+                "long research uses a bounded progress projection");
+        var resumed = new IvComputationProgress();
+        resumed.restore(first.completed());
+        check(resumed.completed(total) == first.completed(total), "research round-trip retains exact paid work");
+        resumed.advance(total, total - resumed.completed());
+        check(resumed.projected(total, displayDuration) == displayDuration, "the final long debit completes research exactly");
+        check(first.completed(total) == 2_100_000_000L, "resuming one order cannot advance another order");
+        expectFailure(() -> resumed.advance(total, 1), "completed research cannot overspend its target");
+        expectFailure(() -> first.advance(total, -1), "negative research debits are rejected");
+        expectFailure(() -> second.restore(-1), "negative persisted research is rejected");
+        resumed.reset();
+        check(resumed.completed() == 0, "a new committed batch starts with an empty work ledger");
+        var maximum = new IvComputationProgress();
+        maximum.advance(Long.MAX_VALUE, Long.MAX_VALUE - 1);
+        check(maximum.projected(Long.MAX_VALUE, Integer.MAX_VALUE) == Integer.MAX_VALUE - 1,
+                "long multiplication cannot overflow the progress projection");
+        maximum.advance(Long.MAX_VALUE, 1);
+        check(maximum.projected(Long.MAX_VALUE, Integer.MAX_VALUE) == Integer.MAX_VALUE,
+                "the maximum long target still finishes on the exact final unit");
     }
 
     private static void controlMigration() {

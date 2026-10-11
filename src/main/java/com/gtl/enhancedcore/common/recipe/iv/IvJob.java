@@ -42,6 +42,7 @@ public final class IvJob {
     public long nativeCapacity;
     public boolean nativeWireless;
     public BigInteger nativeWirelessEUt = BigInteger.ZERO;
+    public final IvComputationProgress nativeComputation = new IvComputationProgress();
 
     public IvJob(int slot, GTRecipe recipe, CompoundTag pattern, Map<AEKey, Long> input,
                  Map<AEKey, Long> virtual, long operations) {
@@ -67,6 +68,7 @@ public final class IvJob {
         completion.clear(); parallel=0; eut=0; duration=0; elapsed=0;
         energyLeft=BigInteger.ZERO; energyTotal=BigInteger.ZERO; supplyPower=0;
         nativeRecipe=null; nativeCapacity=0; nativeWireless=false; nativeWirelessEUt=BigInteger.ZERO;
+        nativeComputation.reset();
         cycle=""; error=""; halted=false;
         validateAccounting();
     }
@@ -80,6 +82,7 @@ public final class IvJob {
         completedOperations = Math.addExact(completedOperations, parallel);
         pendingOperations = parallel;
         pending.putAll(output); completion.clear(); parallel=0;
+        nativeComputation.reset();
         if (remaining == 0) inventory.clear();
         validateAccounting();
     }
@@ -109,6 +112,7 @@ public final class IvJob {
         tag.putBoolean("nativeWireless", nativeWireless);
         tag.putLong("nativeCapacity", nativeCapacity);
         tag.putString("nativeWirelessEUt", nativeWirelessEUt.toString());
+        tag.putLong("nativeComputation", nativeComputation.completed());
         return tag;
     }
     public static IvJob load(CompoundTag tag) {
@@ -138,6 +142,7 @@ public final class IvJob {
         job.nativeCapacity = tag.getLong("nativeCapacity");
         if (job.nativeCapacity < 0) throw new IllegalArgumentException("Invalid native capacity");
         job.nativeWirelessEUt = tag.contains("nativeWirelessEUt") ? new BigInteger(tag.getString("nativeWirelessEUt")) : BigInteger.ZERO;
+        job.nativeComputation.restore(tag.getLong("nativeComputation"));
         if (job.nativeWirelessEUt.signum() < 0 || job.nativeWireless && job.nativeRecipe == null)
             throw new IllegalArgumentException("Invalid native wireless ledger");
         job.halted = tag.getBoolean("halted");

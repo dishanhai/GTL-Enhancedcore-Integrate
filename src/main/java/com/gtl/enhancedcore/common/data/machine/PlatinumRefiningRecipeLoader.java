@@ -35,7 +35,7 @@ import java.util.function.Consumer;
 public final class PlatinumRefiningRecipeLoader {
 
     /** 铂族矿泥粉输入数量。 */
-    private static final int SLUDGE_INPUT = 16;
+    public static final int SLUDGE_INPUT = 16;
     /** 配方耗时（tick）：EV 阶段多步精炼，取 20 秒。 */
     private static final int DURATION = 400;
 

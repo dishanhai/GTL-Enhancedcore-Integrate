@@ -34,7 +34,8 @@ public abstract class IvPatternBufferMixin implements IvBufferMethods {
             var tag = pattern.getDefinition().getTag();
             if (tag == null || !tag.contains(IvBuffers.ROUTE_KEY)) return false;
             var original = ItemStack.of(tag.getCompound(IvBuffers.ROUTE_KEY).getCompound("original"));
-            return org.gtlcore.gtlcore.integration.ae2.pattern.PatternQuickUploadMetadata.readRecipeTypeIds(original).stream().anyMatch(types::contains);
+            return IvPatternAdmission.compatibleTypes(
+                    org.gtlcore.gtlcore.integration.ae2.pattern.PatternQuickUploadMetadata.readRecipeTypeIds(original), types);
         }).toList());
     }
     @Inject(method = "onPatternChange", at = @At("HEAD"))

@@ -2,6 +2,8 @@ package com.gtl.enhancedcore.common.recipe;
 
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
+import com.gregtechceu.gtceu.api.capability.recipe.CWURecipeCapability;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationAmounts;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.RecipeHelper;
 import com.gregtechceu.gtceu.api.recipe.ingredient.SizedIngredient;
@@ -23,6 +25,15 @@ public final class FactoryRecipeSafety {
             for (var content : contents.getOrDefault(FluidRecipeCapability.CAP, java.util.List.of())) {
                 if (FluidRecipeCapability.CAP.of(content.content).getAmount() <= 0) return false;
             }
+        }
+        try {
+            for (var contents : java.util.List.of(recipe.inputs, recipe.outputs, recipe.tickInputs, recipe.tickOutputs)) {
+                long total = 0;
+                for (var content : contents.getOrDefault(CWURecipeCapability.CAP, java.util.List.of()))
+                    total = Math.addExact(total, ComputationAmounts.read(content.content));
+            }
+        } catch (IllegalArgumentException | ArithmeticException invalid) {
+            return false;
         }
         return true;
     }

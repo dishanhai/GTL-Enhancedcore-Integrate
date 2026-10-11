@@ -18,9 +18,10 @@ import java.util.function.Consumer;
 /**
  * 「异种物质增殖」唯一配方加载器（龙式场约束增殖核心专用）。
  * <p>
- * 按用户规格：输入 512× {@code minecraft:obsidian} + 52mB {@code gtceu:dragon_breath}
+ * 默认配方：输入 512× {@code minecraft:obsidian} + 52mB {@code gtceu:dragon_breath}
  * + 1× {@code gtlcore:conversion_simulate_card}（**不消耗**），
- * 产出 512× {@code kubejs:draconium_dust}，UEV 电压。
+ * 产出 512× {@code kubejs:draconium_dust}，UEV 电压；
+ * 三个数量均为固定值。
  * <p>
  * <b>不消耗输入的实现（2026-09-24 javap 实证）</b>：{@code GTRecipeBuilder} 没有
  * {@code notConsumable(...)} 方法；GTCEu 自带的 KubeJS 集成
@@ -34,11 +35,11 @@ import java.util.function.Consumer;
  */
 public final class ExoticProliferationRecipeLoader {
 
-    /** 黑曜石输入数量。 */
+    /** 黑曜石输入数量固定值。 */
     private static final int OBSIDIAN_INPUT = 512;
-    /** 龙息输入量（mB，用户指定）。 */
+    /** 龙息输入量默认值（mB）。 */
     private static final int DRAGON_BREATH_INPUT = 52;
-    /** 龙尘产出数量。 */
+    /** 龙尘产出数量固定值。 */
     private static final int DRACONIUM_OUTPUT = 512;
     /** 配方耗时（tick）：UEV 阶段增殖反应，取 20 秒。 */
     private static final int DURATION = 400;
@@ -65,7 +66,8 @@ public final class ExoticProliferationRecipeLoader {
 
         var builder = recipeType.recipeBuilder(GTLEnhancedcore.id("exotic_proliferation/draconium_dust"))
                 .inputItems(obsidian, OBSIDIAN_INPUT)
-                .inputFluids(FluidIngredient.of(DRAGON_BREATH_INPUT, dragonBreath));
+                .inputFluids(FluidIngredient.of(
+                        DRAGON_BREATH_INPUT, dragonBreath));
         notConsumableItems(builder, catalyst);
         builder.outputItems(draconium, DRACONIUM_OUTPUT)
                 .EUt(GTValues.VA[GTValues.UEV])

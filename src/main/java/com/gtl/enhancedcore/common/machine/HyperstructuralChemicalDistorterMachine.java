@@ -13,6 +13,8 @@ import org.gtlcore.gtlcore.api.recipe.RecipeResult;
 
 public class HyperstructuralChemicalDistorterMachine extends CoilWorkableElectricMultiblockMachine
         implements IThreadModifierMachine {
+    private static final int PARALLEL_PER_100K = 4;
+    private static final int MINIMUM_PARALLEL = 1;
     private IThreadModifierPart threadPart;
 
     public HyperstructuralChemicalDistorterMachine(IMachineBlockEntity holder) {
@@ -23,7 +25,10 @@ public class HyperstructuralChemicalDistorterMachine extends CoilWorkableElectri
         if (!(machine instanceof HyperstructuralChemicalDistorterMachine distorter)
                 || !distorter.checkTemperature(recipe)) return null;
         long excess = (long) distorter.getCoilType().getCoilTemperature() - recipe.data.getInt("ebf_temp");
-        int coilParallel = (int) Math.min(Integer.MAX_VALUE, Math.max(1, excess / 100 * 4));
+        int perHundredK = PARALLEL_PER_100K;
+        int minimum = MINIMUM_PARALLEL;
+        int coilParallel = (int) Math.min(Integer.MAX_VALUE,
+                Math.max(minimum, excess / 100 * perHundredK));
         return SingleRecipeParallel.apply(distorter, recipe, coilParallel);
     };
 

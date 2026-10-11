@@ -11,6 +11,8 @@ import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
 import com.gtladd.gtladditions.api.machine.GTLAddPartAbility;
 import com.gtl.enhancedcore.common.structure.DistorterCoils;
+import com.gtl.enhancedcore.common.structure.StarCoreStripperStructure;
+import com.gtl.enhancedcore.common.recipe.iv.IvBufferRegistry;
 import com.gtl.enhancedcore.common.data.machines.multiblock.BxjljzStructure.BxjljzStructure;
 import com.gtl.enhancedcore.common.data.machines.multiblock.VoidConstrainedMiningFieldStructure.VoidConstrainedMiningFieldStructure;
 import com.gtl.enhancedcore.common.data.machines.multiblock.DragonFieldProliferationCoreStructure.DragonFieldProliferationCoreStructure;
@@ -265,6 +267,33 @@ public final class GTLStructures {
                 .where(' ', Predicates.any())
                 .build();
     }
+    /** UHV fragment collection: one shared material mode across the 24 marked hatch positions. */
+    public static BlockPattern starCoreStripper(MultiblockMachineDefinition def) {
+        return StarCoreStripperStructure.create()
+                .where('C', controller(def))
+                .where('X', block("gtlcore:iridium_casing")
+                        .or(Predicates.abilities(PartAbility.MAINTENANCE).setPreviewCount(1).setMaxGlobalLimited(1))
+                        .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setPreviewCount(2).setMaxGlobalLimited(2))
+                        .or(Predicates.abilities(PartAbility.INPUT_LASER).setPreviewCount(1).setMaxGlobalLimited(1))
+                        .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setPreviewCount(1).setMaxGlobalLimited(1))
+                        .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1).setMaxGlobalLimited(4))
+                        .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setPreviewCount(1).setMaxGlobalLimited(4))
+                        .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(1).setMaxGlobalLimited(4))
+                        .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setPreviewCount(1).setMaxGlobalLimited(4)))
+                .where('A', block("gtlcore:iridium_casing"))
+                .where('B', block("gtceu:fusion_casing_mk3"))
+                .where('D', block("gtceu:fusion_coil"))
+                .where('E', block("gtlcore:naquadah_alloy_casing"))
+                .where('F', block("gtceu:tungstensteel_pipe_casing"))
+                .where('G', block("gtceu:fusion_glass"))
+                .where('I', block("gtceu:white_lamp"))
+                .where('J', block("gtceu:cyan_lamp"))
+                .where('K', block("gtceu:orange_lamp"))
+                .where('L', block("gtceu:yellow_lamp"))
+                .where(' ', Predicates.any())
+                .build();
+    }
+
     // 由 SchemTool 从 jcksclc.schem 生成（clean 已移除白色羊毛定位块）。字符映射：
     // C=控制器（正面最后一个 aisle z=11，y=1 中间行），X=钻石矿位（蒸汽机械方块或仓室），
     // A=青铜框架，B=蒸汽机械方块，D=青铜齿轮箱，E=水（必须真实放水，无水不成形），

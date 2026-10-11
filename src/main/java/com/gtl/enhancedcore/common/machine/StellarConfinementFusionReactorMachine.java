@@ -33,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class StellarConfinementFusionReactorMachine extends GTLAddWirelessWorkableElectricMultipleRecipesMachine {
 
-    /** 单批固定时长：1 秒 = 20 tick（GTLAdditions limitedDuration 默认值）。 */
+    /** 单批固定时长：1 秒 = 20 tick。 */
     public static final int FIXED_DURATION_TICKS = 20;
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(

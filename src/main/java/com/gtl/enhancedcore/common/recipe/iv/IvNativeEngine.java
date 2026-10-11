@@ -28,6 +28,9 @@ import org.gtlcore.gtlcore.api.machine.trait.IRecipeCapabilityMachine;
 import org.gtlcore.gtlcore.api.recipe.*;
 import org.gtlcore.gtlcore.api.recipe.ingredient.LongIngredient;
 import org.gtlcore.gtlcore.common.machine.trait.MultipleRecipesLogic;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationAmounts;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationNetwork;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationRecipes;
 
 /**
  * Orders own all material state. The original machine/trait still owns coils, energy, research,
@@ -76,6 +79,10 @@ public final class IvNativeEngine {
         }
     }
     public void invalidateRuntime() {
+        clearDiagnostics();
+        ComputationNetwork.forget(machine);
+    }
+    private void clearDiagnostics() {
         message = ""; advanced = false; currentEUt = 0;
         rejectionDetails.clear(); machineDetails.clear();
     }
@@ -122,6 +129,8 @@ public final class IvNativeEngine {
     }
     private static void validateNativeJob(IvJob job) {
         job.validateAccounting();
+        if (job.nativeRecipe != null && job.nativeRecipe.data.getBoolean("duration_is_total_cwu"))
+            job.nativeComputation.completed(ComputationAmounts.total(job.nativeRecipe));
         if (job.active() && (job.nativeRecipe == null || job.duration < 1 || job.elapsed < 0 || job.elapsed >= job.duration
                 || job.nativeCapacity < 0 || job.energyLeft.signum() < 0 || job.energyLeft.compareTo(job.energyTotal) > 0))
             throw new IllegalStateException("Invalid native committed batch snapshot");
@@ -171,7 +180,7 @@ public final class IvNativeEngine {
     }
     private void tickOrders() {
         if (fault && !logic.isWorkingEnabled()) return;
-        fault = false; invalidateRuntime();
+        fault = false; clearDiagnostics();
         // Do not adopt a legacy, already-paid recipe as a new order.
         if (!access.iv$managed() && logic.getLastRecipe() != null && logic.getDuration() > 0) {
             logic.setWorkingEnabled(false);
@@ -223,6 +232,8 @@ public final class IvNativeEngine {
             return true;
         });
         if (logic.isWorkingEnabled()) { start(all); advance(all); }
+        if (all.stream().noneMatch(ref -> !ref.job.halted && (ref.job.active() || ref.job.remaining > 0)))
+            ComputationNetwork.forget(machine);
         publish(all);
     }
     private IWirelessNetworkEnergyHandler wireless() {
@@ -335,7 +346,8 @@ public final class IvNativeEngine {
             var wireless = wireless();
             BigInteger wirelessEUt = BigInteger.ZERO;
             long parallel;
-            if (IvMachineScope.batching(machine)) {
+            // Research duration is paid work, not a fixed-energy batch window.
+            if (IvMachineScope.batching(machine) && !job.recipe.data.getBoolean("duration_is_total_cwu")) {
                 parallel = granted;
                 scaled = RecipeCalculationHelper.INSTANCE.multipleRecipe(job.recipe, parallel);
                 if (wireless != null) {
@@ -385,7 +397,14 @@ public final class IvNativeEngine {
             GTRecipe tick = scaled.copy();
             tick.inputs.clear(); tick.outputs.clear(); tick.tickInputs.remove(EURecipeCapability.CAP);
             tick.duration = timing.duration; IGTRecipe.of(tick).setHasTick(!tick.tickInputs.isEmpty());
-            var tickMatch = tick.matchTickRecipe(machine);
+            boolean research = tick.data.getBoolean("duration_is_total_cwu");
+            if (research && ComputationRecipes.required(tick.tickInputs.getOrDefault(CWURecipeCapability.CAP, List.of())) <= 0)
+                throw new IllegalArgumentException("Native research requires positive tick computation");
+            GTRecipe.ActionResult tickMatch;
+            try (var context = IvComputationContext.begin(job, logic, tick);
+                 var scope = ComputationRecipes.begin(machine, tick)) {
+                tickMatch = tick.matchTickRecipe(machine);
+            }
             if (!tickMatch.isSuccess()) {
                 waiting(ref, "gtl_enhancedcore.diagnostic.conditions", resultDetail(tickMatch, "gtl_enhancedcore.diagnostic.conditions"));
                 return;
@@ -406,11 +425,12 @@ public final class IvNativeEngine {
             var consumed = IvRecipeInputs.plan(IParallelLogic.getRecipeOutputChance(machine, inputRoll).outputs, job.inventory, Map.of(), 1);
             if (consumed == null) throw new IllegalStateException("Native input commit changed");
             var produced = IvRecipeInputs.outputs(outputs.outputs);
-            BigInteger totalEnergy = firstPayment.multiply(BigInteger.valueOf(timing.duration));
+            BigInteger totalEnergy = research ? firstPayment : firstPayment.multiply(BigInteger.valueOf(timing.duration));
             IvRecipeInputs.subtract(job.inventory, consumed);
             job.completion.putAll(produced); job.remaining -= parallel; job.parallel = parallel;
             job.nativeRecipe = tick; job.nativeWireless = wireless != null; job.nativeWirelessEUt = wirelessEUt;
             job.nativeCapacity = capacity;
+            job.nativeComputation.reset();
             job.eut = eut; job.duration = timing.duration; job.elapsed = 0;
             job.energyTotal = totalEnergy;
             job.energyLeft = job.energyTotal; job.supplyPower = Math.max(0, machine.getOverclockVoltage());
@@ -443,11 +463,6 @@ public final class IvNativeEngine {
                 waiting(ref, "gtl_enhancedcore.diagnostic.conditions", resultDetail(conditions, "gtl_enhancedcore.diagnostic.conditions"));
                 continue;
             }
-            var tickMatch = job.nativeRecipe.matchTickRecipe(machine);
-            if (!tickMatch.isSuccess()) {
-                waiting(ref, "gtl_enhancedcore.diagnostic.conditions", resultDetail(tickMatch, "gtl_enhancedcore.diagnostic.conditions"));
-                continue;
-            }
             BigInteger payment = (job.nativeWireless ? job.nativeWirelessEUt : BigInteger.valueOf(job.eut)).min(job.energyLeft);
             var wireless = wireless();
             if (job.nativeWireless) {
@@ -456,32 +471,65 @@ public final class IvNativeEngine {
                     continue;
                 }
             }
-            if (!powerReady(ref, payment, job.nativeWireless ? wireless : null, powerBudget)) continue;
-            if (!callbacks) {
-                if (!machine.onWorking() || !logic.isWorkingEnabled()) {
-                    for (var waiting : running)
-                        waiting(waiting, "gtl_enhancedcore.diagnostic.conditions", nativeDetail("working", waiting.job.recipe.id.toString()));
-                    return;
-                }
-                callbacks = true;
-            }
-            var nextTick = IvNativeRecoveryState.paid(job.energyLeft, payment, job.elapsed, job.duration);
-            // Every tick requirement is simulated above. No progress is credited unless both CWU and EU are paid.
-            var tickResult = logic.handleTickRecipe(job.nativeRecipe);
-            if (!tickResult.isSuccess()) {
-                waiting(ref, "gtl_enhancedcore.diagnostic.conditions", resultDetail(tickResult, "gtl_enhancedcore.diagnostic.conditions"));
-                continue;
-            }
-            if (job.nativeWireless) {
-                if (payment.signum() > 0 && !wireless.consumeEnergy(payment.negate())) {
-                    waiting(ref, "gtl_enhancedcore.diagnostic.power", nativeDetail("wireless_energy", payment.toString(), wireless.getMaxAvailableEnergy().toString()));
+            boolean research = job.nativeRecipe.data.getBoolean("duration_is_total_cwu");
+            IvNativeRecoveryState.PaidTick nextTick;
+            // Keep all CWU receipts open until the order's EU payment has also succeeded.
+            try (var context = IvComputationContext.begin(job, logic, job.nativeRecipe);
+                 var scope = ComputationRecipes.begin(machine, job.nativeRecipe)) {
+                var tickMatch = job.nativeRecipe.matchTickRecipe(machine);
+                if (!tickMatch.isSuccess()) {
+                    waiting(ref, "gtl_enhancedcore.diagnostic.conditions", resultDetail(tickMatch, "gtl_enhancedcore.diagnostic.conditions"));
                     continue;
                 }
-            } else {
-                long paid = payment.longValueExact();
-                if (paid > 0 && machine.getEnergyContainer().removeEnergy(paid) != paid)
-                    throw new IllegalStateException("Native energy commit was incomplete");
-                powerBudget -= paid; currentEUt = Math.addExact(currentEUt, paid);
+                if (!powerReady(ref, payment, job.nativeWireless ? wireless : null, powerBudget)) continue;
+                if (!callbacks) {
+                    if (!machine.onWorking() || !logic.isWorkingEnabled()) {
+                        for (var waiting : running)
+                            waiting(waiting, "gtl_enhancedcore.diagnostic.conditions", nativeDetail("working", waiting.job.recipe.id.toString()));
+                        return;
+                    }
+                    callbacks = true;
+                }
+                nextTick = research ? null : IvNativeRecoveryState.paid(job.energyLeft, payment, job.elapsed, job.duration);
+                var tickResult = logic.handleTickRecipe(job.nativeRecipe);
+                if (!tickResult.isSuccess() || scope.failed()) {
+                    waiting(ref, "gtl_enhancedcore.diagnostic.conditions", resultDetail(tickResult, "gtl_enhancedcore.diagnostic.conditions"));
+                    continue;
+                }
+                if (job.nativeWireless) {
+                    if (payment.signum() > 0 && !wireless.consumeEnergy(payment.negate())) {
+                        waiting(ref, "gtl_enhancedcore.diagnostic.power", nativeDetail("wireless_energy", payment.toString(), wireless.getMaxAvailableEnergy().toString()));
+                        continue;
+                    }
+                } else {
+                    long paid = payment.longValueExact();
+                    var energy = machine.getEnergyContainer();
+                    long removed = paid == 0 ? 0 : energy.removeEnergy(paid);
+                    if (removed != paid) {
+                        if (removed < 0 || removed > paid || removed > 0 && energy.addEnergy(removed) != removed)
+                            throw new IllegalStateException("Invalid native energy refund");
+                        waiting(ref, "gtl_enhancedcore.diagnostic.power", nativeDetail("power", paid, powerBudget, energy.getEnergyStored()));
+                        continue;
+                    }
+                    if (paid > 0) ComputationRecipes.undoOnFailure(() -> {
+                        if (energy.addEnergy(paid) != paid) throw new IllegalStateException("Native energy refund was incomplete");
+                    });
+                }
+                scope.commit(true);
+                if (research) {
+                    long total = ComputationAmounts.total(job.nativeRecipe);
+                    boolean complete = job.nativeComputation.completed(total) == total;
+                    // Research pays per actual working tick; retain just the next tick's payment.
+                    BigInteger nextPayment = complete ? BigInteger.ZERO
+                            : job.nativeWireless ? job.nativeWirelessEUt : BigInteger.valueOf(job.eut);
+                    nextTick = new IvNativeRecoveryState.PaidTick(nextPayment,
+                            job.nativeComputation.projected(total, job.duration), complete);
+                    if (!complete) job.energyTotal = job.energyTotal.add(nextPayment);
+                }
+                if (!job.nativeWireless) {
+                    long paid = payment.longValueExact();
+                    powerBudget -= paid; currentEUt = Math.addExact(currentEUt, paid);
+                }
             }
             job.energyLeft = nextTick.energyLeft(); job.elapsed = nextTick.elapsed(); job.error = "";
             rejectionDetails.remove(job.id); advanced = true;

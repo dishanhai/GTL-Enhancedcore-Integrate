@@ -22,7 +22,12 @@ final class CoilDebugToolRegression {
         String machine = source("common/machine/HyperstructuralChemicalDistorterMachine.java");
         check(machine.contains("recipe.data.getInt(\"ebf_temp\") <= getCoilType().getCoilTemperature()"),
                 "Real recipe temperature check remains mandatory");
-        check(machine.contains("excess / 100 * 4"), "Existing parallel formula unchanged");
+        // Every 100K above the recipe temperature adds 4 parallel, with a minimum of 1.
+        check(machine.contains("excess / 100 * perHundredK")
+                        && machine.contains("int perHundredK = PARALLEL_PER_100K;")
+                        && machine.contains("int minimum = MINIMUM_PARALLEL;")
+                        && machine.contains("Math.max(minimum, excess / 100 * perHundredK)"),
+                "Existing parallel formula and fixed values remain unchanged");
         String mixin = source("mixin/gtlcore/GTLItemsDebugPatternToolMixin.java");
         check(mixin.contains("method = \"<clinit>\"") && mixin.contains("stringValue=debug_pattern_test")
                 && mixin.contains("DEBUG_PATTERN_TEST:Lcom/tterrag/registrate/util/entry/ItemEntry;"), "Registration interception narrowly sliced");

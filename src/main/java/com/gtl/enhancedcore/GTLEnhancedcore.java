@@ -57,9 +57,7 @@ public class GTLEnhancedcore {
     );
 
     public GTLEnhancedcore() {
-        // 配置文件统一放在 config/GTL-Enhancedcore/ 目录；Forge 内置配置界面（模组列表 → 配置）可编辑
-        // COMMON 类型：文件生成在全局 config/GTL-Enhancedcore/common.toml，主菜单/模组列表配置界面即可编辑
-        // （SERVER 类型会存进每个存档的 serverconfig 文件夹，模组列表配置界面打不开）
+        // COMMON 文件位于全局 config/GTL-Enhancedcore/；客户端 ConfigClientRegistration 提供模组列表配置入口。
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, GTLConfig.COMMON_SPEC, "GTL-Enhancedcore/common.toml");
         ConfigMigration.migrateLegacyFiles();
         // 确保无限奇点压缩器的默认配方配置文件存在（不依赖 mixin）

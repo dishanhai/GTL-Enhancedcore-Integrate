@@ -7,6 +7,7 @@ import com.gtl.enhancedcore.common.data.machine.InfinitySingularityRecipeLoader;
 import com.gtl.enhancedcore.common.data.machine.EquipmentRecipeLoader;
 import com.gtl.enhancedcore.common.data.machine.PlatinumRefiningRecipeLoader;
 import com.gtl.enhancedcore.common.data.machine.ExoticProliferationRecipeLoader;
+import com.gtl.enhancedcore.common.data.machine.ExtremeReactionRecipeLoader;
 
 import net.minecraft.data.recipes.FinishedRecipe;
 
@@ -49,5 +50,6 @@ public class GTLEnhancedcoreGTAddon implements IGTAddon {
         InfinitySingularityRecipeLoader.registerRecipes(provider);
         PlatinumRefiningRecipeLoader.registerRecipes(provider);
         ExoticProliferationRecipeLoader.registerRecipes(provider);
+        ExtremeReactionRecipeLoader.registerRecipes(provider);
     }
 }

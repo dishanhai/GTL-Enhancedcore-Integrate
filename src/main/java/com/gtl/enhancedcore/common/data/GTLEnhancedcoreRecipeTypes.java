@@ -65,6 +65,11 @@ public final class GTLEnhancedcoreRecipeTypes {
             .setMaxIOSize(2, 1, 1, 0)
             .setEUIO(IO.IN);
 
+    /** 极限反应：单流体燃料输入，EU 是逐 tick 产出，直接结算到电网。 */
+    public static final GTRecipeType EXTREME_REACTION = register("extreme_reaction")
+            .setMaxIOSize(0, 0, 1, 0)
+            .setEUIO(IO.OUT);
+
     private GTLEnhancedcoreRecipeTypes() {
     }
 

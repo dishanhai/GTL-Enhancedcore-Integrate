@@ -43,8 +43,8 @@ import org.jetbrains.annotations.Nullable;
  *
  * 规则（见 功能与需求.md「无线充能器」）：
  * - 从放置者所属 GTMThings 无线电网拉电，不接有线能源仓。
- * - 固定以机器所在区块为中心，扫描 11×11 共 121 个区块，每 20 tick 一次。
- * - 辐散功耗：121 × 当前电压 × 1A（每 tick 累计，每 20 tick 结算）。
+ * - 固定以机器所在区块为中心扫描，默认 11×11（半径 5）共 121 个区块，每 20 tick 一次。
+ * - 辐散功耗：扫描区块数 × 当前电压 × 1A（每 tick 累计，每 20 tick 结算）。
  * - 辐散供能：扫描区块内所有 GT 机器的能源容器，按缺电量从无线电网拉电并补满。
  * - 支持仓室：维护仓；不支持：并行控制仓、能源仓、激光靶仓。
  */
@@ -55,9 +55,21 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
             new ManagedFieldHolder(WirelessChargerMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
 
     private static final int SCAN_INTERVAL = 20;
-    /** 固定扫描半径 5（11×11 = 121 区块）。 */
+    /** 默认扫描半径 5（11×11 = 121 区块）；保留作默认值与文档锚点。 */
     private static final int CHUNK_RADIUS = 5;
+    /** 默认扫描区块数（半径 5 → 121）；保留作默认值与文档锚点。 */
     private static final int CHUNK_COUNT = (2 * CHUNK_RADIUS + 1) * (2 * CHUNK_RADIUS + 1);
+
+    /** 扫描半径（区块）；默认 5，即 11×11 = 121 区块。 */
+    public static int chunkRadius() {
+        return CHUNK_RADIUS;
+    }
+
+    /** 扫描区块数 = (2 × 半径 + 1)²；默认 121。 */
+    public static int chunkCount() {
+        int radius = chunkRadius();
+        return (2 * radius + 1) * (2 * radius + 1);
+    }
 
 
     private final int tier;
@@ -172,7 +184,7 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
         }
 
         long voltage = GTValues.V[this.tier];
-        long perTick = (long) CHUNK_COUNT * voltage;
+        long perTick = (long) chunkCount() * voltage;
         this.accumulatedConsumption = saturatingAdd(this.accumulatedConsumption, perTick);
         this.markDirty();
 
@@ -211,9 +223,10 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
         int machineChunkZ = machinePos.getZ() >> 4;
 
         long distributed = 0;
+        int radius = chunkRadius();
 
-        for (int dx = -CHUNK_RADIUS; dx <= CHUNK_RADIUS; dx++) {
-            for (int dz = -CHUNK_RADIUS; dz <= CHUNK_RADIUS; dz++) {
+        for (int dx = -radius; dx <= radius; dx++) {
+            for (int dz = -radius; dz <= radius; dz++) {
                 int chunkX = machineChunkX + dx;
                 int chunkZ = machineChunkZ + dz;
 
@@ -304,12 +317,13 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
                 .setWorkingStatus(this.recipeLogic.isWorkingEnabled(), this.charging)
                 .addWorkingStatusLine();
         long voltage = GTValues.V[this.tier];
-        long selfCost = (long) CHUNK_COUNT * voltage;
+        int chunks = chunkCount();
+        long selfCost = (long) chunks * voltage;
         textList.add(Component.translatable("gui.gtl_enhancedcore.wireless_charger.tier",
                 Component.literal(GTValues.VN[this.tier]).withStyle(ChatFormatting.LIGHT_PURPLE))
                 .withStyle(ChatFormatting.GRAY));
         textList.add(Component.translatable("gui.gtl_enhancedcore.wireless_charger.selected",
-                Component.literal(String.valueOf(CHUNK_COUNT)).withStyle(ChatFormatting.AQUA))
+                Component.literal(String.valueOf(chunks)).withStyle(ChatFormatting.AQUA))
                 .withStyle(ChatFormatting.GRAY));
         textList.add(Component.translatable("gui.gtl_enhancedcore.wireless_charger.self_cost",
                 Component.literal(selfCost + " EU/t").withStyle(ChatFormatting.YELLOW))

@@ -44,6 +44,8 @@ public class EndCrystalResonatorMachine extends TieredEnergyMachine implements I
 
     /** 无线结算周期（tick）。每 20 tick（1 秒）向电网提交一次。 */
     private static final int WIRELESS_FLUSH_INTERVAL = 20;
+    private static final long LV_AMPS = 16L;
+    private static final long DEFAULT_AMPS = 64L;
 
     /** 待结算电量缓存。持久化，防止卸载区块丢失。 */
     @Persisted
@@ -66,7 +68,9 @@ public class EndCrystalResonatorMachine extends TieredEnergyMachine implements I
 
     /** LV 为 16A，其余等级为 64A。 */
     public static long amperageForTier(int tier) {
-        return tier == GTValues.LV ? 16L : 64L;
+        return tier == GTValues.LV
+                ? LV_AMPS
+                : DEFAULT_AMPS;
     }
 
     /** 缓存容量：16384 EU 起，电压每高一级翻倍。 */

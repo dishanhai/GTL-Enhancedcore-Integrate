@@ -1,6 +1,7 @@
 package com.gtl.enhancedcore.common.recipe;
 
 import com.gregtechceu.gtceu.api.capability.recipe.FluidRecipeCapability;
+import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.capability.recipe.ItemRecipeCapability;
 import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
@@ -31,6 +32,8 @@ import org.gtlcore.gtlcore.api.recipe.IAdditionalRecipeIterator;
 import org.gtlcore.gtlcore.api.recipe.IParallelLogic;
 import org.gtlcore.gtlcore.api.recipe.RecipeResult;
 import org.gtlcore.gtlcore.api.recipe.RecipeRunnerHelper;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationAmounts;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationNetwork;
 
 /** Shares GTLAdditions processing while enforcing the advertised concurrent recipe count. */
 public final class ThreadLimitedRecipeLogic extends GTLAddMultipleRecipesLogic {
@@ -117,6 +120,9 @@ public final class ThreadLimitedRecipeLogic extends GTLAddMultipleRecipesLogic {
         var admitted = new ArrayList<Admission>();
         for (int recipeIndex = 0; recipeIndex < data.getOriginRecipeList().size(); recipeIndex++) {
             GTRecipe origin = data.getOriginRecipeList().get(recipeIndex);
+            // Total-CWU research has one work ledger; ordinary recipes cannot share that ledger.
+            if (!admitted.isEmpty() && (origin.data.getBoolean("duration_is_total_cwu")
+                    || admitted.getFirst().origin().data.getBoolean("duration_is_total_cwu"))) continue;
             long accepted = BoundedRecipeAdmission.maximum(data.getParallels()[recipeIndex],
                     parallel -> fits(admitted, origin, parallel, wireless));
             if (accepted <= 0) continue;
@@ -124,21 +130,27 @@ public final class ThreadLimitedRecipeLogic extends GTLAddMultipleRecipesLogic {
             admitted.add(new Admission(origin, accepted, scaled));
             if (wireless == null && totalEnergy(admitted) / getMachine().getOverclockVoltage() > 10000) break;
         }
-        if (admitted.isEmpty()) return null;
+        if (admitted.isEmpty()) {
+            ComputationNetwork.forget(machine);
+            return null;
+        }
         GTRecipe batch = buildBatch(admitted, wireless, false);
         if (!batch.matchTickRecipe(machine).isSuccess()) {
             record(RecipeResult.FAIL_NO_ENOUGH_EU_IN, wireless == null
                     ? MachineDiagnostics.power(getMachine(), RecipeHelper.getInputEUt(batch))
                     : MachineDiagnostics.text("wireless_power"));
+            ComputationNetwork.forget(machine);
             return null;
         }
         batch = buildBatch(admitted, wireless, true);
         if (!RecipeRunnerHelper.matchRecipeInputNocache(machine, batch)) {
             record(RecipeResult.FAIL_INPUT, MachineDiagnostics.text("input"));
+            ComputationNetwork.forget(machine);
             return null;
         }
         if (!RecipeRunnerHelper.matchRecipeOutput(machine, batch)) {
             record(RecipeResult.FAIL_OUTPUT, MachineDiagnostics.text("output"));
+            ComputationNetwork.forget(machine);
             return null;
         }
         return batch;
@@ -148,6 +160,8 @@ public final class ThreadLimitedRecipeLogic extends GTLAddMultipleRecipesLogic {
                          IWirelessNetworkEnergyHandler wireless) {
         GTRecipe scaled;
         try {
+            if (origin.data.getBoolean("duration_is_total_cwu"))
+                Math.multiplyExact(ComputationAmounts.total(origin), parallel);
             scaled = RecipeCalculationHelper.INSTANCE.multipleRecipe(origin.copy(), parallel);
         } catch (ArithmeticException overflow) {
             record(RecipeResult.fail(MachineDiagnostics.text("amount_overflow")), MachineDiagnostics.text("amount_overflow"));
@@ -171,6 +185,13 @@ public final class ThreadLimitedRecipeLogic extends GTLAddMultipleRecipesLogic {
             return false;
         }
         GTRecipe batch = buildBatch(proposed, wireless, false);
+        var tickMatch = batch.matchTickRecipe(machine);
+        if (!tickMatch.isSuccess()) {
+            Component detail = tickMatch.reason() == null ? MachineDiagnostics.text("conditions") : tickMatch.reason().get();
+            if (detail == null) detail = MachineDiagnostics.text("conditions");
+            record(RecipeResult.fail(detail), detail);
+            return false;
+        }
         if (!RecipeRunnerHelper.matchRecipeInputNocache(machine, batch)) {
             record(RecipeResult.FAIL_INPUT, MachineDiagnostics.text("input"));
             return false;
@@ -189,6 +210,8 @@ public final class ThreadLimitedRecipeLogic extends GTLAddMultipleRecipesLogic {
             GTRecipe scaled = admission.scaled();
             append(combined.outputs, (settleOutputs ? IParallelLogic.getRecipeOutputChance(machine, scaled) : scaled).outputs);
             inputs.include(machine, scaled, settleOutputs);
+            appendTick(combined.tickInputs, scaled.tickInputs);
+            appendTick(combined.tickOutputs, scaled.tickOutputs);
         }
         inputs.writeTo(combined.inputs);
         var itemOutputs = combined.outputs.getOrDefault(ItemRecipeCapability.CAP, List.of());
@@ -200,6 +223,15 @@ public final class ThreadLimitedRecipeLogic extends GTLAddMultipleRecipesLogic {
                 : RecipeCalculationHelper.INSTANCE.buildWirelessRecipe(itemOutputs, fluidOutputs, minimumDuration,
                         isEnergyConsumer() ? wirelessEnergy(admitted) : wirelessEnergy(admitted).negate(), combined.recipeType);
         append(batch.inputs, combined.inputs);
+        appendTick(batch.tickInputs, combined.tickInputs);
+        appendTick(batch.tickOutputs, combined.tickOutputs);
+        var research = admitted.getFirst();
+        if (research.origin().data.getBoolean("duration_is_total_cwu")) {
+            batch.data = research.scaled().data.copy();
+            batch.data.putLong(ComputationAmounts.TOTAL_CWU,
+                    Math.multiplyExact(ComputationAmounts.total(research.origin()), research.parallel()));
+        }
+        IGTRecipe.of(batch).setHasTick(!batch.tickInputs.isEmpty() || !batch.tickOutputs.isEmpty());
         return batch;
     }
 
@@ -223,6 +255,14 @@ public final class ThreadLimitedRecipeLogic extends GTLAddMultipleRecipesLogic {
     private static void append(Map<RecipeCapability<?>, List<Content>> target,
                                Map<RecipeCapability<?>, List<Content>> source) {
         source.forEach((capability, contents) -> target.computeIfAbsent(capability, ignored -> new ArrayList<>()).addAll(contents));
+    }
+
+    private static void appendTick(Map<RecipeCapability<?>, List<Content>> target,
+                                   Map<RecipeCapability<?>, List<Content>> source) {
+        source.forEach((capability, contents) -> {
+            if (capability != EURecipeCapability.CAP)
+                target.computeIfAbsent(capability, ignored -> new ArrayList<>()).addAll(contents);
+        });
     }
 
     @Override

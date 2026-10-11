@@ -78,7 +78,7 @@ public final class TooltipPolicyRegression {
                 "native and batching branches add the modifier instead of replacing it");
         require(source.contains("BATCH_IDS.contains(id.getPath())"),
                 "the native branch is decided by machine id so it cannot drift from the tooltip");
-        require(source.contains("NATIVE_CROSS_RECIPE_THREADS + Math.max(0, modifierThreads)"),
+        require(source.contains("(long) NATIVE_CROSS_RECIPE_THREADS + Math.max(0, modifierThreads)"),
                 "the native baseline adds a non-negative modifier contribution");
         require(!source.contains("- com.gregtechceu.gtceu.api.GTValues.IV) * 4 + 1"),
                 "the voltage-only fallback no longer caps native cross-recipe threads");
@@ -95,6 +95,21 @@ public final class TooltipPolicyRegression {
                 "super blast smelter keeps its original 64 and gains 128 threads");
         require(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.baseThreadsFor("dimensionally_transcendent_mixer") == 128,
                 "plain native machines report 128 threads");
+        require(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(
+                        net.minecraft.resources.ResourceLocation.tryParse("gtceu:huge_incubator")),
+                "huge incubator opts into the shared isolated recipe engine");
+        require(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.baseThreadsFor("huge_incubator") == 128,
+                "huge incubator has the requested 128 base cross-recipe threads");
+        require(!batch.contains("huge_incubator"), "huge incubator does not inherit a 64-thread batching baseline");
+        require(TooltipPolicy.nativePages("huge_incubator").equals(List.of("native_isolation")),
+                "huge incubator reuses the native cross-recipe and thread tooltip page");
+        require(com.gtl.enhancedcore.common.structure.NativeIsolationPatterns.targets(
+                        net.minecraft.resources.ResourceLocation.tryParse("gtceu:huge_incubator"))
+                        && !com.gtl.enhancedcore.common.structure.NativeIsolationPatterns.targets(
+                        net.minecraft.resources.ResourceLocation.tryParse("other:huge_incubator"))
+                        && !com.gtl.enhancedcore.common.structure.NativeIsolationPatterns.targets(
+                        net.minecraft.resources.ResourceLocation.tryParse("gtceu:holy_separator")),
+                "the original-geometry hatch wrapper is limited to gtceu:huge_incubator");
         require(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.baseThreadsFor(null) == 128,
                 "unknown ids fall back to the 128 baseline");
         for (String id : batch) {
@@ -376,7 +391,14 @@ public final class TooltipPolicyRegression {
         require(!TooltipPolicy.translationIssues("test", "a".repeat(113), "en_us", true).isEmpty(), "overlong English summary is rejected");
         require(!TooltipPolicy.translationIssues("test", "字".repeat(45), "zh_cn", true).isEmpty(), "overlong Chinese summary is rejected");
         require(!TooltipPolicy.translationIssues("test", "line\nline", "en_us", false).isEmpty(), "embedded line breaks are rejected");
-        require(!TooltipPolicy.translationIssues("test", "§cwatermark", "en_us", false).isEmpty(), "embedded color codes are rejected");
+        // Inline §-codes are the GTCEu / GTLAdditions emphasis convention and are allowed; they must
+        // not be counted against the visible-width budget.
+        require(TooltipPolicy.translationIssues("test", "§cwatermark", "en_us", false).isEmpty(),
+                "inline colour codes are allowed in tips");
+        require(TooltipPolicy.translationIssues("test", "§f" + "a".repeat(112) + "§r", "en_us", true).isEmpty(),
+                "colour codes do not consume the visible-width budget");
+        require(!TooltipPolicy.translationIssues("test", "§f" + "a".repeat(113) + "§r", "en_us", true).isEmpty(),
+                "the visible text still has to fit the budget once codes are stripped");
     }
 
     private static void translationContracts() throws Exception {
@@ -414,8 +436,12 @@ public final class TooltipPolicyRegression {
             require(collapsed.contains("tooltip.gtl_enhancedcore.iv_cancel"), page + ": cancellation and refund behavior is never hidden");
             require(collapsed.contains("tooltip.gtl_enhancedcore.iv_admission"), page + ": the AE cancellation reminder after a refund is never hidden");
         }
-        require(chinese.get("tooltip.gtl_enhancedcore.iv_maintenance_penalty").equals("限制：不接受维护仓的耗时减免"),
+        // The label is applied by MachineTooltips (yellow restriction row); the sentence itself no
+        // longer repeats a "限制：" data-table prefix.
+        require(chinese.get("tooltip.gtl_enhancedcore.iv_maintenance_penalty").equals("不接受维护仓的耗时减免"),
                 "the IV maintenance limit uses the requested player-facing wording");
+        require(english.get("tooltip.gtl_enhancedcore.iv_maintenance_penalty").equals("Maintenance hatches do not reduce recipe duration"),
+                "the IV maintenance limit is translated for English players");
         for (String key : List.of("tooltip.gtl_enhancedcore.iv_only_super_buffer", "gtl_enhancedcore.tooltip.iv_native.1")) {
             require(chinese.get(key).equals("原版输入/输出仓室启用原版机器模式，超级样板总成启用跨配方类型并行模式"),
                     "Chinese uses the requested machine mode wording: " + key);

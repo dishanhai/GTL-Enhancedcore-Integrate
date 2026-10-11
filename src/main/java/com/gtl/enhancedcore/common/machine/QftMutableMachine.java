@@ -24,7 +24,7 @@ import com.gtladd.gtladditions.api.machine.mutable.MutableElectricParallelHatchM
  */
 public class QftMutableMachine extends MutableElectricParallelHatchMultiblockMachine {
 
-    /** 用户指定的跨配方线程数（2026-10-06，勿改）。 */
+    /** 跨配方线程数（默认 512。 */
     public static final int CROSS_RECIPE_THREADS = 512;
 
     public QftMutableMachine(IMachineBlockEntity holder, Object... args) {

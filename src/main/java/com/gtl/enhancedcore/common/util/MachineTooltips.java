@@ -129,14 +129,26 @@ public final class MachineTooltips {
         return new TooltipPolicy.Layout<>(summary, details, catalog);
     }
 
+    /**
+     * Renders one declared tooltip row.
+     * <p>
+     * Colour convention follows GTCEu / GTLAdditions: a row is one plain-colour sentence and any
+     * emphasis is carried by <em>inline</em> codes inside the translated string
+     * (measured across the reference jars: {@code §7} is the body colour, {@code §f} highlights
+     * numbers, {@code §6} highlights proper nouns, {@code §r} resets). The translator therefore owns
+     * colour; only a few structural rows get a house colour here.
+     */
     private static Component line(String key, Map<String, Object[]> arguments) {
-        if (key.equals(TooltipPolicy.CROSS_RECIPE_KEY) || key.equals(TooltipPolicy.SOURCE_KEY)) {
+        if (key.equals(TooltipPolicy.CROSS_RECIPE_KEY) || key.equals(TooltipPolicy.STAR_CROSS_RECIPE_KEY)
+                || key.equals(TooltipPolicy.SOURCE_KEY)) {
             return Component.translatable(key);
         }
         var component = Component.translatable(key, arguments.getOrDefault(key, new Object[0]));
+        // Opening line: aqua, matching "具体用途" rows in the reference mods.
         if (key.endsWith(".intro") || key.endsWith(".summary") || key.endsWith(".tips") || key.endsWith(".efficient")) {
             return component.withStyle(ChatFormatting.AQUA);
         }
+        // Hard restrictions stay yellow so they cannot be mistaken for capabilities.
         if (key.endsWith(".limit") || key.endsWith(".muffler") || key.endsWith(".no_nbt")
                 || key.endsWith(".iv_break") || key.endsWith(".iv_maintenance_penalty")
                 || key.endsWith(".iv_only_super_buffer") || key.endsWith(".iv_native.1")
@@ -146,9 +158,12 @@ public final class MachineTooltips {
                 || key.endsWith(".suprachronal_no_modules") || key.endsWith(".suprachronal_module_disabled")) {
             return component.withStyle(ChatFormatting.YELLOW);
         }
+        // Positive capability rows: green.
         if (key.endsWith(".supports_laser_hatch") || key.endsWith(".parallel_hatch")) {
             return component.withStyle(ChatFormatting.GREEN);
         }
+        // Everything else is plain body text. GTCEu uses §7 grey for descriptive rows, so an
+        // unmarked sentence reads as ordinary prose instead of a coloured data-table row.
         return component.withStyle(ChatFormatting.GRAY);
     }
 
@@ -230,7 +245,8 @@ public final class MachineTooltips {
     private static String animatedKey(Component line) {
         if (line.getContents() instanceof TranslatableContents contents) {
             String key = contents.getKey();
-            if (key.equals(TooltipPolicy.CROSS_RECIPE_KEY) || key.equals(TooltipPolicy.SOURCE_KEY)) return key;
+            if (key.equals(TooltipPolicy.CROSS_RECIPE_KEY) || key.equals(TooltipPolicy.STAR_CROSS_RECIPE_KEY)
+                    || key.equals(TooltipPolicy.SOURCE_KEY)) return key;
         }
         return null;
     }

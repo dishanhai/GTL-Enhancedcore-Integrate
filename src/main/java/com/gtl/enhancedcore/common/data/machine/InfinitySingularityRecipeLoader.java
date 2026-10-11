@@ -50,7 +50,7 @@ public final class InfinitySingularityRecipeLoader {
             .resolve("GTL-Enhancedcore").resolve("infinity_singularity_recipes.json");
     private static final ResourceLocation INFINITY_CELL =
             new ResourceLocation("expatternprovider", "infinity_cell");
-    /** 固定耗时：1200 秒。 */
+    /** 默认耗时：1200 秒（24000 tick）。 */
     private static final int DURATION = 24000;
 
     private static volatile List<Entry> materials = List.of();

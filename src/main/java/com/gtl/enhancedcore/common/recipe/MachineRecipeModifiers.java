@@ -19,7 +19,8 @@ import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
 /** Processing policy kept separate from machine registration. */
 public final class MachineRecipeModifiers {
     public static final int ASSEMBLY_LINE_PARALLEL = 64;
-    public static final int NEUTRON_FACTORY_PARALLEL = 2048;
+    /** 固定值。 */
+    public static final int NEUTRON_FACTORY_PARALLEL = 4096;
     private static final long NEUTRON_EU_PER_EVT = 2000L;
     private MachineRecipeModifiers() {}
 
@@ -42,9 +43,12 @@ public final class MachineRecipeModifiers {
 
     public static GTRecipe plusFactory(MetaMachine machine, GTRecipe recipe, OCParams params, OCResult result) {
         if (!(machine instanceof WorkableElectricMultiblockMachine workable)) return recipe;
-        GTRecipe reduced = GTLRecipeModifiers.reduction(machine, recipe, 0.9, 0.6);
+        GTRecipe reduced = GTLRecipeModifiers.reduction(machine, recipe,
+                PlusFactoryMachine.ENERGY_MULTIPLIER,
+                PlusFactoryMachine.DURATION_MULTIPLIER);
         if (reduced == null) return null;
-        int parallel = machine instanceof PlusFactoryMachine plus ? plus.getMaxParallel() : PlusFactoryMachine.BASE_PARALLEL;
+        int parallel = machine instanceof PlusFactoryMachine plus ? plus.getMaxParallel()
+                : PlusFactoryMachine.BASE_PARALLEL;
         long baseEUt = RecipeHelper.getInputEUt(reduced);
         long maxVoltage = machine instanceof PlusFactoryMachine plus ? plus.getOverclockVoltage() : Long.MAX_VALUE;
         if (baseEUt > 0L && maxVoltage > 0L) parallel = (int) Math.min(parallel, maxVoltage / baseEUt);

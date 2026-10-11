@@ -3,30 +3,27 @@ package com.gtl.enhancedcore.common.machine.hatch;
 import com.gregtechceu.gtceu.api.capability.IOpticalComputationProvider;
 import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
-import com.gregtechceu.gtceu.api.machine.feature.IRecipeLogicMachine;
-import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.gregtechceu.gtceu.api.machine.trait.NotifiableComputationContainer;
-import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
-import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.OpticalComputationHatchMachine;
-import net.minecraft.resources.ResourceLocation;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationConnections;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationMath;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationNetwork;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationNode;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationSource;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
 
 /**
  * A computation reception hatch that supplies computation without an optical pipe.
- * Its recipe handler also preserves the engraving laser plant's free-CWU Mixin behavior,
- * which would otherwise be bypassed by overriding the upstream handler method.
+ * GTLCore's long computation scheduler owns spending, refunds and research progress.
  */
 public class CreativeComputationReceiverHatchMachine extends OpticalComputationHatchMachine {
 
+    /** 固定值。 */
     public static final int MAX_CWU_PER_TICK = CreativeComputationPolicy.MAX_CWU_PER_TICK;
-    private static final ResourceLocation ENGRAVING_LASER_PLANT_ID =
-            new ResourceLocation("gtceu", "engraving_laser_plant");
 
     public CreativeComputationReceiverHatchMachine(IMachineBlockEntity holder) {
         super(holder, false);
@@ -38,29 +35,50 @@ public class CreativeComputationReceiverHatchMachine extends OpticalComputationH
         return new CreativeComputationContainer(this);
     }
 
-    private static final class CreativeComputationContainer extends NotifiableComputationContainer {
+    private static final class CreativeComputationContainer extends NotifiableComputationContainer
+            implements ComputationNode {
+
+        private final ComputationSource source;
 
         private CreativeComputationContainer(CreativeComputationReceiverHatchMachine machine) {
             super(machine, IO.IN, false);
+            source = new CreativeComputationSource(() -> ComputationNetwork.tick(machine.getLevel()),
+                    CreativeComputationPolicy::maxCwuPerTick, this::gtlcore$computationOnline);
+        }
+
+        @Override
+        public List<IOpticalComputationProvider> gtlcore$computationLinks() {
+            return List.of();
+        }
+
+        @Override
+        public List<ComputationSource> gtlcore$localComputationSources() {
+            return List.of(source);
+        }
+
+        @Override
+        public boolean gtlcore$computationOnline() {
+            return machine instanceof IMultiPart part && part.isFormed()
+                    && ComputationConnections.loaded(machine);
         }
 
         @Override
         public int requestCWUt(int cwut, boolean simulate,
                                @NotNull Collection<IOpticalComputationProvider> seen) {
             seen.add(this);
-            return CreativeComputationPolicy.suppliedCWUt(cwut, isAttachedToFormedMultiblock());
+            return ComputationNetwork.request(this, cwut, simulate);
         }
 
         @Override
         public int getMaxCWUt(@NotNull Collection<IOpticalComputationProvider> seen) {
             seen.add(this);
-            return isAttachedToFormedMultiblock() ? MAX_CWU_PER_TICK : 0;
+            return ComputationMath.toInt(source.gtlcore$computationCapacity());
         }
 
         @Override
         public boolean canBridge(@NotNull Collection<IOpticalComputationProvider> seen) {
             seen.add(this);
-            return isAttachedToFormedMultiblock();
+            return source.gtlcore$canBridgeComputation();
         }
 
         @Override
@@ -68,62 +86,5 @@ public class CreativeComputationReceiverHatchMachine extends OpticalComputationH
             return this;
         }
 
-        @Override
-        public List<Integer> handleRecipeInner(IO io, GTRecipe recipe, List<Integer> left,
-                                               @Nullable String slotName, boolean simulate) {
-            if (io != IO.IN) return left;
-            if (isEngravingLaserPlant()) return null;
-
-            long required = CreativeComputationPolicy.requiredCWUt(left);
-            if (required < 0) return left;
-            if (required == 0) return null;
-
-            // GTCEu's receiver normally returns here when no optical pipe is attached.
-            // This hatch provides CWU directly through its recipe handler.
-            int available = requestCWUt(Integer.MAX_VALUE, true);
-            if (required > available) return left;
-
-            boolean durationIsTotalCWU = recipe.data.getBoolean("duration_is_total_cwu");
-            int supplied = requestCWUt(durationIsTotalCWU ? available : (int) required, simulate);
-            if (!simulate && durationIsTotalCWU) {
-                advanceTotalCwuProgress(supplied);
-            }
-            long remaining = required - supplied;
-            return remaining <= 0 ? null : List.of((int) remaining);
-        }
-
-        private void advanceTotalCwuProgress(int supplied) {
-            if (machine instanceof IRecipeLogicMachine recipeMachine) {
-                advance(recipeMachine.getRecipeLogic(), supplied);
-            } else if (machine instanceof IMultiPart part) {
-                for (IMultiController controller : part.getControllers()) {
-                    if (controller instanceof IRecipeLogicMachine recipeMachine) {
-                        advance(recipeMachine.getRecipeLogic(), supplied);
-                    }
-                }
-            }
-        }
-
-        private static void advance(RecipeLogic logic, int supplied) {
-            logic.setProgress(CreativeComputationPolicy.progressBeforeTickIncrement(
-                    logic.getProgress(), logic.getDuration(), supplied));
-        }
-
-        private boolean isAttachedToFormedMultiblock() {
-            return machine instanceof IMultiPart part && part.isFormed();
-        }
-
-        private boolean isEngravingLaserPlant() {
-            if (!(machine instanceof IMultiPart part)) return false;
-            boolean target = false;
-            for (IMultiController controller : part.getControllers()) {
-                if (controller == null || !controller.isFormed()) continue;
-                var controllerMachine = controller.self();
-                var definition = controllerMachine == null ? null : controllerMachine.getDefinition();
-                if (definition == null || !ENGRAVING_LASER_PLANT_ID.equals(definition.getId())) return false;
-                target = true;
-            }
-            return target;
-        }
     }
 }

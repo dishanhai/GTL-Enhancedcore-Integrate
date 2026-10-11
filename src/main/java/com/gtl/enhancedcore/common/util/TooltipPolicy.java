@@ -18,12 +18,15 @@ public final class TooltipPolicy {
     public static final String SHIFT_HINT = "tooltip.gtl_enhancedcore.hold_shift";
     public static final String SOURCE_KEY = "tooltip.gtl_enhancedcore.credit_modified";
     public static final String CROSS_RECIPE_KEY = "tooltip.gtl_enhancedcore.iv_cross_recipe_toggle";
+    public static final String STAR_CROSS_RECIPE_KEY = "tooltip.gtl_enhancedcore.star_core_stripper.cross_recipe";
     public static final String RECIPE_HEADER = "tooltip.gtl_enhancedcore.recipe_types";
     public static final String RECIPE_GROUP = "tooltip.gtl_enhancedcore.recipe_group";
     public static final String RECIPE_SEPARATOR = "gtl_enhancedcore.recipe_list_separator";
     private static final String PREFIX = "tooltip.gtl_enhancedcore.";
     public static final String JOINT_FACTORY_FLAVOR = PREFIX + "universal_joint_factory.intro";
     private static final Pattern FORMAT = Pattern.compile("%(?:(\\d+)\\$)?([A-Za-z%]|$)");
+    /** Minecraft colour/format codes; allowed inline in tips and stripped before width checks. */
+    private static final Pattern FORMAT_CODE = Pattern.compile("\u00a7[0-9a-fk-orA-FK-OR]");
     private static final Map<String, Layout<String>> PAGES = Map.ofEntries(
             Map.entry("large_furnace", page(
                     List.of("large_furnace.efficient", "large_furnace.base_parallel", "large_furnace.base_threads",
@@ -51,20 +54,30 @@ public final class TooltipPolicy {
             Map.entry("qft", page(
                     List.of("qft.cross_recipe", "qft.threads"), List.of())),
             Map.entry("weather_anchor", page(
-                    List.of("weather_anchor.intro", "weather_anchor.power", "weather_anchor.supply", "supports_laser_hatch"),
+                    List.of("weather_anchor.flavor", "weather_anchor.intro", "weather_anchor.power",
+                            "weather_anchor.supply", "supports_laser_hatch"),
                     List.of("weather_anchor.reform"))),
             Map.entry("causality_terminal", page(
-                    List.of("causality_terminal.intro", "causality_terminal.power", "causality_terminal.duration",
-                            "causality_terminal.fishbig", "causality_terminal.output_random", "causality_terminal.output",
-                            "only_laser_hatch"),
+                    List.of("causality_terminal.flavor", "causality_terminal.intro", "causality_terminal.power",
+                            "causality_terminal.duration", "causality_terminal.fishbig",
+                            "causality_terminal.output_random", "causality_terminal.output", "only_laser_hatch"),
                     List.of("causality_terminal.editor"))),
             Map.entry("infinity_singularity", page(
-                    List.of("infinity_singularity.intro", "infinity_singularity.power", "infinity_singularity.duration",
-                            "supports_laser_hatch"),
+                    List.of("infinity_singularity.flavor", "infinity_singularity.intro", "infinity_singularity.power",
+                            "infinity_singularity.duration", "supports_laser_hatch"),
                     List.of())),
             Map.entry("neutron_control_factory", page(
-                    List.of("neutron_control_factory.intro", "neutron_control_factory.convert",
-                            "neutron_control_factory.muffler", "neutron_control_factory.parallel"), List.of())),
+                    List.of("neutron_control_factory.flavor", "neutron_control_factory.intro",
+                            "neutron_control_factory.convert", "neutron_control_factory.muffler",
+                            "neutron_control_factory.parallel"), List.of())),
+            Map.entry("star_core_stripper", page(
+                    List.of("star_core_stripper.flavor", "star_core_stripper.cross_recipe",
+                            "star_core_stripper.intro", "star_core_stripper.capacity",
+                            "star_core_stripper.power_hatches", "star_core_stripper.processing"), List.of())),
+            Map.entry("extreme_reactor", page(
+                    List.of("extreme_reactor.flavor", "extreme_reactor.intro", "extreme_reactor.stage",
+                            "extreme_reactor.generation", "extreme_reactor.fuel", "extreme_reactor.wireless",
+                            "extreme_reactor.hatches"), List.of())),
             Map.entry("platinum_refining_matrix", page(
                     List.of("platinum_refining_matrix.tips", "platinum_refining_matrix.parallel", "no_laser_input"),
                     List.of())),
@@ -72,11 +85,13 @@ public final class TooltipPolicy {
                     List.of("void_constrained_mining_field.tips", "void_constrained_mining_field.parallel",
                             "void_constrained_mining_field.output", "void_constrained_mining_field.input", "no_laser_input"), List.of())),
             Map.entry("dragon_field_proliferation_core", page(
-                    List.of("dragon_field_proliferation_core.tips", "dragon_field_proliferation_core.parallel",
+                    List.of("dragon_field_proliferation_core.flavor", "dragon_field_proliferation_core.tips",
+                            "dragon_field_proliferation_core.parallel",
                             "supports_laser_hatch", "laser_requires_energy_hatch"),
                     List.of())),
             Map.entry("hyperstructural_chemical_distorter", page(
-                    List.of("hyperstructural_chemical_distorter.tips", "hyperstructural_chemical_distorter.coil",
+                    List.of("hyperstructural_chemical_distorter.flavor", "hyperstructural_chemical_distorter.tips",
+                            "hyperstructural_chemical_distorter.coil",
                             "hyperstructural_chemical_distorter.parallel", "hyperstructural_chemical_distorter.thread",
                             "supports_laser_hatch", "laser_requires_energy_hatch"),
                     List.of("hyperstructural_chemical_distorter.coil_parallel", "engine_stars"))),
@@ -116,6 +131,7 @@ public final class TooltipPolicy {
             Map.entry("optional_maintenance", page(
                     List.of("gtl_enhancedcore.tooltip.optional_maintenance"), List.of())),
             Map.entry("forbidden_maintenance", page(List.of("no_maintenance_hatch"), List.of())),
+            Map.entry("tag_stock_bus", page(List.of("tag_stock_bus.capacity"), List.of())),
             Map.entry("fusion_reactor", page(List.of("fusion_reactor.max_parallel"), List.of())),
             Map.entry("fission_reactor", page(List.of("fission_reactor.simple"), List.of())),
             Map.entry("star_ultimate_material_forge", page(
@@ -270,8 +286,10 @@ public final class TooltipPolicy {
             return List.of(key + ": missing or blank translation");
         }
         if (text.indexOf('\n') >= 0 || text.indexOf('\r') >= 0) issues.add(key + ": embedded line break");
-        if (text.indexOf('§') >= 0) issues.add(key + ": embedded formatting code");
-        String visible = FORMAT.matcher(text).replaceAll("?").replace("%%", "%");
+        // Inline §-codes are the GTCEu / GTLAdditions convention for emphasising numbers and proper
+        // nouns inside one sentence, so they are allowed here. They are stripped before the width
+        // check below because the budget is about how much text the player actually reads.
+        String visible = FORMAT.matcher(FORMAT_CODE.matcher(text).replaceAll("")).replaceAll("?").replace("%%", "%");
         int limit = locale.equals("zh_cn") ? (summary ? 44 : 60) : (summary ? 112 : 150);
         if (key.equals(JOINT_FACTORY_FLAVOR)) {
             if (summary) issues.add(key + ": requested flavor belongs in Shift details only");

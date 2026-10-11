@@ -14,6 +14,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
+import com.gregtechceu.gtceu.api.capability.IOpticalComputationProvider;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationAmounts;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationConnections;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationMath;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationNetwork;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationSource;
 
 /** Test-only compact shells retain the actual registered classes, modifiers and machine parts. */
 public final class IvNativeFixture {
@@ -23,20 +29,42 @@ public final class IvNativeFixture {
     public static final List<MESuperPatternBufferPartMachine> BUFFERS = new ArrayList<>();
     private IvNativeFixture() {}
     public static void put(Map<AEKey,Long> map, AEKey key, long amount) { map.put(key,amount); }
-    public static final class Computation implements com.gregtechceu.gtceu.api.capability.recipe.IRecipeHandler<Integer> {
-        public int available;
+    public static final class Computation implements com.gregtechceu.gtceu.api.capability.recipe.IRecipeHandler<Object>,
+            IOpticalComputationProvider, ComputationSource {
+        public long available;
         public long paid;
-        @Override public List<Integer> handleRecipeInner(com.gregtechceu.gtceu.api.capability.recipe.IO io,
-                com.gregtechceu.gtceu.api.recipe.GTRecipe recipe, List<Integer> contents, String slot, boolean simulate) {
-            int required = contents.stream().mapToInt(Integer::intValue).sum();
-            if (io != com.gregtechceu.gtceu.api.capability.recipe.IO.IN || required > available) return contents;
-            if (!simulate) { available -= required; paid += required; }
-            return null;
+        @Override public List<Object> handleRecipeInner(com.gregtechceu.gtceu.api.capability.recipe.IO io,
+                com.gregtechceu.gtceu.api.recipe.GTRecipe recipe, List<Object> contents, String slot, boolean simulate) {
+            var left = ComputationConnections.legacyInput(this, io, recipe, contents, simulate);
+            return left == null ? null : new ArrayList<>(left);
         }
-        @Override public List<Object> getContents() { return List.of(available); }
+        @Override public List<Object> getContents() { return List.of(ComputationAmounts.box(available)); }
         @Override public double getTotalContentAmount() { return available; }
-        @Override public com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability<Integer> getCapability() {
-            return com.gregtechceu.gtceu.api.capability.recipe.CWURecipeCapability.CAP;
+        @Override @SuppressWarnings({"rawtypes", "unchecked"})
+        public com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability<Object> getCapability() {
+            return (com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability)
+                    com.gregtechceu.gtceu.api.capability.recipe.CWURecipeCapability.CAP;
+        }
+        @Override public long gtlcore$computationCapacity() { return Math.max(0, available); }
+        @Override public long gtlcore$availableComputation() { return Math.max(0, available); }
+        @Override public boolean gtlcore$canBridgeComputation() { return true; }
+        @Override public Receipt gtlcore$withdrawComputation(long amount) {
+            if (amount <= 0 || amount > available) return null;
+            long nextPaid = Math.addExact(paid, amount);
+            available -= amount; paid = nextPaid;
+            return new Receipt(amount, () -> { available = Math.addExact(available, amount); paid -= amount; });
+        }
+        @Override public int requestCWUt(int amount, boolean simulate, Collection<IOpticalComputationProvider> seen) {
+            seen.add(this);
+            return ComputationNetwork.request(this, amount, simulate);
+        }
+        @Override public int getMaxCWUt(Collection<IOpticalComputationProvider> seen) {
+            seen.add(this);
+            return ComputationMath.toInt(gtlcore$computationCapacity());
+        }
+        @Override public boolean canBridge(Collection<IOpticalComputationProvider> seen) {
+            seen.add(this);
+            return true;
         }
     }
     public static Computation attachComputation(WorkableElectricMultiblockMachine machine) {

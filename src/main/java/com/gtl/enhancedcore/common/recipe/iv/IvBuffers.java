@@ -142,8 +142,26 @@ public final class IvBuffers {
     public static Map<AEKey, Long> availableVirtual(MEPatternBufferPartMachine buffer, IvJob job) {
         Map<AEKey, Long> result = slotVirtual(buffer, job.slot);
         result.keySet().removeIf(IvBuffers::isCircuit);
-        result.putAll(job.virtual); // Accepted pattern circuits/tokens keep their original identity.
         sharedCatalysts(buffer).forEach((key, amount) -> addCatalyst(result, key, amount));
+        return IvPatternAdmission.virtualStock(result, job.virtual, IvBuffers::isCircuit);
+    }
+    private static Map<AEKey, Long> virtualToken(AEKey key) {
+        if (!(key instanceof AEItemKey item) || !GTLItems.VIRTUAL_INGREDIENT.isIn(item.toStack())) return Map.of();
+        ItemStack wrapper = item.toStack();
+        return IvPatternAdmission.<AEKey>token(VirtualIngredientBehavior.payloadItemKey(wrapper),
+                VirtualIngredientBehavior.payloadFluidKey(wrapper), IvBuffers::isCircuit);
+    }
+    private static Map<AEKey, Long> declaredCircuits(MEPatternBufferPartMachine buffer, ItemStack original) {
+        IPatternDetails pattern = PatternDetailsHelper.decodePattern(original, buffer.getLevel());
+        if (pattern == null) throw new IllegalArgumentException("原始样板无法解码");
+        Map<AEKey, Long> result = new LinkedHashMap<>();
+        for (var input : pattern.getInputs()) {
+            GenericStack[] possible = input.getPossibleInputs();
+            if (possible.length != 1) throw new IllegalArgumentException("样板输入必须有确定身份");
+            AEKey key = possible[0].what();
+            if (isCircuit(key)) result.put(key, 1L);
+            virtualToken(key).forEach((payload, amount) -> { if (isCircuit(payload)) result.put(payload, 1L); });
+        }
         return result;
     }
     public static boolean push(MEPatternBufferPartMachine buffer, IPatternDetails details, KeyCounter[] holders) {
@@ -190,24 +208,20 @@ public final class IvBuffers {
             if (multiplier < 1) throw new IllegalArgumentException("未获得无消耗样板的智能翻倍订单数量");
             for (AEKey key : received.keySet()) if (!unit.containsKey(key)) throw new IllegalArgumentException("样板外的投料");
             IvTaskLog.event(buffer, null, "VALIDATE_DISPATCH", "OK", "request", request, "slot", slot, "multiplier", multiplier, "received", IvTaskLog.stock(received));
-            Map<AEKey, Long> virtual = virtual(buffer, slot);
-            Map<AEKey, Long> intrinsicVirtual = new LinkedHashMap<>();
-            slotVirtual(buffer, slot).forEach((key, amount) -> { if (isCircuit(key)) intrinsicVirtual.put(key, amount); });
+            Map<AEKey, Long> intrinsicVirtual = IvPatternAdmission.circuits(slotVirtual(buffer, slot),
+                    declaredCircuits(buffer, original), IvBuffers::isCircuit);
             // GTL virtual ingredient tokens belong to this dispatch, not the old slot's cumulative inventory.
             for (AEKey key : new ArrayList<>(received.keySet())) if (key instanceof AEItemKey item && GTLItems.VIRTUAL_INGREDIENT.isIn(item.toStack())) {
-                AEItemKey payloadItem = VirtualIngredientBehavior.payloadItemKey(item.toStack());
-                AEFluidKey payloadFluid = VirtualIngredientBehavior.payloadFluidKey(item.toStack());
-                if (payloadItem != null) intrinsicVirtual.put(payloadItem, isCircuit(payloadItem) ? 1L : Long.MAX_VALUE);
-                if (payloadFluid != null) intrinsicVirtual.put(payloadFluid, Long.MAX_VALUE);
+                intrinsicVirtual.putAll(virtualToken(key));
                 received.remove(key); unit.remove(key);
             }
-            virtual.putAll(intrinsicVirtual);
+            Map<AEKey, Long> virtual = IvPatternAdmission.virtualStock(virtual(buffer, slot), intrinsicVirtual, IvBuffers::isCircuit);
             Set<ResourceLocation> types = PatternQuickUploadMetadata.readRecipeTypeIds(original);
             Map<AEKey, Long> expected = new LinkedHashMap<>();
             for (GenericStack output : details.getOutputs()) expected.merge(output.what(), output.amount(), Math::addExact);
             List<GTRecipe> matches = new ArrayList<>(); Map<GTRecipe, Long> scales = new IdentityHashMap<>();
             for (var type : machine.getDefinition().getRecipeTypes()) {
-                if (!types.contains(type.registryName)) continue;
+                if (!IvPatternAdmission.allowsType(types, type.registryName)) continue;
                 for (GTRecipe recipe : machine.getLevel().getRecipeManager().getAllRecipesFor(type)) {
                     if (!supported(recipe, machine)) continue;
                     long scale = IvRecipeInputs.patternOperations(recipe, unit, virtual, expected);

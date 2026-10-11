@@ -122,12 +122,14 @@ public final class ProcessingMachineRegistration {
                 .recipeModifier(IndustrialSteamPlatformMachine::recipeModifier, true)
                 .pattern(definition -> GTLStructures.steamPlatform(definition, steamPlatformHulls()))
                 .tooltipBuilder(MachineTooltips.create("steam_platform", Map.of(
+                        // The tooltip uses the machine's fixed values.
                         "tooltip.gtl_enhancedcore.steam_platform.steam_input",
-                        new Object[]{IndustrialSteamPlatformMachine.STEAM_CAPACITY_MB / 1000L},
+                        new Object[]{IndustrialSteamPlatformMachine.steamCapacityMb() / 1000L},
                         "tooltip.gtl_enhancedcore.steam_platform.steam_cost",
-                        new Object[]{IndustrialSteamPlatformMachine.STEAM_PER_RECIPE_MB / 1000L},
+                        new Object[]{IndustrialSteamPlatformMachine.steamPerRecipeMb() / 1000L},
                         "tooltip.gtl_enhancedcore.steam_platform.parallel_fixed",
-                        new Object[]{IndustrialSteamPlatformMachine.FIXED_PARALLEL}), recipeTypes))
+                        new Object[]{IndustrialSteamPlatformMachine.FIXED_PARALLEL}),
+                        recipeTypes))
                 .workableCasingRenderer(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"),
                         GTCEu.id("block/multiblock/steam_grinder"))
                 .register();

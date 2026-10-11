@@ -32,10 +32,10 @@ import net.minecraft.resources.ResourceLocation;
  */
 public class LargeFurnaceMachine extends GTLAddWorkableElectricParallelHatchMultipleRecipesMachine {
 
-    /** LV 基础并行（用户指定，勿改）。 */
+    /** LV 基础并行。 */
     public static final int BASE_PARALLEL = 64;
 
-    /** LV 基础跨配方线程（用户指定，勿改）。 */
+    /** LV 基础跨配方线程。 */
     public static final int BASE_THREADS = 2;
 
     /** 天球分歧引擎部件（基类默认 setThreadPartMachine 为空实现，必须自行存储）。 */
@@ -61,14 +61,14 @@ public class LargeFurnaceMachine extends GTLAddWorkableElectricParallelHatchMult
     /** 电压并行：LV 基础 64，每高于 LV 一级 ×2；移位并钳制到 int 上限防溢出。 */
     public int getParallelForTier() {
         int tier = this.getTier();
-        long result = (long) BASE_PARALLEL << Math.min(30, Math.max(0, tier - GTValues.LV));
+        long result = (long) getBaseParallel() << Math.min(30, Math.max(0, tier - GTValues.LV));
         return (int) Math.min(Integer.MAX_VALUE, result);
     }
 
     /** 电压线程：LV 基础 2，每高于 LV 一级 ×2；移位并钳制到 int 上限防溢出。 */
     public int getThreadsForTier() {
         int tier = this.getTier();
-        long result = (long) BASE_THREADS << Math.min(30, Math.max(0, tier - GTValues.LV));
+        long result = (long) getBaseThreads() << Math.min(30, Math.max(0, tier - GTValues.LV));
         return (int) Math.min(Integer.MAX_VALUE, result);
     }
 

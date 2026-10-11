@@ -22,7 +22,7 @@ public final class IvMachineScope {
             "mega_extractor", "field_extruder_factory", "advanced_vacuum_drying_furnace",
             "mega_presser", "mega_distillery", "holy_separator", "cooling_tower",
             "mage_assembler", "super_blast_smelter", "superconducting_electromagnetism",
-            "atomic_energy_excitation_plant", "gravitation_shockburst",
+            "atomic_energy_excitation_plant", "gravitation_shockburst", "huge_incubator",
             "dimensionally_transcendent_mixer");
     private IvMachineScope() {}
 
@@ -93,18 +93,21 @@ public final class IvMachineScope {
 
     /** 原生跨配方机器基础线程（纯函数，便于离线穷举验证）。 */
     public static int nativeThreads(int modifierThreads) {
-        return (int)Math.max(1, Math.min(Integer.MAX_VALUE, (long)NATIVE_CROSS_RECIPE_THREADS + Math.max(0, modifierThreads)));
+        return (int)Math.max(1, Math.min(Integer.MAX_VALUE,
+                (long) NATIVE_CROSS_RECIPE_THREADS + Math.max(0, modifierThreads)));
     }
 
     /** 原有 64 线程机器的隔离线程 = 原有 64 + 新增 128 + Ω。 */
     public static int batchThreads(int modifierThreads) {
         return (int)Math.max(1, Math.min(Integer.MAX_VALUE,
-                (long)UPSTREAM_MULTIPLE_RECIPE_THREADS + NATIVE_CROSS_RECIPE_THREADS + Math.max(0, modifierThreads)));
+                (long) UPSTREAM_MULTIPLE_RECIPE_THREADS
+                        + (long) NATIVE_CROSS_RECIPE_THREADS
+                        + Math.max(0, modifierThreads)));
     }
 
     private static int upstreamBatchThreads(int modifierThreads) {
         return (int)Math.min(Integer.MAX_VALUE,
-                (long)UPSTREAM_MULTIPLE_RECIPE_THREADS + Math.max(0, modifierThreads));
+                (long) UPSTREAM_MULTIPLE_RECIPE_THREADS + Math.max(0, modifierThreads));
     }
 
     /**

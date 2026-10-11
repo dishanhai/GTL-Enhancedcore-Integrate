@@ -92,7 +92,11 @@ final class IntegratedFactoryRegression {
         check(machine.contains("extends TieredParallelMachine") && !machine.contains("createRecipeLogic"),
                 "same isolated-order scheduler as the four IV machines");
         check(tiered.contains("return new IvRecipeLogic(this);"), "IV scheduler owns every order");
-        check(machine.contains("return THREADS;") && machine.contains("return PARALLEL;"), "fixed threads and parallel");
+        check(machine.contains("return THREADS;")
+                        && machine.contains("return PARALLEL;"),
+                "fixed threads and parallel");
+        check(IntegratedUniversalFactoryMachine.THREADS == 10 && IntegratedUniversalFactoryMachine.PARALLEL == 64,
+                "the fixed values stay 10 threads and 64 parallel");
         check(machine.contains("ivMaintenancePenalty()") && machine.contains("return false;"), "no IV maintenance penalty");
         check(logic.contains("ivMaintenancePenalty()) return super.getEuMultiplier();"), "native maintenance multiplier kept");
         check(buffers.contains("\"gtl_enhancedcore:universal_joint_factory\""), "buffers isolated and named per type");
@@ -160,6 +164,7 @@ final class IntegratedFactoryRegression {
             check(!inputs(byOutput.get(id)).equals(inputs(joint)), "joint factory recipe is not a copy of " + id);
         }
         check(mappings.contains("integrated_universal_factory"), "old joint factory mapping retained");
+        check(!mappings.contains("neutron_control_factory_mk2"), "retired neutron factory MK2 is not remapped");
         for (String registry : Set.of("ITEM", "BLOCK", "BLOCK_ENTITY_TYPE")) {
             check(mappings.contains("Registries." + registry + ","), "old save registry remapped: " + registry);
         }

@@ -4,6 +4,8 @@ import com.gregtechceu.gtceu.api.capability.recipe.CWURecipeCapability;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import org.gtlcore.gtlcore.common.data.GTLRecipeTypes;
+import org.gtlcore.gtlcore.api.machine.computation.ComputationAmounts;
+import net.minecraft.nbt.CompoundTag;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mutable;
@@ -25,20 +27,36 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class SpaceProbeRecipeNoCWUMixin {
 
     @Shadow(remap = false)
+    @Final
     public GTRecipeType recipeType;
     @Shadow(remap = false) @Final @Mutable
     public java.util.Map<com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability<?>,
+            java.util.List<com.gregtechceu.gtceu.api.recipe.content.Content>> inputs;
+    @Shadow(remap = false) @Final @Mutable
+    public java.util.Map<com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability<?>,
             java.util.List<com.gregtechceu.gtceu.api.recipe.content.Content>> tickInputs;
+    @Shadow(remap = false)
+    public CompoundTag data;
 
     @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     private void gtlcore$removeCWUForSpaceProbes(CallbackInfo ci) {
         GTRecipeType type = this.recipeType;
         if (type == GTLRecipeTypes.SPACE_COSMIC_PROBE_RECEIVERS_RECIPES ||
                 type == GTLRecipeTypes.SPACE_PROBE_SURFACE_RECEPTION_RECIPES) {
+            if (this.inputs.containsKey(CWURecipeCapability.CAP)) {
+                this.inputs = new java.util.HashMap<>(this.inputs);
+                this.inputs.remove(CWURecipeCapability.CAP);
+            }
             // Recipe builders may pass immutable maps or reuse them for another recipe.
             if (this.tickInputs.containsKey(CWURecipeCapability.CAP)) {
                 this.tickInputs = new java.util.HashMap<>(this.tickInputs);
                 this.tickInputs.remove(CWURecipeCapability.CAP);
+            }
+            // A free recipe uses ordinary tick duration; the long research accumulator needs paid CWU.
+            if (this.data.getBoolean("duration_is_total_cwu")) {
+                this.data = this.data.copy();
+                this.data.putBoolean("duration_is_total_cwu", false);
+                this.data.remove(ComputationAmounts.TOTAL_CWU);
             }
         }
     }

@@ -70,6 +70,10 @@ public abstract class IvNativeRecipeLogicMixin implements IvNativeAccess {
         iv$workingEnabled = enabled; iv$workingStateStored = true;
         ((RecipeLogic)(Object)this).getMachine().markDirty();
     }
+    @Inject(method = "getProgressPercent", at = @At("HEAD"), cancellable = true)
+    private void iv$orderProgressDisplay(CallbackInfoReturnable<Double> cir) {
+        if (iv$isCrossRecipeEnabled()) cir.setReturnValue(duration <= 0 ? 0 : (double)progress / duration);
+    }
     @Inject(method = {"onMachineLoad", "resetRecipeLogic"}, at = @At("HEAD"))
     private void iv$beforeLifecycleReset(CallbackInfo ci) {
         if (iv$isCrossRecipeEnabled()) iv$restoreWorkingState();

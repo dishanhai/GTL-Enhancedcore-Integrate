@@ -54,23 +54,45 @@ import net.minecraftforge.registries.ForgeRegistries;
  * - 不走 RecipeMap：内置 GUI 样板编辑器（Phantom 槽手写"泥土→钻石"映射），
  *   机器内部维护"样本映射字典"，checkRecipe 直接对比输入仓物品。
  * - 匹配成功即凭空产出目标物品，跳过一切熔炉/加工台过程。
- * - 运行期间每 tick 强制耗电 {@link #EUT}（V[MAX]×163840A），断供立即取消本次运行。
- * - 配方耗时固定 100 秒（{@link #RUN_TICKS} tick），不受任何加速设备与 GTLCore 耗时配置影响
+ * - 运行期间每 tick 强制耗电（V[MAX]×163840A），断供立即取消本次运行。
+ * - 配方耗时固定 100 秒（RUN_TICKS=2000 tick），不受任何加速设备与 GTLCore 耗时配置影响
  *   ——逻辑完全自写，不经过 RecipeLogic/超频管线。
  * - 每次运行消耗样本×1、鱼大×1000。
- * - 每轮固定 0.1% 成功率；成功产出 1 个，失败不产出。
+ * - 每轮以固定 0.1% 成功率判定；成功产出 1 个，失败不产出。
  */
 public class CausalityTerminalMachine extends WorkableElectricMultiblockMachine {
 
-    /** 运行功耗：MAX 电压 × 163840A。 */
-    public static final long EUT = GTValues.V[GTValues.MAX] * 163840L;
+    /** 运行功耗的安培基数：MAX 电压 × 163840A。 */
+    public static final long EUT_AMPS = 163840L;
+    /** 固定运行功耗：MAX 电压 × 163840A。 */
+    public static final long EUT = GTValues.V[GTValues.MAX] * EUT_AMPS;
     /** 固定耗时：100 秒 = 2000 tick。 */
     public static final int RUN_TICKS = 20 * 100;
+    /** 每次运行消耗的鱼大数量。 */
     public static final int FISHBIG_COST = 1000;
-    /** 映射行数（编辑器行数 = 字典上限）。 */
+    /**
+     * 映射行数（编辑器行数 = 字典上限）＝默认值。
+     * 该值决定 ghostSlots 持久化数组长度与 GUI 行数，**必须保持不变**：改动会让旧存档数据错位。
+     */
     public static final int MAX_MAPPINGS = 6;
+    private static final double SUCCESS_CHANCE = 0.001;
     /** "鱼大"物品 ID。 */
     public static final ResourceLocation FISHBIG_ID = new ResourceLocation("expatternprovider", "fishbig");
+
+    /** 固定每 tick 耗电：MAX 电压 × 163840A。 */
+    public static long eut() {
+        return GTValues.V[GTValues.MAX] * EUT_AMPS;
+    }
+
+    /** 固定耗时（tick）。 */
+    public static int runTicks() {
+        return RUN_TICKS;
+    }
+
+    /** 固定每次运行鱼大消耗。 */
+    public static int fishbigCost() {
+        return FISHBIG_COST;
+    }
 
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
             CausalityTerminalMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
@@ -213,14 +235,15 @@ public class CausalityTerminalMachine extends WorkableElectricMultiblockMachine 
             return;
         }
         if (!this.pendingOutput.isEmpty()) {
-            if (this.energyContainer == null || this.energyContainer.getEnergyStored() < EUT) {
+            long eut = eut();
+            if (this.energyContainer == null || this.energyContainer.getEnergyStored() < eut) {
                 cancelRun();
                 return;
             }
-            this.energyContainer.removeEnergy(EUT);
-            this.progress = Math.min(RUN_TICKS, this.progress + 1);
+            this.energyContainer.removeEnergy(eut);
+            this.progress = Math.min(runTicks(), this.progress + 1);
             this.markDirty();
-            if (this.progress >= RUN_TICKS) tryFinish();
+            if (this.progress >= runTicks()) tryFinish();
             return;
         }
         tryStart();
@@ -236,15 +259,16 @@ public class CausalityTerminalMachine extends WorkableElectricMultiblockMachine 
 
     /** 合并检查样本与鱼大，材料齐全才扣料；样本也是鱼大时需 1001 个。 */
     private void tryStart() {
-        if (this.mappings.isEmpty() || this.energyContainer == null || this.energyContainer.getEnergyStored() < EUT) return;
+        if (this.mappings.isEmpty() || this.energyContainer == null || this.energyContainer.getEnergyStored() < eut()) return;
         Item catalyst = ForgeRegistries.ITEMS.getValue(FISHBIG_ID);
         if (catalyst == null || catalyst == Items.AIR) return;
+        int fishbigCost = fishbigCost();
         List<IRecipeHandler<?>> inputs = itemHandlers(IO.IN);
         GTRecipe context = ioContext();
         for (Map.Entry<Item, Item> mapping : this.mappings.entrySet()) {
             List<ItemStack> required = mapping.getKey() == catalyst
-                    ? List.of(new ItemStack(catalyst, FISHBIG_COST + 1))
-                    : List.of(new ItemStack(mapping.getKey()), new ItemStack(catalyst, FISHBIG_COST));
+                    ? List.of(new ItemStack(catalyst, fishbigCost + 1))
+                    : List.of(new ItemStack(mapping.getKey()), new ItemStack(catalyst, fishbigCost));
             // One combined simulation prevents a sample being consumed without its catalyst.
             if (!MachineRecipeIO.transfer(inputs, IO.IN, context, required, true).isEmpty()) continue;
             if (!MachineRecipeIO.transfer(inputs, IO.IN, context, required, false).isEmpty()) return;
@@ -289,21 +313,25 @@ public class CausalityTerminalMachine extends WorkableElectricMultiblockMachine 
         return list;
     }
 
+    /** 按固定 0.1% 成功率抽签。 */
     private static boolean rollOutputSuccess(Random random) {
-        return random.nextInt(1000) == 0;
+        double chance = SUCCESS_CHANCE;
+        if (chance <= 0.0) return false;
+        if (chance >= 1.0) return true;
+        return random.nextDouble() < chance;
     }
 
     // ==================== 显示文本（进度与状态） ====================
 
     public int getProgressPercent() {
-        return (int) Math.min(100L, (long) this.progress * 100 / RUN_TICKS);
+        return (int) Math.min(100L, (long) this.progress * 100 / runTicks());
     }
 
     public Component getDiagnostic() {
-        if (this.energyContainer == null || this.energyContainer.getEnergyStored() < EUT) {
+        if (this.energyContainer == null || this.energyContainer.getEnergyStored() < eut()) {
             return com.gtl.enhancedcore.common.recipe.MachineDiagnostics.text("power");
         }
-        if (this.progress >= RUN_TICKS) return com.gtl.enhancedcore.common.recipe.MachineDiagnostics.text("output");
+        if (this.progress >= runTicks()) return com.gtl.enhancedcore.common.recipe.MachineDiagnostics.text("output");
         if (!this.pendingOutput.isEmpty()) return null;
         return com.gtl.enhancedcore.common.recipe.MachineDiagnostics.text(
                 this.mappings.isEmpty() ? "mapping" : "sample");
@@ -319,7 +347,7 @@ public class CausalityTerminalMachine extends WorkableElectricMultiblockMachine 
                     .withStyle(ChatFormatting.RED));
         } else if (this.progress > 0) {
             int percent = getProgressPercent();
-            int remainingSeconds = Math.max(0, RUN_TICKS - this.progress) / 20;
+            int remainingSeconds = Math.max(0, runTicks() - this.progress) / 20;
             textList.add(Component.translatable("gui.gtl_enhancedcore.causality_terminal.running")
                     .withStyle(ChatFormatting.GREEN));
             textList.add(Component.translatable("gui.gtl_enhancedcore.causality_terminal.progress",
@@ -329,7 +357,7 @@ public class CausalityTerminalMachine extends WorkableElectricMultiblockMachine 
                     Component.literal(remainingSeconds + "s").withStyle(ChatFormatting.AQUA))
                     .withStyle(ChatFormatting.GRAY));
             textList.add(Component.translatable("gui.gtl_enhancedcore.causality_terminal.power_usage",
-                    Component.literal(EUT + " EU/t").withStyle(ChatFormatting.YELLOW))
+                    Component.literal(eut() + " EU/t").withStyle(ChatFormatting.YELLOW))
                     .withStyle(ChatFormatting.GRAY));
         } else {
             textList.add(Component.translatable("gui.gtl_enhancedcore.causality_terminal.idle")

@@ -12,7 +12,14 @@ import net.minecraft.network.chat.Component;
 
 /** MV 通用工厂 Plus 系列；每台机器只处理自己的配方类型。 */
 public final class PlusFactoryMachine extends WorkableElectricMultiblockMachine {
+    /** LV 基础并行。 */
     public static final int BASE_PARALLEL = 16;
+
+    /** 并行上限。 */
+    public static final int MAX_PARALLEL = 256;
+
+    public static final double ENERGY_MULTIPLIER = 0.9;
+    public static final double DURATION_MULTIPLIER = 0.6;
 
     public PlusFactoryMachine(IMachineBlockEntity holder, Object... args) {
         super(holder, args);
@@ -31,8 +38,10 @@ public final class PlusFactoryMachine extends WorkableElectricMultiblockMachine 
     /** LV 为 16 并行，每升一级翻倍，IV 及以上固定为 256。 */
     public int getMaxParallel() {
         int tier = Math.min(GTUtil.getFloorTierByVoltage(getMaxVoltage()), GTValues.IV);
-        long parallel = (long) BASE_PARALLEL << Math.max(0, tier - GTValues.LV);
-        return (int) Math.min(Integer.MAX_VALUE, parallel);
+        int base = BASE_PARALLEL;
+        int cap = MAX_PARALLEL;
+        long parallel = (long) base << Math.max(0, tier - GTValues.LV);
+        return (int) Math.min(Math.min(Integer.MAX_VALUE, parallel), cap);
     }
 
     @Override

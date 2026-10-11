@@ -41,15 +41,22 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
 
     /** matchContext 中外壳等级的键。 */
     public static final String HULL_TIER_KEY = "SHPHullTier";
-    /** 内部蒸汽缓存容量：100 桶（mB）。用户 2026-07-28 要求从 100000 桶改为 100 桶。 */
+    /**
+     * 内部蒸汽缓存容量：100 桶（mB）＝固定值。
+     * 用户 2026-07-28 要求从 100000 桶改为 100 桶。
+     */
     public static final long STEAM_CAPACITY_MB = 100L * 1000L;
-    /** 每次启动配方消耗的蒸汽：1 桶（mB）。 */
+    /** 每次启动配方消耗的蒸汽：1 桶（mB）＝固定值。 */
     public static final long STEAM_PER_RECIPE_MB = 1000L;
-    /** 支持的最高外壳等级。 */
+    /**
+     * 支持的最高外壳等级：注册期用于生成外壳谓词与 tooltip，改动需重启（默认值；可在
+     * 外壳等级对应的有效电压最高为 HV。
+     */
     public static final int MAX_HULL_TIER = GTValues.HV;
     /**
      * 固定并行数（2026-09-01 用户重新调整：并行固定 64，提升机器外壳仅提升电压，不再影响并行）。
      * 历史：2/4/8/16（按外壳递增）→ 64/128/256/512（按外壳递增）→ 固定 64。
+     * 固定值。
      */
     public static final int FIXED_PARALLEL = 64;
 
@@ -85,6 +92,16 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
         return FIXED_PARALLEL;
     }
 
+    /** 固定内部蒸汽缓存上限（mB）。 */
+    public static long steamCapacityMb() {
+        return STEAM_CAPACITY_MB;
+    }
+
+    /** 固定每次启动蒸汽消耗（mB）。 */
+    public static long steamPerRecipeMb() {
+        return STEAM_PER_RECIPE_MB;
+    }
+
     public int getHullTier() {
         return this.hullTier;
     }
@@ -103,7 +120,7 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
     }
 
     public long getSteamCapacityMb() {
-        return STEAM_CAPACITY_MB;
+        return steamCapacityMb();
     }
 
     public boolean isSteamInsufficient() {
@@ -194,16 +211,18 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
             return;
         }
         this.refillCounter = 0;
+        long capacity = steamCapacityMb();
+        long perRecipe = steamPerRecipeMb();
         // 旧存档在容量下调前可能存了超限蒸汽，这里钳制到当前上限。
-        if (this.steamStored < 0 || this.steamStored > STEAM_CAPACITY_MB) {
-            this.steamStored = Math.max(0, Math.min(STEAM_CAPACITY_MB, this.steamStored));
+        if (this.steamStored < 0 || this.steamStored > capacity) {
+            this.steamStored = Math.max(0, Math.min(capacity, this.steamStored));
             this.markDirty();
         }
-        if (!this.isFormed() || this.steamStored >= STEAM_CAPACITY_MB) {
+        if (!this.isFormed() || this.steamStored >= capacity) {
             return;
         }
-        long drained = this.pullSteamFromHatches(STEAM_CAPACITY_MB - this.steamStored);
-        if (drained > 0L && this.steamStored >= STEAM_PER_RECIPE_MB) {
+        long drained = this.pullSteamFromHatches(capacity - this.steamStored);
+        if (drained > 0L && this.steamStored >= perRecipe) {
             this.steamInsufficient = false;
         }
     }
@@ -234,7 +253,7 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
         if (inputTanks.isEmpty()) {
             return 0L;
         }
-        long room = Math.min(wanted, STEAM_CAPACITY_MB - this.steamStored);
+        long room = Math.min(wanted, steamCapacityMb() - this.steamStored);
         long drained = 0;
         var seen = Collections.newSetFromMap(new IdentityHashMap<IRecipeHandler<?>, Boolean>());
         var steam = FluidIngredient.of(GTMaterials.Steam.getFluidTag(), 1);
@@ -287,10 +306,10 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
         if (!super.beforeWorking(recipe)) {
             return false;
         }
-        if (this.steamStored < STEAM_PER_RECIPE_MB) {
-            this.pullSteamFromHatches(STEAM_CAPACITY_MB - this.steamStored);
+        if (this.steamStored < steamPerRecipeMb()) {
+            this.pullSteamFromHatches(steamCapacityMb() - this.steamStored);
         }
-        if (this.steamStored < STEAM_PER_RECIPE_MB) {
+        if (this.steamStored < steamPerRecipeMb()) {
             this.steamInsufficient = true;
             return false;
         }
@@ -309,7 +328,8 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
                 ? platform.getHullTier()
                 : GTValues.ULV;
         long baseEUt = RecipeHelper.getInputEUt(recipe);
-        int effectiveTier = Math.min(MAX_HULL_TIER, Math.max(GTValues.ULV, hullTier) + 1);
+        int maxHullTier = MAX_HULL_TIER;
+        int effectiveTier = Math.min(maxHullTier, Math.max(GTValues.ULV, hullTier) + 1);
         if (baseEUt > GTValues.V[effectiveTier]) {
             return null;
         }
@@ -358,9 +378,10 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
 
         @Override
         protected Component rejectedStartReason(GTRecipe recipe) {
-            return platform.steamStored < STEAM_PER_RECIPE_MB
+            long perRecipe = steamPerRecipeMb();
+            return platform.steamStored < perRecipe
                     ? Component.translatable("gtl_enhancedcore.diagnostic.steam_detail",
-                            platform.steamStored, STEAM_PER_RECIPE_MB)
+                            platform.steamStored, perRecipe)
                     : MachineDiagnostics.text("start_rejected");
         }
 
@@ -371,7 +392,7 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
             this.setStatus(Status.IDLE);
             super.setupRecipe(recipe);
             if (this.getStatus() == Status.WORKING && this.getLastRecipe() == recipe) {
-                platform.steamStored -= STEAM_PER_RECIPE_MB;
+                platform.steamStored -= steamPerRecipeMb();
                 platform.markDirty();
             }
         }
@@ -398,7 +419,7 @@ public class IndustrialSteamPlatformMachine extends WorkableElectricMultiblockMa
                     .withStyle(ChatFormatting.GRAY));
             textList.add(Component.translatable("gui.gtl_enhancedcore.steam_platform.steam_stored",
                     Component.literal(String.valueOf(this.steamStored)).withStyle(ChatFormatting.AQUA),
-                    Component.literal(String.valueOf(STEAM_CAPACITY_MB)).withStyle(ChatFormatting.DARK_AQUA))
+                    Component.literal(String.valueOf(steamCapacityMb())).withStyle(ChatFormatting.DARK_AQUA))
                     .withStyle(ChatFormatting.GRAY));
             if (this.steamInsufficient) {
                 textList.add(Component.translatable("gui.gtl_enhancedcore.steam_platform.low_steam")

@@ -16,6 +16,8 @@ import com.gtl.enhancedcore.common.data.machines.multiblock.GTLStructures;
 import com.gtl.enhancedcore.common.data.machines.multiblock.FieldMachineStructures;
 import com.gtl.enhancedcore.client.renderer.machine.MachineFieldRenderer;
 import com.gtl.enhancedcore.common.util.MachineTooltips;
+import com.gtl.enhancedcore.common.recipe.ExtremeReactorFuel;
+import com.gtl.enhancedcore.common.structure.ExtremeReactorStructure;
 import java.util.Map;
 import java.util.function.Supplier;
 import org.gtlcore.gtlcore.common.data.GTLRecipeModifiers;
@@ -40,7 +42,8 @@ public final class SpecialMachineRegistration {
                 .pattern(FieldMachineStructures::weather)
                 .tooltipBuilder(MachineTooltips.create("weather_anchor", Map.of(
                         "tooltip.gtl_enhancedcore.weather_anchor.power",
-                        new Object[]{GTValues.VN[WeatherAnchorMachine.ANCHOR_TIER] + " " + WeatherAnchorMachine.ANCHOR_AMPS + "A"}),
+                        // The tooltip uses the same fixed power value as the machine.
+                        new Object[]{GTValues.VN[WeatherAnchorMachine.ANCHOR_TIER] + " " + WeatherAnchorMachine.anchorAmps() + "A"}),
                         GTLEnhancedcoreRecipeTypes.ANCHOR_MODES))
                 .renderer(() -> new MachineFieldRenderer(false))
                 .hasTESR(true)
@@ -94,6 +97,50 @@ public final class SpecialMachineRegistration {
                         new Object[]{MachineRecipeModifiers.NEUTRON_FACTORY_PARALLEL}), GTLRecipeTypes.NEUTRON_ACTIVATOR_RECIPES))
                 .workableCasingRenderer(new ResourceLocation("gtlcore", "block/casings/process_machine_casing"),
                         GTLEnhancedcore.id("block/multiblock/neutron_control_factory"))
+                .register();
+    }
+
+    public static MultiblockMachineDefinition registerStarCoreStripper() {
+        return GTLEnhancedcore.REGISTRATE
+                .multiblock("star_core_stripper", StarCoreStripperMachine::new)
+                .langValue("星核剥离装置")
+                .rotationState(RotationState.NON_Y_AXIS)
+                .appearanceBlock(() -> requiredBlockBlock("gtlcore:iridium_casing"))
+                .recipeTypes(GTLRecipeTypes.FRAGMENT_WORLD_COLLECTION)
+                .recipeModifiers(new RecipeModifier[]{
+                        (machine, recipe, params, result) -> GTLRecipeModifiers.reduction(machine, recipe,
+                                StarCoreStripperMachine.ENERGY_MULTIPLIER, StarCoreStripperMachine.DURATION_MULTIPLIER),
+                        GTRecipeModifiers.PARALLEL_HATCH
+                })
+                .pattern(GTLStructures::starCoreStripper)
+                .tooltipBuilder(MachineTooltips.create("star_core_stripper", Map.of(
+                        "tooltip.gtl_enhancedcore.star_core_stripper.capacity",
+                        new Object[]{StarCoreStripperMachine.CROSS_RECIPE_THREADS}),
+                        GTLRecipeTypes.FRAGMENT_WORLD_COLLECTION))
+                .workableCasingRenderer(new ResourceLocation("gtlcore", "block/casings/iridium_casing"),
+                        GTCEu.id("block/multiblock/gcym/large_extractor"))
+                .register();
+    }
+
+    public static MultiblockMachineDefinition registerExtremeReactor() {
+        return GTLEnhancedcore.REGISTRATE
+                .multiblock("extreme_reactor", ExtremeReactorMachine::new)
+                .langValue("极限反应堆")
+                .rotationState(RotationState.NON_Y_AXIS)
+                .appearanceBlock(() -> requiredBlockBlock("gtlcore:supercritical_turbine_casing"))
+                .generator(true)
+                .recipeTypes(GTLEnhancedcoreRecipeTypes.EXTREME_REACTION)
+                .recipeModifier((machine, recipe, params, result) -> recipe, false)
+                .pattern(ExtremeReactorStructure::create)
+                .tooltipBuilder(MachineTooltips.create("extreme_reactor", Map.of(
+                        "tooltip.gtl_enhancedcore.extreme_reactor.generation",
+                        new Object[]{java.text.NumberFormat.getIntegerInstance(java.util.Locale.ROOT)
+                                .format(ExtremeReactorFuel.GENERATION_EUT)},
+                        "tooltip.gtl_enhancedcore.extreme_reactor.fuel",
+                        new Object[]{ExtremeReactorFuel.AMOUNT_MB, ExtremeReactorFuel.DURATION_TICKS}),
+                        GTLEnhancedcoreRecipeTypes.EXTREME_REACTION))
+                .workableCasingRenderer(new ResourceLocation("gtlcore", "block/supercritical_turbine_casing"),
+                        GTLEnhancedcore.id("block/multiblock/extreme_reactor"))
                 .register();
     }
 
