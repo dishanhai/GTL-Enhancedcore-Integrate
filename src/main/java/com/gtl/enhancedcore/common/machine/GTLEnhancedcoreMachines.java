@@ -38,6 +38,8 @@ public final class GTLEnhancedcoreMachines {
     private static volatile MultiblockMachineDefinition infinitySingularityCompressor;
     private static volatile MultiblockMachineDefinition neutronControlFactory;
     private static volatile MultiblockMachineDefinition starCoreStripper;
+    private static volatile MultiblockMachineDefinition highFluxBreederReactor;
+    private static volatile MultiblockMachineDefinition hydrothermalLeachingComplex;
     private static volatile MultiblockMachineDefinition extremeReactor;
     private static volatile MultiblockMachineDefinition platinumRefiningMatrix;
     private static volatile MultiblockMachineDefinition voidConstrainedMiningField;
@@ -78,6 +80,8 @@ public final class GTLEnhancedcoreMachines {
         infinitySingularityCompressor = SpecialMachineRegistration.registerInfinitySingularityCompressor();
         neutronControlFactory = SpecialMachineRegistration.registerNeutronControlFactory();
         starCoreStripper = SpecialMachineRegistration.registerStarCoreStripper();
+        highFluxBreederReactor = SpecialMachineRegistration.registerHighFluxBreederReactor();
+        hydrothermalLeachingComplex = com.gtl.enhancedcore.common.registration.HydrothermalLeachingRegistration.register();
         extremeReactor = SpecialMachineRegistration.registerExtremeReactor();
         platinumRefiningMatrix = SpecialMachineRegistration.registerPlatinumRefiningMatrix();
         voidConstrainedMiningField = SpecialMachineRegistration.registerVoidConstrainedMiningField();
@@ -173,6 +177,14 @@ public final class GTLEnhancedcoreMachines {
         return starCoreStripper;
     }
 
+    public static MultiblockMachineDefinition getHighFluxBreederReactor() {
+        return highFluxBreederReactor;
+    }
+
+    public static MultiblockMachineDefinition getHydrothermalLeachingComplex() {
+        return hydrothermalLeachingComplex;
+    }
+
     public static MultiblockMachineDefinition getExtremeReactor() {
         return extremeReactor;
     }
@@ -230,7 +242,8 @@ public final class GTLEnhancedcoreMachines {
                 creativeComputationReceiverHatch,
                 largeFurnace, steamPlatform, plasmaMachineTool, hadronRefinery, quantumMassArray,
                 fusionAssembler, weatherAnchor, causalityTerminal, infinitySingularityCompressor,
-                neutronControlFactory, starCoreStripper, extremeReactor, platinumRefiningMatrix,
+                neutronControlFactory, starCoreStripper, highFluxBreederReactor, hydrothermalLeachingComplex,
+                extremeReactor, platinumRefiningMatrix,
                 voidConstrainedMiningField, dragonFieldProliferationCore,
                 hyperstructuralChemicalDistorter, stellarConfinementFusionReactor,
                 basicOrePlant, processingPlus, assemblingPlus, separatingPlus, mixingPlus, integratedUniversalFactory));

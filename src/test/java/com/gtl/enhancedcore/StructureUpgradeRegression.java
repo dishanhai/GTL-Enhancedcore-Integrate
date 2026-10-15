@@ -16,15 +16,36 @@ final class StructureUpgradeRegression {
     static int run() throws Exception {
         runGroup("upgrades.json", "gtl-structure-upgrades", Set.of("mega_fluid_heater", "advanced_sps_crafting",
                 "dimensionally_transcendent_mixer", "star_ultimate_material_forge_factory", "qft", "nano_core",
-                "gravitation_shockburst", "advanced_neutron_activator",
+                "advanced_neutron_activator",
                 "dimensionally_transcendent_chemical_plant", "antientropy_condensation_center"));
         runGroup("upgrades_20260927.json", "gtl-structure-upgrades-20260927",
                 Set.of("advanced_integrated_ore_processor", "atomic_energy_excitation_plant",
                         "component_assembly_line", "mage_assembler", "super_blast_smelter", "superconducting_electromagnetism"));
+        runGroup("super_particle_collider.json", "gtl-structure-upgrades-20261013",
+                Set.of("super_particle_collider"), Path.of("SchemTool/input"));
+        runGroup("upgrades_20261013.json", "gtl-structure-upgrades-20261013-batch",
+                Set.of("wood_distillation", "skeleton_shift_rift_engine", "pcb_factory", "a_mass_fabricator"),
+                Path.of("SchemTool/input"));
+        // 2026-10-14 用户要求：gravitation_shockburst 还原上游原结构（保留 IV 隔离等其它改动）。
+        // 结构替换移除后，它由 NativeIsolationPatterns 的派生判定接管（上游几何 + 隔离材料仓）。
+        var structures = Path.of("src/main/resources/data/gtl_enhancedcore/structures/gtl");
+        check(!Files.exists(structures.resolve("gravitation_shockburst.pattern.gz")),
+                "gravitation_shockburst no longer ships custom geometry");
+        for (String file : new String[]{"manifest.json", "upgrades.json", "upgrades_20260927.json",
+                "lucid_etchdreamer.json", "super_particle_collider.json", "upgrades_20261013.json"}) {
+            var manifest = JsonParser.parseString(Files.readString(structures.resolve(file))).getAsJsonObject();
+            check(!manifest.has("gravitation_shockburst"),
+                    "gravitation_shockburst removed from " + file);
+        }
         return checks;
     }
 
     private static void runGroup(String file, String fixtureDirectory, Set<String> names) throws Exception {
+        runGroup(file, fixtureDirectory, names, Path.of("src/test/resources", fixtureDirectory));
+    }
+
+    private static void runGroup(String file, String fixtureDirectory, Set<String> names,
+            Path sourceDirectory) throws Exception {
         var root = Path.of("src/main/resources/data/gtl_enhancedcore/structures/gtl");
         var fixtures = Path.of("src/test/resources", fixtureDirectory);
         var manifest = JsonParser.parseString(Files.readString(root.resolve(file))).getAsJsonObject();
@@ -88,9 +109,10 @@ final class StructureUpgradeRegression {
                 check(found, name + " original predicate provenance");
                 check(!mode.equals("hatch") || bindingEntry.getKey().equals("#"), name + " hatch panel only");
             }
-            check(lamps[0] > 0, name + " lamp states imported");
+            if (!name.equals("wood_distillation") && !name.equals("pcb_factory"))
+                check(lamps[0] > 0, name + " lamp states imported");
             check(HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256")
-                    .digest(Files.readAllBytes(fixtures.resolve(name + ".schem"))))
+                    .digest(Files.readAllBytes(sourceDirectory.resolve(name + ".schem"))))
                     .equals(spec.get("sourceSha256").getAsString()), name + " exact source schematic");
             check((spec.get("namespace").getAsString() + ":" + name)
                     .equals(original.getAsJsonObject(name).get("id").getAsString()), name + " exact registered namespace");

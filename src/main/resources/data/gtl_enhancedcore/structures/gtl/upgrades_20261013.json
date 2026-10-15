@@ -1,0 +1,793 @@
+{
+  "wood_distillation": {
+    "namespace": "gtceu",
+    "sourceSize": [
+      47,
+      39,
+      43
+    ],
+    "size": [
+      43,
+      39,
+      47
+    ],
+    "sourceController": [
+      3,
+      11,
+      14
+    ],
+    "sourceNormal": [
+      -1,
+      0,
+      0
+    ],
+    "controllerPosition": [
+      14,
+      11,
+      43
+    ],
+    "bindings": {
+      " ": {
+        "mode": "any"
+      },
+      "@": {
+        "mode": "original",
+        "sample": [
+          12,
+          1,
+          11
+        ]
+      },
+      "#": {
+        "mode": "hatch",
+        "sample": [
+          12,
+          0,
+          9
+        ],
+        "block": "gtceu:heatproof_machine_casing",
+        "fallback": "gtceu:heatproof_machine_casing",
+        "requiredParts": [
+          {
+            "sample": [
+              10,
+              7,
+              9
+            ],
+            "count": 2
+          }
+        ]
+      },
+      "A": {
+        "mode": "casing",
+        "sample": [
+          12,
+          0,
+          9
+        ],
+        "block": "gtceu:heatproof_machine_casing"
+      },
+      "B": {
+        "mode": "original",
+        "sample": [
+          0,
+          11,
+          19
+        ],
+        "block": "gtceu:clean_machine_casing"
+      },
+      "D": {
+        "mode": "original",
+        "sample": [
+          0,
+          6,
+          13
+        ],
+        "block": "gtceu:stainless_evaporation_casing"
+      },
+      "E": {
+        "mode": "original",
+        "sample": [
+          0,
+          0,
+          0
+        ],
+        "block": "gtceu:frostproof_machine_casing"
+      },
+      "F": {
+        "mode": "original",
+        "sample": [
+          1,
+          5,
+          19
+        ],
+        "block": "gtceu:filter_casing"
+      },
+      "G": {
+        "mode": "original",
+        "sample": [
+          2,
+          1,
+          2
+        ],
+        "block": "gtceu:steel_pipe_casing"
+      },
+      "I": {
+        "mode": "original",
+        "sample": [
+          1,
+          0,
+          7
+        ],
+        "block": "gtceu:steel_firebox_casing"
+      },
+      "J": {
+        "mode": "original",
+        "sample": [
+          0,
+          0,
+          1
+        ],
+        "block": "gtceu:heat_vent"
+      },
+      "K": {
+        "mode": "original",
+        "sample": [
+          14,
+          2,
+          2
+        ],
+        "block": "gtceu:hv_hermetic_casing"
+      },
+      "L": {
+        "mode": "original",
+        "sample": [
+          0,
+          2,
+          0
+        ],
+        "block": "gtceu:stainless_steel_frame"
+      },
+      "N": {
+        "mode": "literal",
+        "block": "gtceu:stainless_steel_gearbox",
+        "properties": {}
+      },
+      "O": {
+        "mode": "literal",
+        "block": "gtceu:treated_wood_planks",
+        "properties": {}
+      }
+    },
+    "counts": {
+      " ": 66786,
+      "A": 4644,
+      "B": 3288,
+      "L": 766,
+      "G": 286,
+      "E": 887,
+      "K": 116,
+      "J": 375,
+      "D": 705,
+      "F": 162,
+      "I": 443,
+      "N": 88,
+      "O": 248,
+      "#": 24,
+      "@": 1
+    },
+    "diamondOreMarkers": 24,
+    "sourceSha256": "5a97b5cde917c7cab8b6f117b23dc2874142c7890e2ff1ebd74609f00b6d9a80",
+    "sha256": "dd9aed7e2ee8b19df18f2e3d0975182d67a5d18a5a9e5e03ebc0f868b5ead47a",
+    "originalSize": [
+      23,
+      20,
+      15
+    ],
+    "controller": "@",
+    "hatches": [
+      "#"
+    ],
+    "hatchFallback": "gtceu:heatproof_machine_casing"
+  },
+  "skeleton_shift_rift_engine": {
+    "namespace": "gtladditions",
+    "sourceSize": [
+      140,
+      160,
+      200
+    ],
+    "size": [
+      200,
+      160,
+      140
+    ],
+    "sourceController": [
+      0,
+      52,
+      82
+    ],
+    "sourceNormal": [
+      -1,
+      0,
+      0
+    ],
+    "controllerPosition": [
+      82,
+      52,
+      139
+    ],
+    "bindings": {
+      " ": {
+        "mode": "any"
+      },
+      "@": {
+        "mode": "original",
+        "sample": [
+          15,
+          2,
+          31
+        ]
+      },
+      "#": {
+        "mode": "hatch",
+        "sample": [
+          10,
+          1,
+          31
+        ],
+        "block": "gtlcore:hyper_mechanical_casing",
+        "fallback": "gtlcore:hyper_mechanical_casing"
+      },
+      "A": {
+        "mode": "original",
+        "sample": [
+          0,
+          0,
+          7
+        ],
+        "block": "gtlcore:iridium_casing"
+      },
+      "B": {
+        "mode": "original",
+        "sample": [
+          0,
+          1,
+          13
+        ],
+        "block": "gtceu:high_power_casing"
+      },
+      "D": {
+        "mode": "original",
+        "sample": [
+          0,
+          2,
+          4
+        ],
+        "block": "gtlcore:enhance_hyper_mechanical_casing"
+      },
+      "E": {
+        "mode": "original",
+        "sample": [
+          0,
+          4,
+          4
+        ],
+        "block": "gtlcore:sps_casing"
+      },
+      "F": {
+        "mode": "original",
+        "sample": [
+          0,
+          7,
+          5
+        ],
+        "block": "gtceu:black_steel_frame"
+      },
+      "G": {
+        "mode": "original",
+        "sample": [
+          1,
+          1,
+          13
+        ],
+        "block": "kubejs:neutronium_pipe_casing"
+      },
+      "I": {
+        "mode": "original",
+        "sample": [
+          1,
+          1,
+          21
+        ],
+        "block": "gtlcore:dimensionally_transcendent_casing"
+      },
+      "J": {
+        "mode": "casing",
+        "sample": [
+          10,
+          1,
+          31
+        ],
+        "block": "gtlcore:hyper_mechanical_casing"
+      },
+      "K": {
+        "mode": "original",
+        "sample": [
+          1,
+          2,
+          22
+        ],
+        "block": "kubejs:dimensional_bridge_casing"
+      },
+      "L": {
+        "mode": "original",
+        "sample": [
+          2,
+          2,
+          22
+        ],
+        "block": "gtceu:steel_pipe_casing"
+      },
+      "N": {
+        "mode": "original",
+        "sample": [
+          3,
+          2,
+          4
+        ],
+        "block": "gtlcore:hyper_core"
+      },
+      "O": {
+        "mode": "original",
+        "sample": [
+          3,
+          7,
+          12
+        ],
+        "block": "gtceu:fusion_glass"
+      },
+      "P": {
+        "mode": "original",
+        "sample": [
+          5,
+          1,
+          10
+        ],
+        "block": "gtceu:tungstensteel_gearbox"
+      },
+      "Q": {
+        "mode": "original",
+        "sample": [
+          7,
+          9,
+          15
+        ],
+        "block": "kubejs:naquadriatictaranium_coil_block"
+      },
+      "R": {
+        "mode": "original",
+        "sample": [
+          8,
+          5,
+          5
+        ],
+        "block": "gtlcore:degenerate_rhenium_constrained_casing"
+      },
+      "S": {
+        "mode": "original",
+        "sample": [
+          11,
+          2,
+          7
+        ],
+        "block": "gtlcore:ultimate_stellar_containment_casing"
+      },
+      "T": {
+        "mode": "literal",
+        "block": "gtceu:cyan_lamp",
+        "properties": {
+          "bloom": "true",
+          "inverted": "true",
+          "lit": "true",
+          "powered": "false"
+        }
+      },
+      "U": {
+        "mode": "literal",
+        "block": "gtceu:orange_lamp",
+        "properties": {
+          "bloom": "true",
+          "inverted": "true",
+          "lit": "true",
+          "powered": "false"
+        }
+      }
+    },
+    "counts": {
+      " ": 3866943,
+      "A": 106112,
+      "J": 235678,
+      "D": 106759,
+      "T": 1713,
+      "B": 1564,
+      "P": 4604,
+      "U": 517,
+      "N": 8025,
+      "E": 35592,
+      "G": 16477,
+      "O": 32813,
+      "F": 9124,
+      "R": 22472,
+      "Q": 9582,
+      "L": 312,
+      "I": 11657,
+      "K": 401,
+      "S": 9630,
+      "#": 24,
+      "@": 1
+    },
+    "diamondOreMarkers": 24,
+    "sourceSha256": "688b6204d6633ea20ebb01c89a8900b483756770e75131ba9119bf23a7d15e7c",
+    "sha256": "3e5c9b847936dc4247fd7808e9b54a354205a819eddb2eeccdd216e45f00ed68",
+    "originalSize": [
+      32,
+      23,
+      31
+    ],
+    "controller": "@",
+    "hatches": [
+      "#"
+    ],
+    "hatchFallback": "gtlcore:hyper_mechanical_casing"
+  },
+  "pcb_factory": {
+    "namespace": "gtceu",
+    "sourceSize": [
+      77,
+      34,
+      45
+    ],
+    "size": [
+      77,
+      34,
+      45
+    ],
+    "sourceController": [
+      7,
+      11,
+      4
+    ],
+    "sourceNormal": [
+      0,
+      0,
+      -1
+    ],
+    "controllerPosition": [
+      69,
+      11,
+      40
+    ],
+    "bindings": {
+      " ": {
+        "mode": "any"
+      },
+      "@": {
+        "mode": "original",
+        "sample": [
+          12,
+          0,
+          9
+        ]
+      },
+      "#": {
+        "mode": "hatch",
+        "sample": [
+          6,
+          0,
+          7
+        ],
+        "block": "gtceu:watertight_casing",
+        "fallback": "gtceu:watertight_casing"
+      },
+      "A": {
+        "mode": "casing",
+        "sample": [
+          6,
+          0,
+          7
+        ],
+        "block": "gtceu:watertight_casing"
+      },
+      "B": {
+        "mode": "original",
+        "sample": [
+          0,
+          0,
+          1
+        ],
+        "block": "gtceu:clean_machine_casing"
+      },
+      "D": {
+        "mode": "original",
+        "sample": [
+          0,
+          0,
+          7
+        ],
+        "block": "gtceu:blue_steel_frame"
+      },
+      "E": {
+        "mode": "original",
+        "sample": [
+          4,
+          0,
+          14
+        ],
+        "block": "gtlcore:antifreeze_heatproof_machine_casing"
+      },
+      "F": {
+        "mode": "original",
+        "sample": [
+          0,
+          1,
+          1
+        ],
+        "block": "gtceu:laminated_glass"
+      },
+      "G": {
+        "mode": "original",
+        "sample": [
+          3,
+          0,
+          12
+        ],
+        "block": "gtceu:ptfe_pipe_casing"
+      },
+      "I": {
+        "mode": "original",
+        "sample": [
+          4,
+          0,
+          13
+        ],
+        "block": "gtceu:ultimet_frame"
+      },
+      "J": {
+        "mode": "original",
+        "sample": [
+          0,
+          0,
+          0
+        ],
+        "block": "gtceu:hsla_steel_frame"
+      },
+      "K": {
+        "mode": "original",
+        "sample": [
+          7,
+          0,
+          7
+        ],
+        "block": "gtceu:stress_proof_casing"
+      },
+      "L": {
+        "mode": "original",
+        "sample": [
+          0,
+          0,
+          8
+        ],
+        "block": "gtceu:stainless_evaporation_casing"
+      },
+      "N": {
+        "mode": "literal",
+        "block": "gtceu:uhv_hermetic_casing",
+        "properties": {}
+      },
+      "O": {
+        "mode": "literal",
+        "block": "gtceu:assembly_line_grating",
+        "properties": {}
+      }
+    },
+    "counts": {
+      " ": 98658,
+      "K": 6538,
+      "B": 6107,
+      "J": 409,
+      "L": 534,
+      "O": 1810,
+      "N": 278,
+      "G": 240,
+      "I": 121,
+      "D": 347,
+      "E": 1048,
+      "F": 763,
+      "A": 932,
+      "#": 24,
+      "@": 1
+    },
+    "diamondOreMarkers": 24,
+    "sourceSha256": "0fac184ec63357f8ba662e72dd6dc5c3e3da37223ffe8bbd5f975a19b2e0989a",
+    "sha256": "93124a0d6b82d8c34e4e301492ed2929880847c7d132ffb900c4bdc86f25dfad",
+    "originalSize": [
+      17,
+      10,
+      15
+    ],
+    "controller": "@",
+    "hatches": [
+      "#"
+    ],
+    "hatchFallback": "gtceu:watertight_casing"
+  },
+  "a_mass_fabricator": {
+    "namespace": "gtceu",
+    "sourceSize": [
+      179,
+      131,
+      279
+    ],
+    "size": [
+      179,
+      131,
+      279
+    ],
+    "sourceController": [
+      89,
+      58,
+      278
+    ],
+    "sourceNormal": [
+      0,
+      0,
+      1
+    ],
+    "controllerPosition": [
+      89,
+      58,
+      278
+    ],
+    "bindings": {
+      " ": {
+        "mode": "any"
+      },
+      "@": {
+        "mode": "original",
+        "sample": [
+          13,
+          0,
+          5
+        ]
+      },
+      "#": {
+        "mode": "hatch",
+        "sample": [
+          12,
+          1,
+          3
+        ],
+        "block": "gtceu:uxv_machine_casing",
+        "fallback": "gtceu:uxv_machine_casing"
+      },
+      "A": {
+        "mode": "casing",
+        "sample": [
+          12,
+          1,
+          3
+        ],
+        "block": "gtceu:uxv_machine_casing"
+      },
+      "B": {
+        "mode": "original",
+        "sample": [
+          2,
+          1,
+          1
+        ],
+        "block": "gtlcore:rhenium_reinforced_energy_glass"
+      },
+      "D": {
+        "mode": "original",
+        "sample": [
+          2,
+          1,
+          2
+        ],
+        "block": "kubejs:titansteel_coil_block"
+      },
+      "E": {
+        "mode": "original",
+        "sample": [
+          2,
+          1,
+          4
+        ],
+        "block": "gtceu:neutronium_frame"
+      },
+      "F": {
+        "mode": "original",
+        "sample": [
+          2,
+          2,
+          5
+        ],
+        "block": "kubejs:hollow_casing"
+      },
+      "G": {
+        "mode": "original",
+        "sample": [
+          2,
+          3,
+          5
+        ],
+        "block": "gtlcore:hyper_core"
+      },
+      "I": {
+        "mode": "literal",
+        "block": "kubejs:neutronium_pipe_casing",
+        "properties": {}
+      },
+      "J": {
+        "mode": "literal",
+        "block": "gtceu:cyan_lamp",
+        "properties": {
+          "bloom": "true",
+          "inverted": "true",
+          "lit": "true",
+          "powered": "false"
+        }
+      },
+      "K": {
+        "mode": "literal",
+        "block": "gtceu:white_lamp",
+        "properties": {
+          "bloom": "true",
+          "inverted": "true",
+          "lit": "true",
+          "powered": "false"
+        }
+      },
+      "L": {
+        "mode": "literal",
+        "block": "gtceu:orange_lamp",
+        "properties": {
+          "bloom": "true",
+          "inverted": "true",
+          "lit": "true",
+          "powered": "false"
+        }
+      }
+    },
+    "counts": {
+      " ": 5960716,
+      "A": 332137,
+      "F": 69868,
+      "K": 853,
+      "E": 62154,
+      "J": 1707,
+      "G": 10789,
+      "B": 22632,
+      "I": 47996,
+      "L": 178,
+      "D": 33216,
+      "#": 24,
+      "@": 1
+    },
+    "diamondOreMarkers": 24,
+    "sourceSha256": "f3adb08274f688092fe721dd96bf3c58777c46a84218b9027b5a8819d4f887ab",
+    "sha256": "92a34c733eef5b619b92232e0609a063176f226f8b85276177b743df43d39c09",
+    "originalSize": [
+      11,
+      7,
+      14
+    ],
+    "controller": "@",
+    "hatches": [
+      "#"
+    ],
+    "hatchFallback": "gtceu:uxv_machine_casing"
+  }
+}

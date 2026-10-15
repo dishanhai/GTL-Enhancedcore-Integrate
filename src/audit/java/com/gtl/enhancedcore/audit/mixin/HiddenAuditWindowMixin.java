@@ -16,7 +16,9 @@ public abstract class HiddenAuditWindowMixin {
                 || Boolean.getBoolean("gtl.enhancedcore.coilDebugAudit")
                 || Boolean.getBoolean("gtl.enhancedcore.functionalTipsAudit")
                 || Boolean.getBoolean("gtl.enhancedcore.patternGeneratorAudit")
-                || Boolean.getBoolean("gtl.enhancedcore.chunkBenchmark"))
+                || Boolean.getBoolean("gtl.enhancedcore.chunkBenchmark")
+                || Boolean.getBoolean("gtl.enhancedcore.memoryAudit")
+                || Boolean.getBoolean("gtl.enhancedcore.lazyPreviewAudit"))
             GLFW.glfwHideWindow(((Window) (Object) this).getWindow());
     }
 }

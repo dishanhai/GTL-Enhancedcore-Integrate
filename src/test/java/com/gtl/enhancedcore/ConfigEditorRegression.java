@@ -55,8 +55,15 @@ public final class ConfigEditorRegression {
         var buttons = java.util.regex.Pattern.compile("button\\(\"([^\"]+)\"").matcher(menu);
         var actions = new ArrayList<String>();
         while (buttons.find()) actions.add(buttons.group(1));
-        check(actions.equals(List.of("tips", "reload_tips", "tips_file", "open_folder", "back")),
-                "The mod configuration entry exposes only item Tips actions");
+        // 2026-10-12 用户要求「复制 ID / 复制配方」按键功能可在配置里开关，因此
+        // 配置主页新增 copy_keys 入口（进入独立子界面）。主页仍不含机器数值设置，
+        // 决策 10「配置页只保留 Tips、删除机器数值配置」继续成立。
+        check(actions.equals(List.of("tips", "reload_tips", "tips_file", "copy_keys", "open_folder", "back")),
+                "The configuration entry exposes item Tips actions plus the requested copy-key toggles");
+        String copyScreen = Files.readString(Path.of(
+                "src/main/java/com/gtl/enhancedcore/client/config/CopyKeysScreen.java"));
+        check(copyScreen.contains("CopyKeysConfig.save("),
+                "The copy-key switches write their configuration file");
         return assertions;
     }
     private static void inlineMarkup() {

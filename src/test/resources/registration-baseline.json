@@ -1,5 +1,6 @@
 {
   "literal_machine_ids": [
+    "hydrothermal_leaching_complex",
     "basic_ore_processing_plant",
     "causality_terminal",
     "circuit_encoder_hatch",
@@ -7,6 +8,7 @@
     "creative_computation_receiver_hatch",
     "dragon_field_proliferation_core",
     "extreme_reactor",
+    "high_flux_breeder_reactor",
     "hyperstructural_chemical_distorter",
     "industrial_steam_platform",
     "infinity_singularity_compressor",

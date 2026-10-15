@@ -1,0 +1,152 @@
+{
+  "legacy/plasma_machine_ring.pattern.gz": {
+    "width": 7,
+    "height": 5,
+    "depth": 5,
+    "sha256": "f8724a8839f2637803ed305876d815d1e6227e443218625e9fd278ac78ae8876",
+    "characters": [
+      ".",
+      "A",
+      "C",
+      "R",
+      "T"
+    ],
+    "sources": [
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/data/machines/multiblock/GTLStructures.java",
+        "method": "plasmaMachine"
+      }
+    ]
+  },
+  "legacy/hadron_refinery.pattern.gz": {
+    "width": 5,
+    "height": 9,
+    "depth": 9,
+    "sha256": "9156e3f452e45e73369f97ef11527f1cb0dfeeb198d19bcc454493ed7c8dbe0c",
+    "characters": [
+      ".",
+      "A",
+      "C",
+      "R",
+      "S",
+      "T"
+    ],
+    "sources": [
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/data/machines/multiblock/GTLStructures.java",
+        "method": "hadronRefinery"
+      }
+    ]
+  },
+  "legacy/quantum_mass_array.pattern.gz": {
+    "width": 7,
+    "height": 5,
+    "depth": 5,
+    "sha256": "a11688beb7c225f1d5df953ac1f924f71bf3dbc81d79ccabdcb4265591d3956f",
+    "characters": [
+      ".",
+      "A",
+      "C",
+      "R",
+      "T"
+    ],
+    "sources": [
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/data/machines/multiblock/GTLStructures.java",
+        "method": "quantumArray"
+      }
+    ]
+  },
+  "legacy/fusion_assembler.pattern.gz": {
+    "width": 7,
+    "height": 5,
+    "depth": 5,
+    "sha256": "95ba61b637ebe75b2ca0b5fd7f64baa057b67897ff66fbe40ec8ec9d9cfa08a4",
+    "characters": [
+      ".",
+      "A",
+      "C",
+      "F",
+      "R",
+      "T"
+    ],
+    "sources": [
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/data/machines/multiblock/GTLStructures.java",
+        "method": "fusionAssembler"
+      }
+    ]
+  },
+  "legacy/compact_high_power.pattern.gz": {
+    "width": 3,
+    "height": 3,
+    "depth": 3,
+    "sha256": "b4b33fffaee2ae0774752c938a7d7ecb7b26e714c46c5aab6122b82bf027f6b8",
+    "characters": [
+      "A",
+      "C"
+    ],
+    "sources": [
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/data/machines/multiblock/GTLStructures.java",
+        "method": "weatherAnchor"
+      },
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/data/machines/multiblock/GTLStructures.java",
+        "method": "causalityTerminal"
+      }
+    ]
+  },
+  "plus_factory.pattern.gz": {
+    "width": 3,
+    "height": 3,
+    "depth": 3,
+    "sha256": "3d52f3069c1bbd83bcb1694c88626388b981c3508867cb9cd30821bd9d2fd329",
+    "characters": [
+      "B",
+      "C",
+      "X"
+    ],
+    "sources": [
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/data/machines/multiblock/GTLStructures.java",
+        "method": "plusFactory"
+      }
+    ]
+  },
+  "gtl/lucid_etchdreamer_preview_panel.pattern.gz": {
+    "width": 5,
+    "height": 5,
+    "depth": 3,
+    "sha256": "65bb3f0caccbc1b2cec005dfbd74404090773dd661e7ce0bf8c43ef3e912eca9",
+    "characters": [
+      " ",
+      "C",
+      "J",
+      "X"
+    ],
+    "sources": [
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/structure/LucidEtchdreamerPreview.java",
+        "method": "previewPanel"
+      }
+    ]
+  },
+  "legacy/plasma_machine_tool_placeholder.pattern.gz": {
+    "width": 3,
+    "height": 3,
+    "depth": 3,
+    "sha256": "2a19d45ca0797ddb6e7e5c748da656b3a53ef18049a3dcf36cfb3f58f8882786",
+    "characters": [
+      " ",
+      "A",
+      "C"
+    ],
+    "sources": [
+      {
+        "file": "src/main/java/com/gtl/enhancedcore/common/data/machines/multiblock/PlasmaMachineToolStructure/PlasmaMachineToolStructure.java",
+        "method": "create"
+      }
+    ]
+  }
+}

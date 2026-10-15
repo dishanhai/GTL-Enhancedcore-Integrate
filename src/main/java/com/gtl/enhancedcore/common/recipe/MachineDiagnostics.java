@@ -16,6 +16,7 @@ import com.gtl.enhancedcore.common.machine.WirelessChargerMachine;
 import com.gtl.enhancedcore.common.recipe.iv.IvNativeAccess;
 import com.gtl.enhancedcore.common.recipe.iv.IvMachineScope;
 import com.gtl.enhancedcore.common.recipe.iv.IvRecipeLogic;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.IdentityHashMap;
@@ -117,13 +118,25 @@ public final class MachineDiagnostics {
 
     public static Component power(WorkableMultiblockMachine machine, long required) {
         long capacity = 0;
+        boolean gridInput = false, gridConnected = false;
+        BigInteger gridAvailable = BigInteger.ZERO;
         var seen = Collections.newSetFromMap(new IdentityHashMap<IEnergyContainer, Boolean>());
         for (var direction : List.of(IO.IN, IO.BOTH)) {
             var inputs = machine.getCapabilitiesProxy().get(direction, EURecipeCapability.CAP);
             if (inputs == null) continue;
-            for (var input : inputs) if (input instanceof IEnergyContainer energy && seen.add(energy))
+            for (var input : inputs) if (input instanceof IEnergyContainer energy && seen.add(energy)) {
+                if (input instanceof GridEnergyRecipeInput grid) {
+                    gridInput = true;
+                    gridConnected |= grid.gridEnergyConnected();
+                    // Each grid handler must pay the whole remaining request; duplicate hatches share a balance.
+                    gridAvailable = gridAvailable.max(grid.gridEnergyAvailable());
+                }
                 capacity = RecipePowerBudget.add(capacity, RecipePowerBudget.power(energy.getInputVoltage(), energy.getInputAmperage()));
+            }
         }
+        if (gridInput) return gridConnected
+                ? Component.translatable("gtl_enhancedcore.diagnostic.grid_power_detail", Math.max(0, required), gridAvailable.toString())
+                : text("grid_offline");
         var energy = machine instanceof WorkableElectricMultiblockMachine electric ? electric.getEnergyContainer() : null;
         long stored = energy == null ? 0 : Math.max(0, energy.getEnergyStored());
         return Component.translatable("gtl_enhancedcore.diagnostic.power_detail", Math.max(0, required), capacity, stored);

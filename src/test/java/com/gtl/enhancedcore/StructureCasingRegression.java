@@ -21,7 +21,6 @@ final class StructureCasingRegression {
                 Map.entry("advanced_sps_crafting", "gtceu:fusion_casing_mk2"),
                 Map.entry("star_ultimate_material_forge_factory", "gtlcore:molecular_casing"),
                 Map.entry("nano_core", "gtlcore:hyper_mechanical_casing"),
-                Map.entry("gravitation_shockburst", "gtlcore:create_casing"),
                 Map.entry("advanced_neutron_activator", "gtlcore:sps_casing"),
                 Map.entry("antientropy_condensation_center", "gtlcore:antifreeze_heatproof_machine_casing"),
                 Map.entry("advanced_integrated_ore_processor", "gtceu:robust_machine_casing"),
@@ -68,7 +67,7 @@ final class StructureCasingRegression {
                 machines++;
             }
         }
-        check(machines == 28 && changed.equals(expected.keySet()), "exact native palette scope");
+        check(machines == 27 && changed.equals(expected.keySet()), "exact native palette scope");
         return checks;
     }
 

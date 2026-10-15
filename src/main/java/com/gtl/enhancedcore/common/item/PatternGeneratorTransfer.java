@@ -5,6 +5,7 @@ import appeng.helpers.patternprovider.PatternContainer;
 import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import java.util.Map;
+import java.lang.ref.WeakReference;
 import java.util.UUID;
 import java.util.WeakHashMap;
 import net.minecraft.core.BlockPos;
@@ -18,8 +19,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerStoppedEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 /** Moves real generated stacks, using each target's insertion rules and bounded server ticks. */
+@Mod.EventBusSubscriber(modid = com.gtl.enhancedcore.GTLEnhancedcore.MOD_ID)
 public final class PatternGeneratorTransfer {
     private static final String SOURCE = "GTLPatternGeneratorSource";
     private static final String PREFIX = "message.gtl_enhancedcore.pattern_generator.";
@@ -32,7 +38,7 @@ public final class PatternGeneratorTransfer {
         final BlockPos pos;
         final Direction side;
         final Vec3 hit;
-        final BlockEntity blockEntity;
+        final WeakReference<BlockEntity> blockEntity;
         int inserted;
         long lastTick = -1;
 
@@ -41,7 +47,8 @@ public final class PatternGeneratorTransfer {
             pos = context.getClickedPos().immutable();
             side = context.getClickedFace();
             hit = context.getClickLocation();
-            blockEntity = context.getLevel().getBlockEntity(pos);
+            // A WeakHashMap value must not retain its player key through world -> players.
+            blockEntity = new WeakReference<>(context.getLevel().getBlockEntity(pos));
         }
     }
 
@@ -74,6 +81,14 @@ public final class PatternGeneratorTransfer {
     }
 
     public static void cancel(ServerPlayer player) { TRANSFERS.remove(player); }
+
+    @SubscribeEvent
+    public static void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) cancel(player);
+    }
+
+    @SubscribeEvent
+    public static void serverStopped(ServerStoppedEvent event) { TRANSFERS.clear(); }
 
     public static void begin(ServerPlayer player, UseOnContext context) {
         PatternGeneratorSettings settings = PatternGeneratorSettings.load(context.getItemInHand());
@@ -194,18 +209,18 @@ public final class PatternGeneratorTransfer {
 
     private static IItemHandler target(ServerPlayer player, Transfer transfer) {
         var level = player.serverLevel();
-        if (!level.hasChunkAt(transfer.pos) || level.getBlockEntity(transfer.pos) != transfer.blockEntity) return null;
+        var blockEntity = transfer.blockEntity.get();
+        if (blockEntity == null || !level.hasChunkAt(transfer.pos) || level.getBlockEntity(transfer.pos) != blockEntity) return null;
         var machine = MetaMachine.getMachine(level, transfer.pos);
         if (machine instanceof PatternContainer patterns) return patterns.getTerminalPatternInventory().toItemHandler();
-        if (transfer.blockEntity instanceof PatternContainer patterns) return patterns.getTerminalPatternInventory().toItemHandler();
-        if (transfer.blockEntity instanceof IPartHost host) {
+        if (blockEntity instanceof PatternContainer patterns) return patterns.getTerminalPatternInventory().toItemHandler();
+        if (blockEntity instanceof IPartHost host) {
             var selected = host.selectPartWorld(transfer.hit);
             if (selected.part instanceof PatternContainer patterns) return patterns.getTerminalPatternInventory().toItemHandler();
             if (host.getPart(transfer.side) instanceof PatternContainer patterns) return patterns.getTerminalPatternInventory().toItemHandler();
         }
-        if (transfer.blockEntity == null) return null;
-        return transfer.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, transfer.side)
-                .orElseGet(() -> transfer.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null));
+        return blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, transfer.side)
+                .orElseGet(() -> blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(null));
     }
 
     private static void finish(ServerPlayer player, Transfer transfer, String message) {

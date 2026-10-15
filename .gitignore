@@ -70,3 +70,10 @@ build_log.txt
 /standalone/*/libs/*.jar
 /standalone/*/build/
 /standalone/*/_audit/
+
+# Machine-local caches and IDE state
+/.gradle-user/
+/workspace/
+
+# Stray build artifact: the real Mixin config lives in src/main/resources
+/gtl_enhancedcore.mixins.json

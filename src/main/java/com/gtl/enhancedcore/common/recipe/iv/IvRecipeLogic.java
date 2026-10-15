@@ -9,6 +9,7 @@ import com.gregtechceu.gtceu.api.capability.recipe.EURecipeCapability;
 import com.gtl.enhancedcore.common.machine.TieredParallelMachine;
 import com.gtl.enhancedcore.common.recipe.MachineDiagnostics;
 import com.gtl.enhancedcore.common.recipe.RecipePowerBudget;
+import com.gtl.enhancedcore.common.recipe.GridEnergyInputs;
 import com.gtl.enhancedcore.common.util.FairRecipeSelector;
 import com.gtladd.gtladditions.api.machine.logic.GTLAddMultipleRecipesLogic;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.ae.MEPatternBufferPartMachine;
@@ -84,8 +85,8 @@ public final class IvRecipeLogic extends GTLAddMultipleRecipesLogic {
         var seen = Collections.newSetFromMap(new IdentityHashMap<com.gregtechceu.gtceu.api.capability.IEnergyContainer, Boolean>());
         var inputs=machine.getCapabilitiesProxy().get(com.gregtechceu.gtceu.api.capability.recipe.IO.IN,EURecipeCapability.CAP);
         if(inputs!=null)for(var input:inputs)if(input instanceof com.gregtechceu.gtceu.api.capability.IEnergyContainer energy && seen.add(energy)){
-            long voltage=Math.max(0,energy.getInputVoltage()),amperage=Math.max(0,energy.getInputAmperage());
-            power=RecipePowerBudget.add(power, RecipePowerBudget.power(voltage, amperage));
+            long amperage=Math.max(0,energy.getInputAmperage());
+            power=RecipePowerBudget.add(power, GridEnergyInputs.power(energy));
             amps=RecipePowerBudget.add(amps, amperage);
         }
         boolean changed = inputPower != power || inputAmperage != amps;
@@ -356,10 +357,11 @@ public final class IvRecipeLogic extends GTLAddMultipleRecipesLogic {
             wants[i] = job.energyLeft.min(BigInteger.valueOf(job.eut)).longValueExact();
         }
         var energy = machine.getEnergyContainer();
-        long available = energy == null ? 0 : Math.min(inputPower, energy.getEnergyStored());
+        var grid = GridEnergyInputs.find(machine);
+        long available = Math.min(inputPower, GridEnergyInputs.stored(machine));
         long[] grants = FairBudget.divide(Math.max(0, available), wants, powerRotation++);
         long requested = 0; for (long grant : grants) requested = Math.addExact(requested, grant);
-        long removed = requested == 0 ? 0 : energy.removeEnergy(requested);
+        long removed = GridEnergyInputs.remove(energy, grid, requested);
         if (removed < 0 || removed > requested) throw new IllegalStateException("能源容器返回了无效扣款量");
         currentEUt = removed;
         grants = FairBudget.divide(removed, grants, powerRotation);

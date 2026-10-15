@@ -201,30 +201,24 @@ public final class ChangelogConfig {
         return GSON.toJson(root);
     }
 
-    /** 内置默认 = 2.6 更新公告（用户 2026-10-11 提供，桌面更新说明.txt）。 */
+    /** 内置默认 = 2.7 更新公告（用户 2026-10-12 提供，桌面更新说明.txt）。 */
     private static ChangelogConfig defaults() {
         List<Section> sections = List.of(
                 new Section("问题修复", List.of(
-                        "修复了光之蚀梦者多方块预览的问题",
-                        "修复了更新gtlcore最新版的算力mixin失效的问题")),
-                new Section("机制更改", List.of(
-                        "因果重构终端有点过于强大了 数值削弱为0.1%概率成功 鱼大消耗增加到1000",
-                        "微生物支配者 获得了跨配方类型并行功能",
-                        "微生物支配者 获得了128的跨配方线程",
-                        "标签库存输入总线槽位由16变更为160",
-                        "恢复了16384安以上的电网激光靶仓",
-                        "修改了大部分机器的tips 更符合原版格式",
-                        "中子控制工厂并行调整为4096")),
+                        "修复了虚拟电路使用虚拟原料在跨配方类型并行机器上无法正常识别的问题",
+                        "修复了laser_engraver系列来源配方无法被正常识别的问题",
+                        "修复了物品tips标注的配方类型错误的问题",
+                        "修复了中子控制工厂并行修改没有生效的问题",
+                        "修复了部分配方任然需要使用透镜和模具的问题",
+                        "修复了服务器环境 右键标签库存输入总线崩溃的问题",
+                        "JS文件屎山全部重构 代码更简洁 明了",
+                        "更新后可能需要修改部分原有模具和透镜的样板")),
                 new Section("机器添加", List.of(
-                        "行星剥离装置 UHV机器 大型碎片采集器上位",
-                        "极限反应堆 超能反应堆上位")),
-                new Section("更新", List.of(
-                        "gtlcore更新至最新版",
-                        "gtladd更新至最新版")),
+                        "临界增殖反应堆 拥有512条跨配方线程的裂变反应堆上位机器")),
                 new Section("兼容性警告", List.of(
                         "增强版核心模组的改动特别大 未经测试 不推荐安装任何其他私货模组或者KJS文件",
                         "也请不要更新增强版的任何模组 如因上述操作导致崩溃 BUG的一概不予受理")));
-        return new ChangelogConfig(true, "2.6", "GregTech Leisure-增强版：2.6", sections);
+        return new ChangelogConfig(true, "2.7", "GregTech Leisure-增强版：2.7", sections);
 
     }
 }

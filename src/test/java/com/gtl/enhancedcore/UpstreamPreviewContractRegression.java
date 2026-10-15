@@ -10,6 +10,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.zip.ZipFile;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.AnnotationNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.VarInsnNode;
+import com.gtl.enhancedcore.common.integration.MultiblockPreviewLaziness;
 
 /** Preview/terminal packaging and ownership contract; runtime behavior is checked by the audit. */
 public final class UpstreamPreviewContractRegression {
@@ -27,14 +36,16 @@ public final class UpstreamPreviewContractRegression {
         assertions = 0;
         localOwnership();
         upstreamPackaging();
+        lazyPostApply();
         return assertions;
     }
 
     private static void localOwnership() throws Exception {
         try (var files = Files.list(MAIN.resolve("client/preview"))) {
             var names = files.filter(Files::isRegularFile).map(path -> path.getFileName().toString()).toList();
-            check(names.equals(List.of("PreviewEffectAnchors.java")),
-                    "Only the custom neutron-star effect anchor index remains in the local preview package");
+            check(Set.copyOf(names).equals(Set.of("PreviewEffectAnchors.java",
+                            "LazyMultiblockPreviewWidget.java", "PreviewPatternMemory.java")),
+                    "Local preview helpers only provide the custom effect anchor and bounded lazy lifecycle");
         }
         var local = JsonParser.parseString(Files.readString(RESOURCES.resolve("gtl_enhancedcore.mixins.json"))).getAsJsonObject();
         var registered = entries(local);
@@ -118,6 +129,7 @@ public final class UpstreamPreviewContractRegression {
                 check(jar.getEntry("org/gtlcore/gtlcore/client/preview/" + type + ".class") != null,
                         "Upstream owns the required preview component: " + type);
             }
+            checkGtlCoreFactoryStub(jar);
             checkReference(jar, "api/gui/PatternPreviewWidget", "client/preview/PreviewControls");
             checkReference(jar, "api/gui/PatternPreviewWidget", "client/preview/PreviewScenes");
             checkReference(jar, "client/preview/FullscreenPreviewScreen", "client/preview/PreviewPan");
@@ -129,6 +141,88 @@ public final class UpstreamPreviewContractRegression {
                         "Upstream packages the fullscreen icon: " + icon);
             }
         }
+    }
+
+    /** GTCEu's wrapper constructor still invokes its old factory before GTLCore's
+     * ModifyArg hook. The fix4 mixin deliberately turns that call into null, so
+     * this contract prevents a dependency upgrade from reintroducing eager work. */
+    private static void checkGtlCoreFactoryStub(ZipFile jar) throws Exception {
+        var entry = jar.getEntry("org/gtlcore/gtlcore/mixin/gtm/gui/PatternPreviewWidgetMixin.class");
+        check(entry != null, "GTLCore packages the GTCEu preview factory guard");
+        var node = new ClassNode();
+        new ClassReader(jar.getInputStream(entry).readAllBytes()).accept(node,
+                ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
+        var guards = node.methods.stream().filter(method -> "getPatternWidget".equals(method.name)
+                && method.desc.equals("(Lcom/gregtechceu/gtceu/api/machine/MultiblockMachineDefinition;)"
+                        + "Lcom/gregtechceu/gtceu/api/gui/widget/PatternPreviewWidget;")).toList();
+        check(guards.size() == 1, "GTLCore declares exactly one GTCEu preview factory guard");
+        var instructions = new java.util.ArrayList<Integer>();
+        for (var instruction : guards.getFirst().instructions)
+            if (instruction.getOpcode() >= 0) instructions.add(instruction.getOpcode());
+        check(instructions.equals(List.of(Opcodes.ACONST_NULL, Opcodes.ARETURN)),
+                "GTLCore fix4 preview factory guard returns null without constructing GT previews");
+    }
+
+    private static void lazyPostApply() {
+        String marker = MultiblockPreviewLaziness.MARKER_MIXIN;
+        String wrapper = "com.gregtechceu.gtceu.integration.jei.multipage.MultiblockInfoWrapper";
+        String definition = "Lcom/gregtechceu/gtceu/api/machine/MultiblockMachineDefinition;";
+        var node = new ClassNode();
+        var method = mergedMethod("handler$gtlcore$MultiblockInfoWrapper", "(Lcom/lowdragmc/lowdraglib/gui/widget/Widget;"
+                + definition + ")Lcom/lowdragmc/lowdraglib/gui/widget/Widget;",
+                "org.gtlcore.gtlcore.mixin.gtm.MultiblockInfoWrapperMixin");
+        method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 1));
+        var call = new MethodInsnNode(Opcodes.INVOKESTATIC, "org/gtlcore/gtlcore/api/gui/PatternPreviewWidget",
+                "getPatternWidget", "(" + definition + ")Lorg/gtlcore/gtlcore/api/gui/PatternPreviewWidget;", false);
+        method.instructions.add(call);
+        method.instructions.add(new InsnNode(Opcodes.ARETURN));
+        node.methods.add(method);
+        MultiblockPreviewLaziness.postApply(wrapper, node, "some.other.Mixin");
+        check(call.owner.startsWith("org/gtlcore/"), "Only the dedicated marker can change preview factories");
+        MultiblockPreviewLaziness.postApply(wrapper, node, marker);
+        check(call.owner.equals("com/gtl/enhancedcore/client/preview/LazyMultiblockPreviewWidget")
+                        && call.name.equals("create") && call.desc.endsWith("Lcom/lowdragmc/lowdraglib/gui/widget/Widget;"),
+                "GTLCore's merged wrapper factory is precisely changed to the lightweight widget");
+        var missing = new ClassNode();
+        expectRejected(() -> MultiblockPreviewLaziness.postApply(wrapper, missing, marker),
+                "A missing GTLCore merged factory fails instead of silently loading eager previews");
+        var wrongOwner = new ClassNode();
+        wrongOwner.methods.add(mergedMethod("handler$gtlcore$MultiblockInfoWrapper", method.desc, "some.other.Mixin"));
+        expectRejected(() -> MultiblockPreviewLaziness.postApply(wrapper, wrongOwner, marker),
+                "A method name without GTLCore provenance cannot be changed");
+
+        var category = new ClassNode();
+        String categoryDescriptor = "(Lmezz/jei/api/gui/builder/IRecipeLayoutBuilder;"
+                + "Lcom/gregtechceu/gtceu/integration/jei/multipage/MultiblockInfoWrapper;Lmezz/jei/api/recipe/IFocusGroup;)V";
+        var setRecipe = mergedMethod("setRecipe", categoryDescriptor,
+                "org.gtlcore.gtlcore.mixin.gtm.MultiblockInfoCategoryMixin");
+        setRecipe.instructions.add(new InsnNode(Opcodes.RETURN));
+        category.methods.add(setRecipe);
+        var bridge = mergedMethod("setRecipe", "(Lmezz/jei/api/gui/builder/IRecipeLayoutBuilder;Ljava/lang/Object;"
+                + "Lmezz/jei/api/recipe/IFocusGroup;)V", "org.gtlcore.gtlcore.mixin.gtm.MultiblockInfoCategoryMixin");
+        bridge.instructions.add(new InsnNode(Opcodes.RETURN));
+        category.methods.add(bridge);
+        MultiblockPreviewLaziness.postApply("com.gregtechceu.gtceu.integration.jei.multipage.MultiblockInfoCategory",
+                category, marker);
+        check(setRecipe.instructions.size() == 7 && bridge.instructions.size() == 1,
+                "Only the exact typed category method receives preparation and indexing early return");
+        check(setRecipe.instructions.get(2) instanceof MethodInsnNode prepare
+                        && prepare.name.equals("prepare") && prepare.desc.equals("(Ljava/lang/Object;Ljava/lang/Object;)Z"),
+                "Preparation gets the actual builder and wrapper without creating client layouts");
+    }
+
+    private static MethodNode mergedMethod(String name, String descriptor, String owner) {
+        var method = new MethodNode(Opcodes.ACC_PUBLIC | Opcodes.ACC_STATIC, name, descriptor, null, null);
+        var annotation = new AnnotationNode("Lorg/spongepowered/asm/mixin/transformer/meta/MixinMerged;");
+        annotation.values = new java.util.ArrayList<>(List.of("mixin", owner));
+        method.visibleAnnotations = new java.util.ArrayList<>(List.of(annotation));
+        return method;
+    }
+
+    private static void expectRejected(Runnable task, String message) {
+        try { task.run(); }
+        catch (IllegalStateException expected) { check(true, message); return; }
+        check(false, message);
     }
 
     private static void checkReference(ZipFile jar, String owner, String dependency) throws Exception {

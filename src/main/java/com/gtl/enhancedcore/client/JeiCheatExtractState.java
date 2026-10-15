@@ -1,6 +1,7 @@
 package com.gtl.enhancedcore.client;
 
 import appeng.api.stacks.AEKey;
+import java.lang.ref.WeakReference;
 import net.minecraft.client.gui.screens.Screen;
 
 /**
@@ -14,14 +15,14 @@ import net.minecraft.client.gui.screens.Screen;
  */
 public final class JeiCheatExtractState {
 
-    private static Screen pendingScreen;
+    private static WeakReference<Screen> pendingScreen;
     private static AEKey pendingKey;
 
     private JeiCheatExtractState() {
     }
 
     public static void setPending(Screen screen, AEKey key) {
-        pendingScreen = screen;
+        pendingScreen = new WeakReference<>(screen);
         pendingKey = key;
     }
 
@@ -46,7 +47,7 @@ public final class JeiCheatExtractState {
     /** 取出并清除与指定屏幕匹配的挂起取物；屏幕不匹配时返回 null（同时清除陈旧状态）。 */
     public static AEKey take(Screen screen) {
         AEKey key = null;
-        if (pendingScreen != null && pendingScreen == screen && pendingKey != null) {
+        if (pendingScreen != null && pendingScreen.get() == screen && pendingKey != null) {
             key = pendingKey;
         }
         pendingScreen = null;

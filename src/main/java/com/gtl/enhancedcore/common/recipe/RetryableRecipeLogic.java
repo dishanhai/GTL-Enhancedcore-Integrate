@@ -164,8 +164,8 @@ public class RetryableRecipeLogic extends RecipeLogic {
             ((IRecipeStatus) (Object) this).setRecipeStatus(RecipeResult.FAIL_OUTPUT);
             return false;
         }
-        var energy = ((WorkableElectricMultiblockMachine) getMachine()).getEnergyContainer();
-        if (requiresStoredEnergy() && RecipeHelper.getInputEUt(modified) > (energy == null ? 0 : energy.getEnergyStored())) {
+        if (requiresStoredEnergy() && RecipeHelper.getInputEUt(modified)
+                > GridEnergyInputs.stored((WorkableElectricMultiblockMachine) getMachine())) {
             ((IRecipeStatus) (Object) this).setRecipeStatus(RecipeResult.FAIL_NO_ENOUGH_EU_IN);
             diagnosticJson = Component.Serializer.toJson(MachineDiagnostics.power((WorkableElectricMultiblockMachine) getMachine(), RecipeHelper.getInputEUt(modified)));
             return false;

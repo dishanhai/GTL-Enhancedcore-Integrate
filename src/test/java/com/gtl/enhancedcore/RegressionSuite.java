@@ -32,9 +32,13 @@ public final class RegressionSuite {
         assertions += CreativeComputationPolicyRegression.run();
         assertions += EquipmentRecipesRegression.run();
         assertions += StarCoreStripperRegression.run();
+        assertions += HighFluxBreederReactorRegression.run();
+        assertions += HydrothermalStructuresRegression.run();
+        assertions += CopyKeysRegression.run();
+        assertions += TerminalExtrasRegression.run();
+        assertions += CraftingTreeBudgetRegression.run();
         assertions += ExtremeReactorRegression.run();
         assertions += ConfigEditorRegression.run();
-        assertions += TagFilterStockBusRegression.run();
         assertions += PatternGeneratorRegression.run();
         assertions += BlackHoleFrameRegression.run();
         assertions += StellarForgeRegression.run();
@@ -56,6 +60,7 @@ public final class RegressionSuite {
         assertions += FlightStateConcurrencyRegression.run();
         assertions += CoilDebugToolRegression.run();
         assertions += RecipeRecoveryRegression.run();
+        assertions += GridRecipePaymentRegression.run();
         assertions += ChunkUnloadRegression.run();
         assertions += ModuleStabilityRegression.run();
         assertions += SuprachronalModuleRemovalRegression.run();
@@ -152,6 +157,12 @@ public final class RegressionSuite {
 
     private static void structureMigration() throws Exception {
         var manifest = JsonParser.parseString(Files.readString(Path.of("src/test/resources/structure-design-baseline.json"))).getAsJsonObject();
+        var migrated = JsonParser.parseString(Files.readString(Path.of(
+                "src/test/resources/structure-file-loading-baseline.json"))).getAsJsonObject();
+        for (var entry : migrated.entrySet()) {
+            check(!manifest.has(entry.getKey()), entry.getKey() + " separate migration baseline");
+            manifest.add(entry.getKey(), entry.getValue());
+        }
         for (var entry : manifest.entrySet()) {
             Path resource = Path.of("src/main/resources/data/gtl_enhancedcore/structures", entry.getKey());
             StructureData data = StructureData.read(Files.newInputStream(resource));
@@ -160,9 +171,21 @@ public final class RegressionSuite {
             data.forEachAisle(aisles::add);
             check(aisles.size() == expected.get("depth").getAsInt(), entry.getKey() + " aisle count");
             check(aisles.stream().allMatch(rows -> rows.length == expected.get("height").getAsInt()), entry.getKey() + " height");
+            check(aisles.stream().flatMap(java.util.Arrays::stream)
+                    .allMatch(row -> row.length() == expected.get("width").getAsInt()), entry.getKey() + " width");
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             for (String[] aisle : aisles) for (String row : aisle) digest.update((row + "\n").getBytes(StandardCharsets.US_ASCII));
             check(HexFormat.of().formatHex(digest.digest()).equals(expected.get("sha256").getAsString()), entry.getKey() + " reviewed geometry baseline");
+            if (migrated.has(entry.getKey())) {
+                StructureData packaged = StructureData.read(RegressionSuite.class.getResourceAsStream(
+                        "/data/gtl_enhancedcore/structures/" + entry.getKey()));
+                MessageDigest packagedDigest = MessageDigest.getInstance("SHA-256");
+                packaged.forEachAisle(rows -> {
+                    for (String row : rows) packagedDigest.update((row + "\n").getBytes(StandardCharsets.US_ASCII));
+                });
+                check(HexFormat.of().formatHex(packagedDigest.digest()).equals(expected.get("sha256").getAsString()),
+                        entry.getKey() + " classpath loading preserves geometry and whitespace");
+            }
             String original = aisles.get(0)[0];
             aisles.get(0)[0] = "mutated";
             List<String[]> secondRead = new ArrayList<>();

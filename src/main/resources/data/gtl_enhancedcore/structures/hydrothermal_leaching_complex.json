@@ -1,0 +1,160 @@
+{
+  "namespace": "gtl_enhancedcore",
+  "sourceSize": [
+    109,
+    73,
+    145
+  ],
+  "size": [
+    109,
+    73,
+    145
+  ],
+  "sourceController": [
+    12,
+    12,
+    9
+  ],
+  "sourceNormal": [
+    0,
+    0,
+    -1
+  ],
+  "controllerPosition": [
+    96,
+    12,
+    135
+  ],
+  "bindings": {
+    " ": {
+      "mode": "any"
+    },
+    "C": {
+      "mode": "controller"
+    },
+    "X": {
+      "mode": "hatch"
+    },
+    "A": {
+      "mode": "literal",
+      "block": "gtlcore:hyper_mechanical_casing",
+      "properties": {}
+    },
+    "B": {
+      "mode": "literal",
+      "block": "gtlcore:lafium_mechanical_casing",
+      "properties": {}
+    },
+    "D": {
+      "mode": "literal",
+      "block": "gtlcore:molecular_casing",
+      "properties": {}
+    },
+    "E": {
+      "mode": "literal",
+      "block": "gtceu:inert_machine_casing",
+      "properties": {}
+    },
+    "F": {
+      "mode": "literal",
+      "block": "gtceu:ptfe_pipe_casing",
+      "properties": {}
+    },
+    "G": {
+      "mode": "literal",
+      "block": "gtceu:tungstensteel_pipe_casing",
+      "properties": {}
+    },
+    "I": {
+      "mode": "literal",
+      "block": "gtceu:tungstensteel_gearbox",
+      "properties": {}
+    },
+    "J": {
+      "mode": "literal",
+      "block": "gtlcore:iridium_casing",
+      "properties": {}
+    },
+    "K": {
+      "mode": "literal",
+      "block": "gtceu:laminated_glass",
+      "properties": {}
+    },
+    "L": {
+      "mode": "literal",
+      "block": "kubejs:titansteel_coil_block",
+      "properties": {
+        "active": "false"
+      }
+    },
+    "N": {
+      "mode": "literal",
+      "block": "gtceu:advanced_computer_casing",
+      "properties": {}
+    },
+    "O": {
+      "mode": "literal",
+      "block": "gtceu:computer_heat_vent",
+      "properties": {}
+    },
+    "P": {
+      "mode": "literal",
+      "block": "gtceu:white_lamp",
+      "properties": {
+        "bloom": "false",
+        "inverted": "true",
+        "lit": "true",
+        "powered": "false"
+      }
+    },
+    "Q": {
+      "mode": "literal",
+      "block": "gtceu:blue_lamp",
+      "properties": {
+        "bloom": "false",
+        "inverted": "true",
+        "lit": "true",
+        "powered": "false"
+      }
+    },
+    "R": {
+      "mode": "literal",
+      "block": "gtceu:orange_lamp",
+      "properties": {
+        "bloom": "false",
+        "inverted": "true",
+        "lit": "true",
+        "powered": "false"
+      }
+    },
+    "S": {
+      "mode": "literal",
+      "block": "gtceu:vibration_safe_casing",
+      "properties": {}
+    }
+  },
+  "counts": {
+    " ": 935440,
+    "A": 48357,
+    "J": 7515,
+    "S": 109728,
+    "F": 15576,
+    "G": 6133,
+    "P": 214,
+    "B": 3169,
+    "E": 17060,
+    "I": 1724,
+    "L": 6436,
+    "Q": 83,
+    "R": 321,
+    "O": 588,
+    "D": 402,
+    "K": 797,
+    "N": 197,
+    "X": 24,
+    "C": 1
+  },
+  "diamondOreMarkers": 24,
+  "sourceSha256": "308289db409ceff32d96da935de4ae53464c266f5ef428f3ff60b248cfbafd3b",
+  "sha256": "81b97dd863e3b299ca51a88b31b68907abda92bece8297459420e3108569a3e1"
+}

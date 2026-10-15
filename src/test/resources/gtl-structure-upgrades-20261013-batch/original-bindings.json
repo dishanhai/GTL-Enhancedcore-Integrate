@@ -1,0 +1,523 @@
+{
+  "wood_distillation": {
+    "id": "gtceu:wood_distillation",
+    "size": [
+      23,
+      20,
+      15
+    ],
+    "controller": [
+      12,
+      1,
+      11
+    ],
+    "predicates": [
+      {
+        "symbol": "I",
+        "sample": [
+          0,
+          0,
+          6
+        ],
+        "block": "gtceu:heatproof_machine_casing"
+      },
+      {
+        "symbol": "N",
+        "sample": [
+          14,
+          2,
+          2
+        ],
+        "block": "gtceu:hv_hermetic_casing"
+      },
+      {
+        "symbol": "J",
+        "sample": [
+          0,
+          6,
+          13
+        ],
+        "block": "gtceu:stainless_evaporation_casing"
+      },
+      {
+        "symbol": "E",
+        "sample": [
+          1,
+          5,
+          19
+        ],
+        "block": "gtceu:filter_casing"
+      },
+      {
+        "symbol": "L",
+        "sample": [
+          12,
+          0,
+          9
+        ],
+        "block": "gtceu:heatproof_machine_casing",
+        "hatch": true
+      },
+      {
+        "symbol": "B",
+        "sample": [
+          0,
+          0,
+          1
+        ],
+        "block": "gtceu:heat_vent"
+      },
+      {
+        "symbol": "D",
+        "sample": [
+          0,
+          11,
+          19
+        ],
+        "block": "gtceu:clean_machine_casing"
+      },
+      {
+        "symbol": "G",
+        "sample": [
+          2,
+          1,
+          2
+        ],
+        "block": "gtceu:steel_pipe_casing"
+      },
+      {
+        "symbol": "K",
+        "sample": [
+          1,
+          0,
+          7
+        ],
+        "block": "gtceu:steel_firebox_casing"
+      },
+      {
+        "symbol": "C",
+        "sample": [
+          0,
+          2,
+          0
+        ],
+        "block": "gtceu:stainless_steel_frame"
+      },
+      {
+        "symbol": "A",
+        "sample": [
+          0,
+          0,
+          0
+        ],
+        "block": "gtceu:frostproof_machine_casing"
+      },
+      {
+        "symbol": "M",
+        "sample": [
+          12,
+          1,
+          11
+        ],
+        "controller": true
+      },
+      {
+        "symbol": "H",
+        "sample": [
+          10,
+          7,
+          9
+        ],
+        "requiredPart": "MUFFLER",
+        "count": 2
+      }
+    ],
+    "provenance": "Current local GTLCore fix4 / GTLAdditions 3.3.1Custom bytecode and original geometry; sample=[aisle,row,column]"
+  },
+  "pcb_factory": {
+    "id": "gtceu:pcb_factory",
+    "size": [
+      17,
+      10,
+      15
+    ],
+    "controller": [
+      12,
+      0,
+      9
+    ],
+    "predicates": [
+      {
+        "symbol": "j",
+        "sample": [
+          6,
+          0,
+          7
+        ],
+        "block": "gtceu:watertight_casing",
+        "hatch": true
+      },
+      {
+        "symbol": "b",
+        "sample": [
+          0,
+          0,
+          1
+        ],
+        "block": "gtceu:clean_machine_casing"
+      },
+      {
+        "symbol": "c",
+        "sample": [
+          0,
+          0,
+          7
+        ],
+        "block": "gtceu:blue_steel_frame"
+      },
+      {
+        "symbol": "d",
+        "sample": [
+          4,
+          0,
+          14
+        ],
+        "block": "gtlcore:antifreeze_heatproof_machine_casing"
+      },
+      {
+        "symbol": "e",
+        "sample": [
+          0,
+          1,
+          1
+        ],
+        "block": "gtceu:laminated_glass"
+      },
+      {
+        "symbol": "g",
+        "sample": [
+          3,
+          0,
+          12
+        ],
+        "block": "gtceu:ptfe_pipe_casing"
+      },
+      {
+        "symbol": "h",
+        "sample": [
+          4,
+          0,
+          13
+        ],
+        "block": "gtceu:ultimet_frame"
+      },
+      {
+        "symbol": "i",
+        "sample": [
+          0,
+          0,
+          0
+        ],
+        "block": "gtceu:hsla_steel_frame"
+      },
+      {
+        "symbol": "k",
+        "sample": [
+          7,
+          0,
+          7
+        ],
+        "block": "gtceu:stress_proof_casing"
+      },
+      {
+        "symbol": "l",
+        "sample": [
+          0,
+          0,
+          8
+        ],
+        "block": "gtceu:stainless_evaporation_casing"
+      },
+      {
+        "symbol": "a",
+        "sample": [
+          12,
+          0,
+          9
+        ],
+        "controller": true
+      }
+    ],
+    "provenance": "Current local GTLCore fix4 / GTLAdditions 3.3.1Custom bytecode and original geometry; sample=[aisle,row,column]"
+  },
+  "a_mass_fabricator": {
+    "id": "gtceu:a_mass_fabricator",
+    "size": [
+      11,
+      7,
+      14
+    ],
+    "controller": [
+      13,
+      0,
+      5
+    ],
+    "predicates": [
+      {
+        "symbol": "A",
+        "sample": [
+          0,
+          0,
+          0
+        ],
+        "block": "gtceu:uxv_machine_casing"
+      },
+      {
+        "symbol": "I",
+        "sample": [
+          12,
+          1,
+          3
+        ],
+        "block": "gtceu:uxv_machine_casing",
+        "hatch": true
+      },
+      {
+        "symbol": "B",
+        "sample": [
+          2,
+          1,
+          1
+        ],
+        "block": "gtlcore:rhenium_reinforced_energy_glass"
+      },
+      {
+        "symbol": "C",
+        "sample": [
+          2,
+          1,
+          2
+        ],
+        "block": "kubejs:titansteel_coil_block"
+      },
+      {
+        "symbol": "D",
+        "sample": [
+          2,
+          1,
+          4
+        ],
+        "block": "gtceu:neutronium_frame"
+      },
+      {
+        "symbol": "E",
+        "sample": [
+          2,
+          2,
+          5
+        ],
+        "block": "kubejs:hollow_casing"
+      },
+      {
+        "symbol": "F",
+        "sample": [
+          2,
+          3,
+          5
+        ],
+        "block": "gtlcore:hyper_core"
+      },
+      {
+        "symbol": "S",
+        "sample": [
+          13,
+          0,
+          5
+        ],
+        "controller": true
+      }
+    ],
+    "provenance": "Current local GTLCore fix4 / GTLAdditions 3.3.1Custom bytecode and original geometry; sample=[aisle,row,column]"
+  },
+  "skeleton_shift_rift_engine": {
+    "id": "gtladditions:skeleton_shift_rift_engine",
+    "size": [
+      32,
+      23,
+      31
+    ],
+    "controller": [
+      15,
+      2,
+      31
+    ],
+    "predicates": [
+      {
+        "symbol": "P",
+        "sample": [
+          11,
+          2,
+          7
+        ],
+        "block": "gtlcore:ultimate_stellar_containment_casing",
+        "note": "Original tierCasings(BlockMap.scMap, SCTier); all stellar casing tiers stay accepted"
+      },
+      {
+        "symbol": "E",
+        "sample": [
+          0,
+          7,
+          5
+        ],
+        "block": "gtceu:black_steel_frame"
+      },
+      {
+        "symbol": "B",
+        "sample": [
+          0,
+          1,
+          13
+        ],
+        "block": "gtceu:high_power_casing"
+      },
+      {
+        "symbol": "D",
+        "sample": [
+          0,
+          4,
+          4
+        ],
+        "block": "gtlcore:sps_casing"
+      },
+      {
+        "symbol": "J",
+        "sample": [
+          2,
+          2,
+          22
+        ],
+        "block": "gtceu:steel_pipe_casing"
+      },
+      {
+        "symbol": "A",
+        "sample": [
+          0,
+          0,
+          7
+        ],
+        "block": "gtlcore:iridium_casing"
+      },
+      {
+        "symbol": "M",
+        "sample": [
+          5,
+          1,
+          10
+        ],
+        "block": "gtceu:tungstensteel_gearbox"
+      },
+      {
+        "symbol": "H",
+        "sample": [
+          1,
+          2,
+          3
+        ],
+        "block": "gtlcore:hyper_mechanical_casing"
+      },
+      {
+        "symbol": "h",
+        "sample": [
+          10,
+          1,
+          31
+        ],
+        "block": "gtlcore:hyper_mechanical_casing",
+        "hatch": true
+      },
+      {
+        "symbol": "O",
+        "sample": [
+          8,
+          5,
+          5
+        ],
+        "block": "gtlcore:degenerate_rhenium_constrained_casing"
+      },
+      {
+        "symbol": "F",
+        "sample": [
+          1,
+          1,
+          13
+        ],
+        "block": "kubejs:neutronium_pipe_casing"
+      },
+      {
+        "symbol": "I",
+        "sample": [
+          1,
+          2,
+          22
+        ],
+        "block": "kubejs:dimensional_bridge_casing"
+      },
+      {
+        "symbol": "N",
+        "sample": [
+          7,
+          9,
+          15
+        ],
+        "block": "kubejs:naquadriatictaranium_coil_block",
+        "note": "Original heatingCoils() updates CoilType and enforces one coil type"
+      },
+      {
+        "symbol": "G",
+        "sample": [
+          1,
+          1,
+          21
+        ],
+        "block": "gtlcore:dimensionally_transcendent_casing"
+      },
+      {
+        "symbol": "C",
+        "sample": [
+          0,
+          2,
+          4
+        ],
+        "block": "gtlcore:enhance_hyper_mechanical_casing"
+      },
+      {
+        "symbol": "K",
+        "sample": [
+          3,
+          2,
+          4
+        ],
+        "block": "gtlcore:hyper_core"
+      },
+      {
+        "symbol": "L",
+        "sample": [
+          3,
+          7,
+          12
+        ],
+        "block": "gtceu:fusion_glass"
+      },
+      {
+        "symbol": "Q",
+        "sample": [
+          15,
+          2,
+          31
+        ],
+        "controller": true
+      }
+    ],
+    "provenance": "Current local GTLCore fix4 / GTLAdditions 3.3.1Custom bytecode and original geometry; sample=[aisle,row,column]"
+  }
+}

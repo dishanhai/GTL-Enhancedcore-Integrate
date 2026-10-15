@@ -6,12 +6,13 @@ import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.common.data.GTMachines;
 import com.gregtechceu.gtceu.api.machine.multiblock.PartAbility;
 import com.gregtechceu.gtceu.api.pattern.BlockPattern;
-import com.gregtechceu.gtceu.api.pattern.FactoryBlockPattern;
 import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
 import com.gtladd.gtladditions.api.machine.GTLAddPartAbility;
 import com.gtl.enhancedcore.common.structure.DistorterCoils;
+import com.gtl.enhancedcore.common.structure.StructurePatterns;
 import com.gtl.enhancedcore.common.structure.StarCoreStripperStructure;
+import com.gtl.enhancedcore.common.structure.HighFluxBreederReactorStructure;
 import com.gtl.enhancedcore.common.recipe.iv.IvBufferRegistry;
 import com.gtl.enhancedcore.common.data.machines.multiblock.BxjljzStructure.BxjljzStructure;
 import com.gtl.enhancedcore.common.data.machines.multiblock.VoidConstrainedMiningFieldStructure.VoidConstrainedMiningFieldStructure;
@@ -131,12 +132,7 @@ public final class GTLStructures {
     }
     // 八角环：外圈钨钢，内圈钢化玻璃，中央功能柱；正面控制器。
     public static BlockPattern plasmaMachine(MultiblockMachineDefinition def) {
-        return FactoryBlockPattern.start()
-                .aisle(".RRRRR.", "RRTTTRR", "RTATATR", "RRTTTRR", ".RRRRR.")
-                .aisle(".RRRRR.", "RT...TR", "RA.A.AR", "RT...TR", ".RRRRR.")
-                .aisle(".RRRRR.", "RT...TR", "RA.A.AR", "RT...TR", ".RRRRR.")
-                .aisle(".RRRRR.", "RT...TR", "RA.A.AR", "RT...TR", ".RRRRR.")
-                .aisle(".RRRRR.", "RARARAR", "RATACAR", "RARARAR", ".RRRRR.")
+        return StructurePatterns.start("/data/gtl_enhancedcore/structures/legacy/plasma_machine_ring.pattern.gz")
                 .where('C', controller(def))
                 .where('A', tieredA())
                 .where('R', block("gtceu:robust_machine_casing"))
@@ -148,16 +144,7 @@ public final class GTLStructures {
     // ==================== 精炼塔（IV）：精馏塔，5×5×9 ====================
     // 双层基座 + 3×3 塔身，玻璃/不锈钢带交替，塔顶收口；控制器在基座正面。
     public static BlockPattern hadronRefinery(MultiblockMachineDefinition def) {
-        return FactoryBlockPattern.start()
-                .aisle("..R..", ".RTR.", ".R.R.", ".R.R.", ".R.R.", ".R.R.", ".R.R.", "RRRRR", "RRRRR")
-                .aisle("..R..", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", "RRRRR", "RRRRR")
-                .aisle("..R..", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", "RRRRR", "RRRRR")
-                .aisle("..R..", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", "RRRRR", "RRRRR")
-                .aisle("..R..", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", "RRRRR", "RRRRR")
-                .aisle("..R..", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", "RRRRR", "RRRRR")
-                .aisle("..R..", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", "RRRRR", "RRRRR")
-                .aisle("..R..", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", ".A.A.", "RRRRR", "RRRRR")
-                .aisle("..R..", ".A.A.", ".T.T.", ".S.S.", ".T.T.", ".A.A.", ".A.A.", "RACAR", "RRRRR")
+        return StructurePatterns.start("/data/gtl_enhancedcore/structures/legacy/hadron_refinery.pattern.gz")
                 .where('C', controller(def))
                 .where('A', tieredA())
                 .where('R', block("gtceu:robust_machine_casing"))
@@ -170,12 +157,7 @@ public final class GTLStructures {
     // ==================== 质谱阵列（IV）：双轨道环，7×7×5 ====================
     // 两层环形轨道（玻璃环/钨钢环）环绕中央功能柱，正面控制器。
     public static BlockPattern quantumArray(MultiblockMachineDefinition def) {
-        return FactoryBlockPattern.start()
-                .aisle("..TTT..", ".T...T.", "T..A..T", ".T...T.", "..TTT..")
-                .aisle("..RRR..", ".R...R.", "R..A..R", ".R...R.", "..RRR..")
-                .aisle("..TTT..", ".T...T.", "T..A..T", ".T...T.", "..TTT..")
-                .aisle("..RRR..", ".R...R.", "R..A..R", ".R...R.", "..RRR..")
-                .aisle("..RRR..", ".RARAR.", "RATACAR", ".RARAR.", "..RRR..")
+        return StructurePatterns.start("/data/gtl_enhancedcore/structures/legacy/quantum_mass_array.pattern.gz")
                 .where('C', controller(def))
                 .where('A', tieredA())
                 .where('R', block("gtceu:robust_machine_casing"))
@@ -187,12 +169,7 @@ public final class GTLStructures {
     // ==================== 融合组装机（IV）：托卡马克，7×7×5 ====================
     // 八角聚变环（聚变机壳）+ 玻璃芯环 + 中央功能柱，正面控制器。
     public static BlockPattern fusionAssembler(MultiblockMachineDefinition def) {
-        return FactoryBlockPattern.start()
-                .aisle(".FFFFF.", "FFTTTFF", "FTATATF", "FFTTTFF", ".FFFFF.")
-                .aisle(".FFFFF.", "FT...TF", "FA.A.AF", "FT...TF", ".FFFFF.")
-                .aisle(".TTTTT.", "TT...TT", "TA.A.AT", "TT...TT", ".TTTTT.")
-                .aisle(".FFFFF.", "FT...TF", "FA.A.AF", "FT...TF", ".FFFFF.")
-                .aisle(".FFFFF.", "FARARAF", "FATACAF", "FARARAF", ".FFFFF.")
+        return StructurePatterns.start("/data/gtl_enhancedcore/structures/legacy/fusion_assembler.pattern.gz")
                 .where('C', controller(def))
                 .where('A', tieredA())
                 .where('R', block("gtceu:robust_machine_casing"))
@@ -205,10 +182,7 @@ public final class GTLStructures {
     // ==================== 气象锚点（UXV）：默认 3×3×3 ====================
     // 默认 3×3×3 高功率机器外壳，控制器正面居中。
     public static BlockPattern weatherAnchor(MultiblockMachineDefinition def) {
-        return FactoryBlockPattern.start()
-                .aisle("AAA", "AAA", "AAA")
-                .aisle("AAA", "AAA", "AAA")
-                .aisle("AAA", "ACA", "AAA")
+        return StructurePatterns.start("/data/gtl_enhancedcore/structures/legacy/compact_high_power.pattern.gz")
                 .where('C', controller(def))
                 .where('A', block("gtceu:high_power_casing")
                         .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setPreviewCount(2).setMaxGlobalLimited(2))
@@ -219,10 +193,7 @@ public final class GTLStructures {
     // ==================== 因果终端（MAX）：默认 3×3×3 ====================
     // 默认 3×3×3 高功率机器外壳，控制器正面居中（2026-09-09 恢复默认）。
     public static BlockPattern causalityTerminal(MultiblockMachineDefinition def) {
-        return FactoryBlockPattern.start()
-                .aisle("AAA", "AAA", "AAA")
-                .aisle("AAA", "AAA", "AAA")
-                .aisle("AAA", "ACA", "AAA")
+        return StructurePatterns.start("/data/gtl_enhancedcore/structures/legacy/compact_high_power.pattern.gz")
                 .where('C', controller(def))
                 .where('A', block("gtceu:high_power_casing")
                         .or(Predicates.abilities(PartAbility.MAINTENANCE).setPreviewCount(1).setMaxGlobalLimited(1))
@@ -267,6 +238,40 @@ public final class GTLStructures {
                 .where(' ', Predicates.any())
                 .build();
     }
+    /** 由 SchemTool 从 high_flux_breeder_reactor.schem 生成（87 x 111 x 93）。
+     *  字符映射：C=控制器（正面最后 aisle，y=81 中间），X=钻石矿仓室位（24 个），
+     *  A=gtlcore:fission_reactor_casing（主体外壳，2026-10-12 用户指定），B=gtlcore:cooler，
+     *  D=gtlcore:supercritical_turbine_casing，E=gtceu:tungstensteel_pipe_casing，
+     *  F=gtceu:laminated_glass，G=gtceu:tungstensteel_turbine_casing，I=gtceu:uhv_hermetic_casing，
+     *  J/K/L=白/青/橙灯，' '=任意（不校验，规则 14/15）。
+     *  2026-10-12 用户指定仓室：维护仓、输入/输出仓、并行控制仓、激光靶仓、能源仓；
+     *  仓室位替换方块为 gtlcore:fission_reactor_casing。 */
+    public static BlockPattern highFluxBreederReactor(MultiblockMachineDefinition def) {
+        return HighFluxBreederReactorStructure.create()
+                .where('C', controller(def))
+                .where('X', block("gtlcore:fission_reactor_casing")
+                        .or(Predicates.abilities(PartAbility.MAINTENANCE).setPreviewCount(1).setMaxGlobalLimited(1))
+                        .or(Predicates.abilities(PartAbility.INPUT_ENERGY).setPreviewCount(1).setMaxGlobalLimited(4))
+                        .or(Predicates.abilities(PartAbility.INPUT_LASER).setPreviewCount(1).setMaxGlobalLimited(2))
+                        .or(Predicates.abilities(PartAbility.PARALLEL_HATCH).setPreviewCount(1).setMaxGlobalLimited(1))
+                        .or(Predicates.abilities(PartAbility.IMPORT_ITEMS).setPreviewCount(1).setMaxGlobalLimited(8))
+                        .or(Predicates.abilities(PartAbility.EXPORT_ITEMS).setPreviewCount(1).setMaxGlobalLimited(8))
+                        .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS).setPreviewCount(1).setMaxGlobalLimited(8))
+                        .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS).setPreviewCount(1).setMaxGlobalLimited(8)))
+                .where('A', block("gtlcore:fission_reactor_casing"))
+                .where('B', block("gtlcore:cooler"))
+                .where('D', block("gtlcore:supercritical_turbine_casing"))
+                .where('E', block("gtceu:tungstensteel_pipe_casing"))
+                .where('F', block("gtceu:laminated_glass"))
+                .where('G', block("gtceu:tungstensteel_turbine_casing"))
+                .where('I', block("gtceu:uhv_hermetic_casing"))
+                .where('J', block("gtceu:white_lamp"))
+                .where('K', block("gtceu:cyan_lamp"))
+                .where('L', block("gtceu:orange_lamp"))
+                .where(' ', Predicates.any())
+                .build();
+    }
+
     /** UHV fragment collection: one shared material mode across the 24 marked hatch positions. */
     public static BlockPattern starCoreStripper(MultiblockMachineDefinition def) {
         return StarCoreStripperStructure.create()
@@ -568,10 +573,7 @@ public final class GTLStructures {
 
     /** Shared 3x3x3 body used by the four restored MV passive production lines. */
     public static BlockPattern plusFactory(MultiblockMachineDefinition def, String centerBlock) {
-        return FactoryBlockPattern.start()
-                .aisle("BBB", "BBB", "BBB")
-                .aisle("BBB", "BXB", "BBB")
-                .aisle("BBB", "BCB", "BBB")
+        return StructurePatterns.start("/data/gtl_enhancedcore/structures/plus_factory.pattern.gz")
                 .where('C', controller(def))
                 .where('X', block(centerBlock))
                 .where('B', block("gtlcore:multi_functional_casing")

@@ -53,6 +53,8 @@ public final class TooltipPolicy {
                             "ore_plant.hatch_slots"), List.of())),
             Map.entry("qft", page(
                     List.of("qft.cross_recipe", "qft.threads"), List.of())),
+            Map.entry("add_threads", page(
+                    List.of("add_threads.cross_recipe", "add_threads.threads"), List.of())),
             Map.entry("weather_anchor", page(
                     List.of("weather_anchor.flavor", "weather_anchor.intro", "weather_anchor.power",
                             "weather_anchor.supply", "supports_laser_hatch"),
@@ -74,6 +76,15 @@ public final class TooltipPolicy {
                     List.of("star_core_stripper.flavor", "star_core_stripper.cross_recipe",
                             "star_core_stripper.intro", "star_core_stripper.capacity",
                             "star_core_stripper.power_hatches", "star_core_stripper.processing"), List.of())),
+            Map.entry("high_flux_breeder_reactor", page(
+                    List.of("high_flux_breeder_reactor.flavor", "high_flux_breeder_reactor.cross_recipe",
+                            "high_flux_breeder_reactor.intro", "high_flux_breeder_reactor.threads",
+                            "high_flux_breeder_reactor.parallel", "high_flux_breeder_reactor.hatches"), List.of())),
+            Map.entry("hydrothermal_leaching_complex", page(
+                    List.of("hydrothermal_leaching_complex.flavor", "hydrothermal_leaching_complex.intro",
+                            "iv_cross_recipe_toggle", "hydrothermal_leaching_complex.threads",
+                            "hydrothermal_leaching_complex.parallel_hatch", "supports_laser_hatch",
+                            "iv_only_super_buffer", "iv_cancel", "iv_break"), List.of())),
             Map.entry("extreme_reactor", page(
                     List.of("extreme_reactor.flavor", "extreme_reactor.intro", "extreme_reactor.stage",
                             "extreme_reactor.generation", "extreme_reactor.fuel", "extreme_reactor.wireless",
@@ -131,7 +142,6 @@ public final class TooltipPolicy {
             Map.entry("optional_maintenance", page(
                     List.of("gtl_enhancedcore.tooltip.optional_maintenance"), List.of())),
             Map.entry("forbidden_maintenance", page(List.of("no_maintenance_hatch"), List.of())),
-            Map.entry("tag_stock_bus", page(List.of("tag_stock_bus.capacity"), List.of())),
             Map.entry("fusion_reactor", page(List.of("fusion_reactor.max_parallel"), List.of())),
             Map.entry("fission_reactor", page(List.of("fission_reactor.simple"), List.of())),
             Map.entry("star_ultimate_material_forge", page(

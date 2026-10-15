@@ -15,6 +15,8 @@ import com.gregtechceu.gtceu.api.recipe.ingredient.FluidIngredient;
 import com.gregtechceu.gtceu.api.recipe.logic.*;
 import com.gregtechceu.gtceu.common.recipe.condition.ResearchCondition;
 import com.gtl.enhancedcore.common.util.FairRecipeSelector;
+import com.gtl.enhancedcore.common.recipe.GridEnergyInputs;
+import com.gtl.enhancedcore.common.recipe.MachineDiagnostics;
 import com.gtladd.gtladditions.api.machine.IWirelessElectricMultiblockMachine;
 import com.gtladd.gtladditions.api.machine.trait.IWirelessNetworkEnergyHandler;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.ae.MEPatternBufferPartMachine;
@@ -149,6 +151,7 @@ public final class IvNativeEngine {
         summary.put("reasons", encoded);
     }
     private long inputPower() {
+        if (GridEnergyInputs.find(machine) != null) return Long.MAX_VALUE;
         var inputs = machine.getCapabilitiesProxy().get(IO.IN, EURecipeCapability.CAP);
         if (inputs == null) return 0;
         var sources = new ArrayList<IvNativeRecoveryState.PowerInput>();
@@ -169,10 +172,11 @@ public final class IvNativeEngine {
                 return false;
             }
         } else {
-            var energy = machine.getEnergyContainer();
-            long stored = energy == null ? 0 : Math.max(0, energy.getEnergyStored());
+            long stored = GridEnergyInputs.stored(machine);
             if (!IvNativeRecoveryState.canPay(payment, availablePower, stored)) {
-                waiting(ref, "gtl_enhancedcore.diagnostic.power", nativeDetail("power", payment.toString(), availablePower, stored));
+                waiting(ref, "gtl_enhancedcore.diagnostic.power", GridEnergyInputs.find(machine) == null
+                        ? nativeDetail("power", payment.toString(), availablePower, stored)
+                        : MachineDiagnostics.power(machine, payment.longValueExact()));
                 return false;
             }
         }
@@ -504,15 +508,19 @@ public final class IvNativeEngine {
                 } else {
                     long paid = payment.longValueExact();
                     var energy = machine.getEnergyContainer();
-                    long removed = paid == 0 ? 0 : energy.removeEnergy(paid);
+                    var grid = GridEnergyInputs.find(machine);
+                    long removed = GridEnergyInputs.remove(energy, grid, paid);
                     if (removed != paid) {
-                        if (removed < 0 || removed > paid || removed > 0 && energy.addEnergy(removed) != removed)
+                        if (removed < 0 || removed > paid || removed > 0 && GridEnergyInputs.refund(energy, grid, removed) != removed)
                             throw new IllegalStateException("Invalid native energy refund");
-                        waiting(ref, "gtl_enhancedcore.diagnostic.power", nativeDetail("power", paid, powerBudget, energy.getEnergyStored()));
+                        waiting(ref, "gtl_enhancedcore.diagnostic.power", grid == null
+                                ? nativeDetail("power", paid, powerBudget, GridEnergyInputs.stored(machine))
+                                : MachineDiagnostics.power(machine, paid));
                         continue;
                     }
                     if (paid > 0) ComputationRecipes.undoOnFailure(() -> {
-                        if (energy.addEnergy(paid) != paid) throw new IllegalStateException("Native energy refund was incomplete");
+                        if (GridEnergyInputs.refund(energy, grid, paid) != paid)
+                            throw new IllegalStateException("Native energy refund was incomplete");
                     });
                 }
                 scope.commit(true);

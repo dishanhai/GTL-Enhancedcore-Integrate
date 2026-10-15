@@ -54,6 +54,8 @@ public final class IvIsolationRegression {
         long[] maximal = FairBudget.divide(Long.MAX_VALUE, new long[]{Long.MAX_VALUE, Long.MAX_VALUE}, 1);
         check(Math.addExact(maximal[0], maximal[1]) == Long.MAX_VALUE, "aggregate requests may exceed long without overflow");
         nativeThreadBudget();
+        addThreadOnly20261012();
+        infernoVault20261014();
         var retimed = IvRemainingTime.calculate(BigInteger.valueOf(1000), 100, 2, 1);
         check(retimed.duration() == 12 && retimed.eut() == 100, "reformation preserves unpaid energy and shortens remaining time");
         var slower = IvRemainingTime.calculate(BigInteger.valueOf(1000), 50, 2, 1);
@@ -141,5 +143,187 @@ public final class IvIsolationRegression {
     private static void check(boolean value, String message) {
         assertions++;
         if (!value) throw new AssertionError(message);
+    }
+
+    /**
+     * 2026-10-12 用户指定：三台 GTLCore 机器加 <b>ADD 跨配方线程</b> 128 条 + Ω 叠加。
+     *
+     * <p>必须与「本模组的跨配方类型并行（IV 隔离订单）」严格区分：这三台
+     * <b>不在</b> {@code NATIVE_IDS}，因此不会被 {@code IvNativeEngine} 接管、不会被替换结构仓室谓词、
+     * 不会被贴上「支持跨配方类型并行」标识；线程完全由 GTLAdditions 自己的逻辑调度。
+     */
+    private static void addThreadOnly20261012() {
+        var scope = com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.class;
+        // 2026-10-14 追加第四台：advanced_neutron_activator（用户指定「改为 ADD 类机器 + 128 线程」）。
+        var ids = List.of("star_ultimate_material_forge_factory", "super_particle_collider",
+                "advanced_sps_crafting", "advanced_neutron_activator");
+        for (String id : ids) {
+            var location = new net.minecraft.resources.ResourceLocation("gtceu", id);
+            check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.addThreadOnly(location),
+                    "the machine is registered for ADD cross-recipe threads only: " + id);
+            check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(location),
+                    "the machine must NOT join the IV isolated-order whitelist: " + id);
+            check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.addThreadBaseline(id) == 128,
+                    "the ADD thread baseline is 128 for " + id);
+        }
+        // 原有 IV 白名单不得被这次改动污染（17 台）。
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.NATIVE_IDS.size() == 17,
+                "the IV whitelist keeps its original 17 machines");
+        for (String id : ids) {
+            check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.NATIVE_IDS.contains(id),
+                    "no ADD-thread machine leaked into NATIVE_IDS: " + id);
+        }
+        // 非 gtceu 命名空间与 null 不得误判。
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.addThreadOnly(
+                        new net.minecraft.resources.ResourceLocation("gtladditions", "super_particle_collider")),
+                "add-thread lookup is limited to the gtceu namespace");
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.addThreadOnly(
+                        (net.minecraft.resources.ResourceLocation) null),
+                "null id is not an add-thread machine");
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.addThreadBaseline("not_a_machine") == 0,
+                "unknown ids carry no ADD thread baseline");
+        // 源码契约：三台都继承 ADD 可变基类，且线程口径为 128 + Ω，不覆写纯 Ω 取值器。
+        try {
+            String base = java.nio.file.Files.readString(java.nio.file.Path.of(
+                    "src/main/java/com/gtl/enhancedcore/common/machine/AddThreadMutableMachine.java"));
+            check(base.contains("extends MutableElectricParallelHatchMultiblockMachine"),
+                    "the ADD mutable base makes the controller implement IThreadModifierMachine");
+            check(base.contains("IvMachineScope.NATIVE_CROSS_RECIPE_THREADS")
+                            && base.contains("owner.getAdditionalThread()"),
+                    "threads are 128 plus the omega count, added at the scheduling exit");
+            check(!base.contains("public int getAdditionalThread()"),
+                    "the pure omega accessor must not be rewritten or the baseline would double-count");
+            check(base.contains("setUseMultipleRecipes(true)"),
+                    "cross-recipe mode is enabled on formation");
+            // 并行必须保留：ADD 的 MutableRecipesLogic 只读 getMaxParallel()，
+            // 不经 recipeModifier，故改造前靠修饰器给的固定并行必须在机器类里补回。
+            check(base.contains("public int getMaxParallel()") && base.contains("parallelBaseline()"),
+                    "the ADD base restores any fixed parallel the machine had before conversion");
+            String forge = java.nio.file.Files.readString(java.nio.file.Path.of(
+                    "src/main/java/com/gtl/enhancedcore/common/machine/StarUltimateForgeMutableMachine.java"));
+            check(forge.contains("PARALLEL = 50000"),
+                    "the star ultimate forge factory keeps its 50000 parallel");
+            check(forge.contains("protected int parallelBaseline()"),
+                    "the factory feeds its own parallel into the ADD scheduling path");
+            // 另三台本来就用并行仓，不得被写成固定值（注释不参与判定，只看实际声明）。
+            for (String machine : List.of("SuperParticleColliderMutableMachine", "AdvancedSpsCraftingMutableMachine",
+                    "AdvancedNeutronActivatorMutableMachine")) {
+                String body = java.nio.file.Files.readString(java.nio.file.Path.of(
+                                "src/main/java/com/gtl/enhancedcore/common/machine/" + machine + ".java"))
+                        .replaceAll("//[^\\n]*", "").replaceAll("(?s)/\\*.*?\\*/", "");
+                check(!body.contains("parallelBaseline()"),
+                        machine + " keeps the upstream parallel-hatch semantics, not a fixed parallel");
+            }
+            // 四台都必须在注册处接上 ADD 可变机器，否则线程改造不会生效。
+            String registration = java.nio.file.Files.readString(java.nio.file.Path.of(
+                    "src/main/java/com/gtl/enhancedcore/common/registration/AddMutableMachineRegistration.java"));
+            for (String machine : List.of("StarUltimateForgeMutableMachine", "SuperParticleColliderMutableMachine",
+                    "AdvancedSpsCraftingMutableMachine", "AdvancedNeutronActivatorMutableMachine")) {
+                check(registration.contains("new " + machine + "(holder)"),
+                        "the registration wires the ADD mutable factory: " + machine);
+            }
+            // 中子活化器由 AdditionalMultiBlockMachine 注册，不是 MultiBlockMachineA——字段来源必须正确。
+            check(registration.contains("AdditionalMultiBlockMachine.ADVANCED_NEUTRON_ACTIVATOR"),
+                    "the neutron activator definition is read from AdditionalMultiBlockMachine");
+        } catch (java.io.IOException failure) {
+            throw new AssertionError(failure);
+        }
+    }
+
+    /**
+     * 2026-10-14 用户指定：{@code gtladditions:inferno_cleft_smelting_vault} 接入 IV 跨配方类型并行。
+     *
+     * <p>两个要点：
+     * <ol>
+     *   <li>它是 <b>gtladditions</b> 命名空间（白名单历史上只含 gtceu），故 {@code nativeTarget} 必须
+     *       支持跨命名空间查询，同时不得放松对未知命名空间的判定。</li>
+     *   <li>它改造前就是 ADD 多配方机器、无总成时本就在跑 128 线程，故列在
+     *       {@code KEEP_NATIVE_THREADS_WITHOUT_BUFFER}：未启用隔离时<b>不</b>压到 1，
+     *       避免接入 IV 反而削弱原生能力。</li>
+     * </ol>
+     */
+    private static void infernoVault20261014() {
+        var scope = com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.class;
+        var vault = new net.minecraft.resources.ResourceLocation("gtladditions", "inferno_cleft_smelting_vault");
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(vault),
+                "the inferno vault joins the IV isolated-order whitelist");
+        // 命名空间必须严格匹配：同 path 的其它命名空间不得被误判。
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(
+                        new net.minecraft.resources.ResourceLocation("gtceu", "inferno_cleft_smelting_vault")),
+                "the vault is matched under gtladditions, not gtceu");
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(
+                        new net.minecraft.resources.ResourceLocation("gtladditions", "not_a_machine")),
+                "unknown paths in the foreign namespace are rejected");
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(
+                        new net.minecraft.resources.ResourceLocation("other", "inferno_cleft_smelting_vault")),
+                "unknown namespaces are rejected");
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(
+                        (net.minecraft.resources.ResourceLocation) null),
+                "null id is not a native target");
+        // gtceu 白名单不得被这次改动污染。
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.NATIVE_IDS.size() == 17,
+                "the gtceu whitelist still holds exactly its 17 machines");
+        nexusSatellites20261014();
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.FOREIGN_NATIVE_IDS.size() == 1
+                        && com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.FOREIGN_NATIVE_IDS
+                        .get("gtladditions").contains("inferno_cleft_smelting_vault"),
+                "the foreign whitelist holds the vault under its own namespace");
+        // 无总成时保留原生线程（不压到 1）。
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.KEEP_NATIVE_THREADS_WITHOUT_BUFFER
+                        .contains("inferno_cleft_smelting_vault"),
+                "the vault keeps its upstream 128 threads before a buffer is fitted");
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.KEEP_NATIVE_THREADS_WITHOUT_BUFFER
+                        .contains("mega_extractor"),
+                "ordinary whitelist machines still fall back to a single thread without a buffer");
+        // 三处「无总成压到 1」的 mixin 都必须尊重该例外，否则例外形同虚设。
+        try {
+            for (String mixin : List.of("gtlcore/IvNativeGtlAddThreadLimitMixin.java",
+                    "gtlcore/IvNativeMultipleGuardMixin.java", "gtlcore/IvNativeRecipeThreadLimitMixin.java")) {
+                String body = java.nio.file.Files.readString(java.nio.file.Path.of(
+                        "src/main/java/com/gtl/enhancedcore/mixin/" + mixin));
+                check(body.contains("keepsNativeThreads("),
+                        "the without-buffer guard honours the exception: " + mixin);
+            }
+            // 结构侧：未做定制几何的机器走「保留几何、只换材料仓」路径（派生判定，非硬编码名单）。
+            String patterns = java.nio.file.Files.readString(java.nio.file.Path.of(
+                    "src/main/java/com/gtl/enhancedcore/common/structure/NativeIsolationPatterns.java"));
+            check(patterns.contains("IvMachineScope.nativeTarget(id)")
+                            && patterns.contains("!GtlMegastructurePatterns.targets(id)"),
+                    "the port-swap path derives from nativeTarget and custom-geometry state");
+        } catch (java.io.IOException failure) {
+            throw new AssertionError(failure);
+        }
+    }
+
+    /**
+     * 2026-10-14 用户指定：四台 {@code gtladditions:nexus_satellite_factory_mk1~4}
+     * （猎光号空间站模块）接入 IV 跨配方类型并行。
+     *
+     * <p>要点：它们是 ADD 多配方机器（原生 128+Ω 线程、`tooltipTextMaxParallels` 显示无限并行），
+     * 故与炼狱库同样列进 {@code KEEP_NATIVE_THREADS_WITHOUT_BUFFER}，避免未装总成时被压到 1。
+     * 它们不在结构 manifest 里，因此结构侧由 {@code NativeIsolationPatterns} 派生处理。
+     */
+    private static void nexusSatellites20261014() {
+        for (int mk = 1; mk <= 4; mk++) {
+            String path = "nexus_satellite_factory_mk" + mk;
+            var id = new net.minecraft.resources.ResourceLocation("gtladditions", path);
+            check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(id),
+                    "the nexus satellite module joins the IV whitelist: " + path);
+            check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.KEEP_NATIVE_THREADS_WITHOUT_BUFFER
+                            .contains(path),
+                    "the module keeps its upstream threads before a buffer is fitted: " + path);
+            check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(
+                            new net.minecraft.resources.ResourceLocation("gtceu", path)),
+                    "the module is matched under gtladditions, not gtceu: " + path);
+        }
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.FOREIGN_NATIVE_IDS
+                        .get("gtladditions").size() == 5,
+                "the foreign whitelist holds the vault plus four satellite modules");
+        // 派生判定：无定制几何的原生机器都应被结构侧接管（四台 mk 均无 pattern.gz）。
+        for (int mk = 1; mk <= 4; mk++) {
+            var id = new net.minecraft.resources.ResourceLocation("gtladditions", "nexus_satellite_factory_mk" + mk);
+            check(!com.gtl.enhancedcore.common.structure.GtlMegastructurePatterns.targets(id),
+                    "the module has no project-owned geometry: mk" + mk);
+        }
     }
 }

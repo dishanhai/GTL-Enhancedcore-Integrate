@@ -29,6 +29,12 @@ public abstract class IvNativeTooltipMixin {
             cir.setReturnValue(MachineTooltips.modifyWithRecipes(cir.getReturnValue(), "qft", definition.getRecipeTypes()));
             return;
         }
+        // 2026-10-12：三台只加 ADD 跨配方线程（不进 IV 隔离）的机器，同样只追加 ADD 能力提示。
+        if (IvMachineScope.addThreadOnly(id)) {
+            cir.setReturnValue(MachineTooltips.modifyWithRecipes(cir.getReturnValue(),
+                    "add_threads", definition.getRecipeTypes()));
+            return;
+        }
         boolean isolated = IvMachineScope.nativeTarget(id);
         boolean maintenance = MegastructureMaintenancePolicy.matches(id.getNamespace(), id.getPath());
         boolean elevator = SpaceElevatorMaintenance.matches(id);

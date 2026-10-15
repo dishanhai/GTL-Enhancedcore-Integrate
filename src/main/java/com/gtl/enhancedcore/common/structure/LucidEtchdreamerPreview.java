@@ -43,7 +43,7 @@ public final class LucidEtchdreamerPreview {
                         info = firstCandidate(matches[z][y][x], symbol);
                         choices.put(symbol, info);
                     }
-                    // FactoryBlockPattern.start() uses LEFT / UP / FRONT. At NORTH, X and Z run negative.
+                    // Loaded patterns use LEFT / UP / FRONT. At NORTH, X and Z run negative.
                     result[SIZE - 1 - x][y][SIZE - 1 - z] = info;
                 }
             }
@@ -81,10 +81,7 @@ public final class LucidEtchdreamerPreview {
     }
 
     private static BlockInfo[][][] previewPanel(TraceabilityPredicate[][][] matches) {
-        FactoryBlockPattern builder = FactoryBlockPattern.start()
-                .aisle("JJJJJ", "JJJJJ", "JJJJJ", "JJJJJ", "JJJJJ")
-                .aisle("XXXXX", "XXXXX", "XXCXX", "XXXXX", "XXXXX")
-                .aisle("     ", "     ", "     ", "     ", "     ")
+        FactoryBlockPattern builder = StructurePatterns.start("/data/gtl_enhancedcore/structures/gtl/lucid_etchdreamer_preview_panel.pattern.gz")
                 .where('J', matches[PANEL_AISLE - 1][PANEL_Y][PANEL_X])
                 .where('X', matches[PANEL_AISLE][PANEL_Y][PANEL_X])
                 .where('C', matches[PANEL_AISLE][PANEL_Y + 2][PANEL_X + 2])

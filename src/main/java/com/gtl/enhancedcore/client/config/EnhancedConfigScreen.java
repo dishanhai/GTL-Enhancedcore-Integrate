@@ -18,7 +18,8 @@ public final class EnhancedConfigScreen extends ConfigPage {
         button("tips", left, 45, bodyWidth, () -> minecraft.setScreen(new ItemTipBrowser(this)));
         button("reload_tips", left, 71, half, () -> attempt(() -> { ClientTooltipConfig.reload(); status = tr("reloaded"); }));
         button("tips_file", left + half + 6, 71, half, () -> attempt(this::openTooltipFile));
-        button("open_folder", left, 97, bodyWidth, () -> attempt(() -> {
+        button("copy_keys", left, 97, bodyWidth, () -> minecraft.setScreen(new CopyKeysScreen(this)));
+        button("open_folder", left, 123, bodyWidth, () -> attempt(() -> {
             Files.createDirectories(directory()); Util.getPlatform().openFile(directory().toFile());
         }));
         button("back", left, height - 27, bodyWidth, this::onClose);

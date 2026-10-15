@@ -988,6 +988,68 @@
       ]
     },
     {
+      "output": "high_flux_breeder_reactor",
+      "tier": "uhv",
+      "method": "assembly_line",
+      "duration": 6000,
+      "ingredients": [
+        {
+          "item": "gtceu:uhv_machine_hull",
+          "count": 8
+        },
+        {
+          "item": "gtlcore:fission_reactor_casing",
+          "count": 64
+        },
+        {
+          "item": "gtlcore:supercritical_turbine_casing",
+          "count": 32
+        },
+        {
+          "item": "gtceu:uhv_field_generator",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_emitter",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_sensor",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_electric_pump",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_robot_arm",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uhv_electric_motor",
+          "count": 16
+        },
+        {
+          "tag": "gtceu:circuits/uhv",
+          "count": 16
+        },
+        {
+          "item": "gtceu:neutronium_plate",
+          "count": 32
+        },
+        {
+          "item": "gtlcore:iridium_casing",
+          "count": 32
+        }
+      ],
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 18432
+        }
+      ]
+    },
+    {
       "output": "infinity_singularity_compressor",
       "tier": "uiv",
       "method": "assembly_line",
@@ -2059,6 +2121,76 @@
         {
           "fluid": "gtceu:polyetheretherketone",
           "amount": 18432
+        }
+      ]
+    },
+    {
+      "output": "hydrothermal_leaching_complex",
+      "tier": "uev",
+      "method": "assembly_line",
+      "duration": 7200,
+      "ingredients": [
+        {
+          "item": "gtceu:digestion_tank",
+          "count": 4
+        },
+        {
+          "item": "gtceu:dissolving_tank",
+          "count": 4
+        },
+        {
+          "item": "gtceu:uev_machine_hull",
+          "count": 8
+        },
+        {
+          "item": "gtceu:uev_electric_pump",
+          "count": 32
+        },
+        {
+          "item": "gtceu:uev_electric_motor",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uev_robot_arm",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uev_sensor",
+          "count": 16
+        },
+        {
+          "item": "gtceu:uev_field_generator",
+          "count": 8
+        },
+        {
+          "item": "gtlcore:iridium_casing",
+          "count": 64
+        },
+        {
+          "item": "gtceu:ptfe_pipe_casing",
+          "count": 64
+        },
+        {
+          "item": "gtceu:tungstensteel_gearbox",
+          "count": 32
+        },
+        {
+          "item": "gtceu:osmium_plate",
+          "count": 64
+        },
+        {
+          "tag": "gtceu:circuits/uev",
+          "count": 16
+        }
+      ],
+      "fluids": [
+        {
+          "fluid": "gtceu:soldering_alloy",
+          "amount": 36864
+        },
+        {
+          "fluid": "gtceu:polytetrafluoroethylene",
+          "amount": 9216
         }
       ]
     }

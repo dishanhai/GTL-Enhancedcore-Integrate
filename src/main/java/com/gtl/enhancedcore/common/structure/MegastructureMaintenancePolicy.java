@@ -1,6 +1,6 @@
 package com.gtl.enhancedcore.common.structure;
 
-/** Only these two replacement structures gain an optional maintenance port. */
+/** Only these two machines gain an optional maintenance port, with custom or upstream geometry. */
 public final class MegastructureMaintenancePolicy {
     private MegastructureMaintenancePolicy() {}
 

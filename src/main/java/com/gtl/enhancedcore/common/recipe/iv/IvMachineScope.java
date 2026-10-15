@@ -4,6 +4,7 @@ import com.gregtechceu.gtceu.api.machine.multiblock.CoilWorkableElectricMultiblo
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gtl.enhancedcore.common.machine.TieredParallelMachine;
 import com.gtladd.gtladditions.api.machine.IThreadModifierMachine;
+import java.util.Map;
 import java.util.Set;
 import net.minecraft.resources.ResourceLocation;
 import org.gtlcore.gtlcore.api.machine.multiblock.ParallelMachine;
@@ -24,10 +25,81 @@ public final class IvMachineScope {
             "mage_assembler", "super_blast_smelter", "superconducting_electromagnetism",
             "atomic_energy_excitation_plant", "gravitation_shockburst", "huge_incubator",
             "dimensionally_transcendent_mixer");
+
+    /**
+     * 非 {@code gtceu} 命名空间的原生隔离目标（用户 2026-10-14 指定）。
+     *
+     * <p>白名单历史上只含 {@code gtceu:} 机器（GTLCore 注册），故 {@link #nativeTarget} 原先硬编码
+     * 命名空间判断。{@code gtladditions} 自注册的机器需要独立登记命名空间。分开存放而非混进
+     * {@link #NATIVE_IDS}，是为了让「gtceu 白名单」保持可读、可穷举，也便于回归分别断言。
+     */
+    public static final Map<String, Set<String>> FOREIGN_NATIVE_IDS = Map.of(
+            "gtladditions", Set.of(
+                    "inferno_cleft_smelting_vault",
+                    "nexus_satellite_factory_mk1", "nexus_satellite_factory_mk2",
+                    "nexus_satellite_factory_mk3", "nexus_satellite_factory_mk4"));
+
+    /**
+     * 未装超级样板总成时**不**把跨配方线程压到 1 的白名单机器（用户 2026-10-14 指定）。
+     *
+     * <p>默认规则：白名单机器在未启用隔离（无超级总成）时退回单配方语义，线程 = 1
+     * （见 {@code IvNativeGtlAddThreadLimitMixin}）。但下列机器改造前就是 ADD 多配方机器、
+     * 无总成时本就在跑 128 条线程；若一并压到 1，接入 IV 反而**削弱**了它们原有的能力。
+     * 故保留原生线程，装了总成再切到隔离口径。
+     */
+    public static final Set<String> KEEP_NATIVE_THREADS_WITHOUT_BUFFER = Set.of(
+            "inferno_cleft_smelting_vault",
+            "nexus_satellite_factory_mk1", "nexus_satellite_factory_mk2",
+            "nexus_satellite_factory_mk3", "nexus_satellite_factory_mk4");
+
+    /** 未启用隔离时是否保留上游原生线程（而不是压到 1）。 */
+    public static boolean keepsNativeThreads(WorkableElectricMultiblockMachine machine) {
+        var id = machine == null ? null : machine.getDefinition().getId();
+        return id != null && KEEP_NATIVE_THREADS_WITHOUT_BUFFER.contains(id.getPath());
+    }
+
     private IvMachineScope() {}
 
     public static boolean nativeTarget(ResourceLocation id) {
-        return id != null && id.getNamespace().equals("gtceu") && NATIVE_IDS.contains(id.getPath());
+        if (id == null) return false;
+        String path = id.getPath();
+        if (id.getNamespace().equals("gtceu")) return NATIVE_IDS.contains(path);
+        Set<String> foreign = FOREIGN_NATIVE_IDS.get(id.getNamespace());
+        return foreign != null && foreign.contains(path);
+    }
+
+    /**
+     * 只需 ADD 跨配方线程、**不**接入本模组 IV 隔离订单的机器（用户 2026-10-12 指定）。
+     *
+     * <p>与 {@link #NATIVE_IDS} 严格区分：
+     * <ul>
+     *   <li>{@code NATIVE_IDS} = 我们的<b>跨配方类型并行</b>（IV 隔离订单、超级总成、自研引擎、
+     *       结构仓室替换）。</li>
+     *   <li>本集合 = 只用 ADD 自己的<b>跨配方线程</b>；不加进 NATIVE_IDS，
+     *       因此不会被 {@code IvNativeEngine} 接管，也不会被 {@code GtlMegastructurePatterns}
+     *       替换结构仓室谓词、不会被贴上「支持跨配方类型并行」标识。</li>
+     * </ul>
+     *
+     * <p>线程数由各机器的 ADD 逻辑提供（见 {@code AddMutableMachineRegistration} 与
+     * {@code IvAddThreadBaselineMixin}）：128 基准 + 天球分歧引擎（Ω）叠加。
+     */
+    public static final Set<String> ADD_THREAD_ONLY_IDS = Set.of(
+            "star_ultimate_material_forge_factory", "super_particle_collider", "advanced_sps_crafting",
+            "advanced_neutron_activator");
+
+    /** 是否只需 ADD 跨配方线程（不进 IV 隔离）。 */
+    public static boolean addThreadOnly(ResourceLocation id) {
+        return id != null && id.getNamespace().equals("gtceu") && ADD_THREAD_ONLY_IDS.contains(id.getPath());
+    }
+
+    public static boolean addThreadOnly(Object machine) {
+        return machine instanceof WorkableElectricMultiblockMachine electric
+                && addThreadOnly(electric.getDefinition().getId());
+    }
+
+    /** 128 条 ADD 跨配方线程基准（不含 Ω，供定义级显示使用）。 */
+    public static int addThreadBaseline(String path) {
+        return ADD_THREAD_ONLY_IDS.contains(path) ? NATIVE_CROSS_RECIPE_THREADS : 0;
     }
     public static boolean nativeTarget(Object machine) {
         return machine instanceof WorkableElectricMultiblockMachine electric && nativeTarget(electric.getDefinition().getId());

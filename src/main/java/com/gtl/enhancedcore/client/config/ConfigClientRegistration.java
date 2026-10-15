@@ -1,8 +1,10 @@
 package com.gtl.enhancedcore.client.config;
 
 import com.gtl.enhancedcore.GTLEnhancedcore;
+import com.gtl.enhancedcore.client.copy.CopyKeysClient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -16,5 +18,13 @@ public final class ConfigClientRegistration {
         ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
                 () -> new ConfigScreenHandler.ConfigScreenFactory(EnhancedConfigScreen::new));
         event.enqueueWork(ClientTooltipConfig::initialize);
+        event.enqueueWork(CopyKeysConfig::initialize);
+        event.enqueueWork(CopyKeysClient::register);
+    }
+
+    /** 复制 ID / 复制配方 的按键注册（默认 0 与 .）。 */
+    @SubscribeEvent
+    public static void registerKeys(RegisterKeyMappingsEvent event) {
+        CopyKeysClient.registerKeyMappings(event);
     }
 }

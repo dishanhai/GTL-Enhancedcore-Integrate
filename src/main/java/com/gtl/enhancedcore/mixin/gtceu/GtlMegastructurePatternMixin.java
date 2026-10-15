@@ -21,7 +21,7 @@ public abstract class GtlMegastructurePatternMixin {
         if (SpaceElevatorMaintenance.matches(definition.getId()))
             return Suppliers.memoize(() -> SpaceElevatorMaintenance.forbidden(original.get()));
         if (NativeIsolationPatterns.targets(definition.getId()))
-            return Suppliers.memoize(() -> NativeIsolationPatterns.restrict(original.get()));
+            return Suppliers.memoize(() -> NativeIsolationPatterns.restrict(definition.getId(), original.get()));
         if (!GtlMegastructurePatterns.targets(definition.getId())) return original;
         return GtlMegastructurePatterns.wrapFactory(definition.getId(), original);
     }

@@ -1,0 +1,15 @@
+{
+  "super_particle_collider": {
+    "id": "gtceu:super_particle_collider",
+    "size": [47, 7, 47],
+    "provenance": "GTLCore 1.2.3.2-fix4 MultiBlockMachineAStructureA geometry and MultiBlockMachineA.lambda$static$48; samples use aisle,row,column. ADD MutableMultiBlockModify patches thread ability onto the original b rule before geometry replacement.",
+    "predicates": [
+      {"symbol": "a", "sample": [46, 3, 23], "block": "gtceu:super_particle_collider"},
+      {"symbol": "b", "sample": [46, 2, 21], "block": "gtlcore:lafium_mechanical_casing", "note": "autoAbilities, INPUT_LASER<=1, PARALLEL_HATCH<=1, MAINTENANCE=1; ADD thread_modifier"},
+      {"symbol": "c", "sample": [0, 2, 21], "block": "gtlcore:lafium_mechanical_casing"},
+      {"symbol": "d", "sample": [2, 3, 19], "block": "kubejs:accelerated_pipeline", "note": "upstream's second where('d',...) overrides aggregatione_core"},
+      {"symbol": "e", "sample": [1, 2, 21], "block": "gtceu:superconducting_coil"},
+      {"symbol": "f", "sample": [0, 2, 20], "block": "gtceu:enriched_naquadah_frame"}
+    ]
+  }
+}

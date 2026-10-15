@@ -39,7 +39,7 @@ public final class GtlMegastructurePatterns {
     private static JsonObject readManifest() {
         var manifest = new JsonObject();
         for (String name : new String[]{"manifest.json", "upgrades.json", "upgrades_20260927.json",
-                "lucid_etchdreamer.json"}) {
+                "lucid_etchdreamer.json", "super_particle_collider.json", "upgrades_20261013.json"}) {
             try (var input = GtlMegastructurePatterns.class.getResourceAsStream(ROOT + name)) {
                 if (input == null) throw new IOException("Missing GTL structure manifest: " + name);
                 var entries = JsonParser.parseReader(new InputStreamReader(input, StandardCharsets.UTF_8)).getAsJsonObject();
@@ -107,9 +107,7 @@ public final class GtlMegastructurePatterns {
         }
         // Imported schematics are already rotated to LEFT/UP/FRONT, independently
         // of the old machine's aisle axes (some originals were built vertically).
-        FactoryBlockPattern builder = FactoryBlockPattern.start();
-        String resource = ROOT + id.getPath() + ".pattern.gz";
-        StructurePatterns.data(resource).forEachAisle(builder::aisle);
+        FactoryBlockPattern builder = StructurePatterns.start(ROOT + id.getPath() + ".pattern.gz");
         var isolatedHatches = com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(id)
                 ? new com.gtl.enhancedcore.common.recipe.iv.IvNativeHatches() : null;
         for (var entry : spec.getAsJsonObject("bindings").entrySet()) {
