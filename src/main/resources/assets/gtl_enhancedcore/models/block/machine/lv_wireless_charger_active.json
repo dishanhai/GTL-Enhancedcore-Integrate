@@ -1,0 +1,108 @@
+{
+  "textures": {
+    "front": "gtl_enhancedcore:block/machine/lv_wireless_charger",
+    "top": "gtl_enhancedcore:block/machine/lv_wireless_charger_top",
+    "front_emissive": "gtl_enhancedcore:block/machine/lv_wireless_charger_emissive",
+    "top_emissive": "gtl_enhancedcore:block/machine/lv_wireless_charger_top_emissive"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        -0.01
+      ],
+      "to": [
+        16,
+        16,
+        -0.01
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        16.01,
+        0
+      ],
+      "to": [
+        16,
+        16.01,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#top",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        -0.02
+      ],
+      "to": [
+        16,
+        16,
+        -0.02
+      ],
+      "faces": {
+        "north": {
+          "texture": "#front_emissive",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": -101,
+          "emissivity": 15
+        }
+      },
+      "shade": false
+    },
+    {
+      "from": [
+        0,
+        16.02,
+        0
+      ],
+      "to": [
+        16,
+        16.02,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#top_emissive",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "tintindex": -101,
+          "emissivity": 15
+        }
+      },
+      "shade": false
+    }
+  ]
+}

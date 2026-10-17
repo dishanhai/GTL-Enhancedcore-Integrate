@@ -1,0 +1,575 @@
+{
+  "schema": 1,
+  "algorithm": "exterior-26-once; fixed-native-cell-exemptions",
+  "productionGeometryChanged": true,
+  "machines": {
+    "gtceu:huge_incubator": {
+      "size": [
+        29,
+        26,
+        30
+      ],
+      "sourceArtifactSha256": "aabb844309a7dc9fec55d2575793e6ea7820dcf0f68d24316b042617c4b748ec",
+      "sourcePatternSha256": "c2ca26c7ada8bd7f7c316279a51c51236acded34755b1e96438dbd6b3bf06997",
+      "fixture": "huge_incubator.pattern.gz",
+      "opaqueSymbols": "ABDEFGIJKLOR",
+      "nonSpace": 6379,
+      "certifiedHidden": 0,
+      "eligibleHidden": 0,
+      "removed": 0,
+      "candidateSymbols": {},
+      "candidatePositionsXYZ": [],
+      "cells": [],
+      "reason": "No certified hidden cells when ability-capable C is protected and conducts sight; glass/frame/unknown models conduct sight."
+    },
+    "gtceu:gravitation_shockburst": {
+      "size": [
+        9,
+        7,
+        9
+      ],
+      "sourceArtifactSha256": "09d0e92d4750d22a39813f5583fed0a3681759ce0cd0c782bedb0977ed30c98f",
+      "sourcePatternSha256": "b34d9313c1fce242a7b1ece0eacbc87ad7c850fe3f7d7d68097616d440dc4692",
+      "fixture": "gravitation_shockburst.pattern.gz",
+      "opaqueSymbols": "",
+      "nonSpace": 392,
+      "certifiedHidden": 0,
+      "eligibleHidden": 0,
+      "removed": 0,
+      "candidateSymbols": {},
+      "candidatePositionsXYZ": [],
+      "cells": [],
+      "reason": "Infinity material blocks are generated at runtime and lack complete static opacity evidence; infinity glass and ability positions conduct sight."
+    },
+    "gtladditions:inferno_cleft_smelting_vault": {
+      "size": [
+        17,
+        46,
+        17
+      ],
+      "sourceArtifactSha256": "89c847cfd4ae4195cfd657126524ba8e0493be1baf6c05c227c18c307ce7d6ff",
+      "sourcePatternSha256": "50ede728c767c9e0b44790f9162d0d1f5099ebfa473fb69735e4e2a919fd5e70",
+      "fixture": "inferno_cleft_smelting_vault.pattern.gz",
+      "opaqueSymbols": "ABCDE",
+      "nonSpace": 3764,
+      "certifiedHidden": 0,
+      "eligibleHidden": 0,
+      "removed": 0,
+      "candidateSymbols": {},
+      "candidatePositionsXYZ": [],
+      "cells": [],
+      "reason": "All registered heating-coil variants lack complete opacity proof; glass, controller and ability positions conduct sight, yielding no certified hidden cells."
+    },
+    "gtladditions:nexus_satellite_factory_mk1": {
+      "size": [
+        5,
+        21,
+        13
+      ],
+      "sourceArtifactSha256": "f2d5bb9a0181a53dd60233a28b05bec867f1053c7e976cad707d45812775b837",
+      "sourcePatternSha256": "194f206aa2c489fe6b21b1ea1623c43627c4994cc2b0be1b3f818813def08292",
+      "fixture": "nexus_satellite_factory.pattern.gz",
+      "opaqueSymbols": "ABCDFGHJKLM",
+      "nonSpace": 795,
+      "certifiedHidden": 3,
+      "eligibleHidden": 3,
+      "removed": 3,
+      "candidateSymbols": {
+        "F": 1,
+        "M": 2
+      },
+      "candidatePositionsXYZ": [
+        [
+          2,
+          10,
+          7
+        ],
+        [
+          2,
+          10,
+          8
+        ],
+        [
+          2,
+          10,
+          9
+        ]
+      ],
+      "cells": [
+        {
+          "position": [
+            2,
+            10,
+            7
+          ],
+          "symbol": "F",
+          "expectedBlocks": [
+            "gtlcore:dimensionally_transcendent_casing"
+          ]
+        },
+        {
+          "position": [
+            2,
+            10,
+            8
+          ],
+          "symbol": "M",
+          "expectedBlocks": [
+            "kubejs:dimensional_bridge_casing"
+          ]
+        },
+        {
+          "position": [
+            2,
+            10,
+            9
+          ],
+          "symbol": "M",
+          "expectedBlocks": [
+            "kubejs:dimensional_bridge_casing"
+          ]
+        }
+      ],
+      "reason": "Only three certified hidden fixed-block cells removed; module connector N, controller and every hatch remain. Registration predicates for F/M are plain blocks; module host scan uses controller positions, not F/M."
+    },
+    "gtladditions:nexus_satellite_factory_mk2": {
+      "size": [
+        5,
+        21,
+        13
+      ],
+      "sourceArtifactSha256": "f2d5bb9a0181a53dd60233a28b05bec867f1053c7e976cad707d45812775b837",
+      "sourcePatternSha256": "194f206aa2c489fe6b21b1ea1623c43627c4994cc2b0be1b3f818813def08292",
+      "fixture": "nexus_satellite_factory.pattern.gz",
+      "opaqueSymbols": "ABCDFGHJKLM",
+      "nonSpace": 795,
+      "certifiedHidden": 3,
+      "eligibleHidden": 3,
+      "removed": 3,
+      "candidateSymbols": {
+        "F": 1,
+        "M": 2
+      },
+      "candidatePositionsXYZ": [
+        [
+          2,
+          10,
+          7
+        ],
+        [
+          2,
+          10,
+          8
+        ],
+        [
+          2,
+          10,
+          9
+        ]
+      ],
+      "cells": [
+        {
+          "position": [
+            2,
+            10,
+            7
+          ],
+          "symbol": "F",
+          "expectedBlocks": [
+            "gtlcore:dimensionally_transcendent_casing"
+          ]
+        },
+        {
+          "position": [
+            2,
+            10,
+            8
+          ],
+          "symbol": "M",
+          "expectedBlocks": [
+            "kubejs:dimensional_bridge_casing"
+          ]
+        },
+        {
+          "position": [
+            2,
+            10,
+            9
+          ],
+          "symbol": "M",
+          "expectedBlocks": [
+            "kubejs:dimensional_bridge_casing"
+          ]
+        }
+      ],
+      "reason": "Only three certified hidden fixed-block cells removed; module connector N, controller and every hatch remain. Registration predicates for F/M are plain blocks; module host scan uses controller positions, not F/M."
+    },
+    "gtladditions:nexus_satellite_factory_mk3": {
+      "size": [
+        5,
+        21,
+        13
+      ],
+      "sourceArtifactSha256": "f2d5bb9a0181a53dd60233a28b05bec867f1053c7e976cad707d45812775b837",
+      "sourcePatternSha256": "194f206aa2c489fe6b21b1ea1623c43627c4994cc2b0be1b3f818813def08292",
+      "fixture": "nexus_satellite_factory.pattern.gz",
+      "opaqueSymbols": "ABCDFGHJKLM",
+      "nonSpace": 795,
+      "certifiedHidden": 3,
+      "eligibleHidden": 3,
+      "removed": 3,
+      "candidateSymbols": {
+        "F": 1,
+        "M": 2
+      },
+      "candidatePositionsXYZ": [
+        [
+          2,
+          10,
+          7
+        ],
+        [
+          2,
+          10,
+          8
+        ],
+        [
+          2,
+          10,
+          9
+        ]
+      ],
+      "cells": [
+        {
+          "position": [
+            2,
+            10,
+            7
+          ],
+          "symbol": "F",
+          "expectedBlocks": [
+            "gtlcore:dimensionally_transcendent_casing"
+          ]
+        },
+        {
+          "position": [
+            2,
+            10,
+            8
+          ],
+          "symbol": "M",
+          "expectedBlocks": [
+            "kubejs:dimensional_bridge_casing"
+          ]
+        },
+        {
+          "position": [
+            2,
+            10,
+            9
+          ],
+          "symbol": "M",
+          "expectedBlocks": [
+            "kubejs:dimensional_bridge_casing"
+          ]
+        }
+      ],
+      "reason": "Only three certified hidden fixed-block cells removed; module connector N, controller and every hatch remain. Registration predicates for F/M are plain blocks; module host scan uses controller positions, not F/M."
+    },
+    "gtladditions:nexus_satellite_factory_mk4": {
+      "size": [
+        5,
+        21,
+        13
+      ],
+      "sourceArtifactSha256": "f2d5bb9a0181a53dd60233a28b05bec867f1053c7e976cad707d45812775b837",
+      "sourcePatternSha256": "194f206aa2c489fe6b21b1ea1623c43627c4994cc2b0be1b3f818813def08292",
+      "fixture": "nexus_satellite_factory.pattern.gz",
+      "opaqueSymbols": "ABCDFGHJKLM",
+      "nonSpace": 795,
+      "certifiedHidden": 3,
+      "eligibleHidden": 3,
+      "removed": 3,
+      "candidateSymbols": {
+        "F": 1,
+        "M": 2
+      },
+      "candidatePositionsXYZ": [
+        [
+          2,
+          10,
+          7
+        ],
+        [
+          2,
+          10,
+          8
+        ],
+        [
+          2,
+          10,
+          9
+        ]
+      ],
+      "cells": [
+        {
+          "position": [
+            2,
+            10,
+            7
+          ],
+          "symbol": "F",
+          "expectedBlocks": [
+            "gtlcore:dimensionally_transcendent_casing"
+          ]
+        },
+        {
+          "position": [
+            2,
+            10,
+            8
+          ],
+          "symbol": "M",
+          "expectedBlocks": [
+            "kubejs:dimensional_bridge_casing"
+          ]
+        },
+        {
+          "position": [
+            2,
+            10,
+            9
+          ],
+          "symbol": "M",
+          "expectedBlocks": [
+            "kubejs:dimensional_bridge_casing"
+          ]
+        }
+      ],
+      "reason": "Only three certified hidden fixed-block cells removed; module connector N, controller and every hatch remain. Registration predicates for F/M are plain blocks; module host scan uses controller positions, not F/M."
+    }
+  },
+  "opacity": {
+    "gtceu:atomic_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:cleanroom_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:fusion_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:high_power_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:high_temperature_smelting_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:infinity_block": {
+      "opaque": false,
+      "evidence": "missing asset assets/gtceu/blockstates/infinity_block.json"
+    },
+    "gtceu:luv_hermetic_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:naquadria_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:plascrete": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:ptfe_pipe_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:stainless_steel_turbine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:sterilizing_filter_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:sturdy_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:tungstensteel_turbine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:uhv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:uxv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:degenerate_rhenium_constrained_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:dimension_injection_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:dimensionally_transcendent_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:dragon_strength_tritanium_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:echo_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:hyper_core": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:hyper_mechanical_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:infinity_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtlcore:iridium_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:molecular_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:naquadah_alloy_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:uxv_hermetic_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "kubejs:containment_field_generator": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:dimensional_bridge_casing": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:neutronium_pipe_casing": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:restraint_device": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:spacetime_assembly_line_unit": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "minecraft:sponge": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    }
+  },
+  "assetHashes": {
+    "assets/gtceu/blockstates/atomic_casing.json": "58bc0f59be8100dc21f70be5e54a30eb29b324a6e6b9c805b9697e058f150bd6",
+    "assets/gtceu/blockstates/high_power_casing.json": "dc96db6042ab5cb228ca1597068e4933d2309457335ec009b41d0ed1840d22aa",
+    "assets/gtceu/blockstates/high_temperature_smelting_casing.json": "fa5e35e18024304249dd95ea4d4be5f43f74872deeacfa104a11f10f9414ff11",
+    "assets/gtceu/blockstates/luv_hermetic_casing.json": "aab0401396b4f3110127eb909e7992f47440260ae62528989d6a9ff5901aa44e",
+    "assets/gtceu/blockstates/plascrete.json": "707efbba2135b9a8eb12da3d99d190702be497cf12d52cc9e7edb95f6f2af58b",
+    "assets/gtceu/blockstates/ptfe_pipe_casing.json": "1b424ee775103d6b37815ddeaf0497f38f914633c9cf510c97b526aaf2ba29a3",
+    "assets/gtceu/blockstates/stainless_steel_turbine_casing.json": "58933def433c16a70372b4df614bb2b7d4122f3dcb93567f20a7369f54b81f2e",
+    "assets/gtceu/blockstates/sterilizing_filter_casing.json": "4567aa7c8e34e77a35eb9a63618585f24b96787ca435630205d222677168d746",
+    "assets/gtceu/blockstates/sturdy_machine_casing.json": "df48179461d178d487296354f32884cc04b6eec0a4e886b3fe4a79a8acf9e2c8",
+    "assets/gtceu/blockstates/tungstensteel_turbine_casing.json": "4b150a0a141da024bb44566198dc027b81a34b5e19818cd05fa2fb61f24aa061",
+    "assets/gtceu/blockstates/uhv_machine_casing.json": "bb757576c9b0bee779e3ad396238f67848bc84b6dff05c63b35ef35c9e05d88e",
+    "assets/gtceu/blockstates/uxv_machine_casing.json": "0781405959c52ca22a2b50c5799a39f7c2e2bec4379b951b12b0780d5c0f9fc6",
+    "assets/gtceu/models/block/atomic_casing.json": "9df0070a99f3b0143eca897907c4f5eb4328940e9c6d831f34e6300dfb9e3c12",
+    "assets/gtceu/models/block/cube/tinted/bottom_top.json": "49320f20167a2fd95c4f79a68f5eaf766ec6c5da34d73c5b260245ede9633707",
+    "assets/gtceu/models/block/cube/tinted/default.json": "67c3f91109fbb4944a73bd9f30599b386da044c919e08cbb93b5748ef3b639d5",
+    "assets/gtceu/models/block/cube_2_layer/all.json": "66bb29d330a1251a78d299d5bdba0f762b4d92d529f30b5c8c6eba19d8a0fc8e",
+    "assets/gtceu/models/block/cube_2_layer/default.json": "c33061253b31f6836d025c3ddba28b568527fe4302e79349c8da86e1f87c3bf4",
+    "assets/gtceu/models/block/hermetic_casing.json": "1a9ec513de5493f0739ea60f3d6c3c417cf34d411db65a630d3ad2f05898a97b",
+    "assets/gtceu/models/block/high_power_casing.json": "0bcb725cf4f36157408cb5ae0d035b2220378dcbf17966b0200378b21290d13a",
+    "assets/gtceu/models/block/high_temperature_smelting_casing.json": "73f4ffd4c81918e880817131ecc8eeade79e7eca3b5f2b9cb4605e1873934d09",
+    "assets/gtceu/models/block/luv_hermetic_casing.json": "4992949a7054af1e4fe96fb6025a79bb5f0806c320eed62f5600f63794ee4a59",
+    "assets/gtceu/models/block/plascrete.json": "158c618ff43fde19b08b927b95e908f98ecad49c17fca02d299d800aaeb648a6",
+    "assets/gtceu/models/block/ptfe_pipe_casing.json": "52fa0a3958320c11d408aa698828cb73a4fcdc82f6226a74b50ef1fbffe96847",
+    "assets/gtceu/models/block/stainless_steel_turbine_casing.json": "874d1e388bfcb42294ce854779c8a431a59d99ad3f0ef1d1daa7ab5a9c720b78",
+    "assets/gtceu/models/block/sterilizing_filter_casing.json": "57541e3297e9be352b480f87ac5efad346d3b04c6857858f2854136f99b663d4",
+    "assets/gtceu/models/block/sturdy_machine_casing.json": "a59457321eb0290113f0d5d4117f035ef47c17967ac7274e5819a814ed67c43e",
+    "assets/gtceu/models/block/tungstensteel_turbine_casing.json": "dcbd38697d03fa9313107953cd31a5fcb57ca34dcfff13fe82f5d0f5436559e7",
+    "assets/gtceu/models/block/uhv_machine_casing.json": "3ba5e29c7d22e332f805b2a1e5bc55f37cf50ade68fd94ca6bc1a478a931727d",
+    "assets/gtceu/models/block/uxv_machine_casing.json": "3ea1218d75957baf49a7677c0adc50faca43480bb932212ce5b23d6312318e08",
+    "assets/gtceu/textures/block/casings/cleanroom/plascrete.png": "9e17eb96738bde10ac8a7533fc46c715a8c872d03b5aae8c6f48bce903eae4c5",
+    "assets/gtceu/textures/block/casings/cleanroom/sterilizing_filter_casing.png": "d461b1733c33a25dc5ca966b6acaa7b7715bbcb68b575ac2ff828b0207925304",
+    "assets/gtceu/textures/block/casings/gcym/atomic_casing.png": "fe68fbe7ea8cc474eb1cc822601ff990de0c72be3013887f3890d5a652061ab9",
+    "assets/gtceu/textures/block/casings/gcym/high_temperature_smelting_casing.png": "40dfa687e6bfebefc86043c398b793f962d3b0633a560b2b58e9654ecc6f0e65",
+    "assets/gtceu/textures/block/casings/hpca/high_power_casing.png": "afe520a01bff4eea1600d5b2e00c210714d829f8ef2ad4dda27f37e9ba245d04",
+    "assets/gtceu/textures/block/casings/mechanic/machine_casing_turbine_stainless_steel.png": "1552e64a57c34d29173bac1aa589d3951a95f7c3ec0e221719030d46504ccf79",
+    "assets/gtceu/textures/block/casings/mechanic/machine_casing_turbine_tungstensteel.png": "9fa28fa458e0502418e8142c2b691b608b1c9a09199e51261f9828b2fa541bc0",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_pipe_polytetrafluoroethylene.png": "67d6757bc7ce292b8304ae9c963b38ca8f798d3a815b140f3e607118923efa65",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_sturdy_hsse.png": "5eee0da0bb00c9d56254767caab3c333f393e16b13c6a341f25b96c16773974f",
+    "assets/gtceu/textures/block/casings/voltage/uhv/bottom.png": "fd0321d1a57925f7fd1554688c71f428530d3ac82c55ebbb8315274e3b159798",
+    "assets/gtceu/textures/block/casings/voltage/uhv/side.png": "141c0fa75a9227decee8c192a92aef1bb798f6d32fb1391854f6e2ae9cea143f",
+    "assets/gtceu/textures/block/casings/voltage/uhv/top.png": "40a0d1b3c016c53408d1c503c9e80fda608182a9ac106c24f22c25121478370a",
+    "assets/gtceu/textures/block/casings/voltage/uxv/bottom.png": "bfe6b57bfe12a94db42b48b73dbe56baffaea83da935e096a2e01def82dfa148",
+    "assets/gtceu/textures/block/casings/voltage/uxv/side.png": "1f0f22260ab0b8e51658a635253f5d202a8ecc0bbfec7a394585cb115c22202a",
+    "assets/gtceu/textures/block/casings/voltage/uxv/top.png": "bc7ce80fe896549f4a2ec7cdd3a8df7d27cb1a55bf71d2ac9e1b069d5aaaeb66",
+    "assets/gtlcore/blockstates/degenerate_rhenium_constrained_casing.json": "9f4efd40ee5cae7c5c8678017c405f59c7476de9c8a1fab6b184acd2fcc219a3",
+    "assets/gtlcore/blockstates/dimension_injection_casing.json": "7dc81a47dd884261d8391e1b1cf35d939d082c54ba09365b98776a10b8eeecea",
+    "assets/gtlcore/blockstates/dimensionally_transcendent_casing.json": "88bd78e3e351bfc468d03b9f03cf10d0da91f83347f6318970428908f130d906",
+    "assets/gtlcore/blockstates/dragon_strength_tritanium_casing.json": "dc56855e45a4dbd4ad81d013ec29d62648ec78ba38e94a48bda7ae924db89c66",
+    "assets/gtlcore/blockstates/echo_casing.json": "89a30621989e62c4042705a9a5abffc390894b9a0e9b4b8e70e9e834f9042aaa",
+    "assets/gtlcore/blockstates/hyper_core.json": "222c3594bb8b4dc07652356179b21d538e38a23d8513ebbaa38b525143b38273",
+    "assets/gtlcore/blockstates/hyper_mechanical_casing.json": "08188819b006055f815e4e547c3551f47257141e44d20e848b333bd4411de4a0",
+    "assets/gtlcore/blockstates/iridium_casing.json": "0076c84a6767241f60ebe72b910081ee2520f1274245b43681e54d5044dd597e",
+    "assets/gtlcore/blockstates/molecular_casing.json": "ffc3083f6925a3b971c913684f84709d4c3975825028e63f54dc52a490786599",
+    "assets/gtlcore/blockstates/naquadah_alloy_casing.json": "3f1aaf622dc3950ea30f32889abb754ed68337355827926c54951999dcc11391",
+    "assets/gtlcore/blockstates/uxv_hermetic_casing.json": "5853bef41fea04087246d181970be6b5eee2148d1ff5446dae4f224b32606187",
+    "assets/gtlcore/models/block/degenerate_rhenium_constrained_casing.json": "9c7aeacf225d939f75115f2d95a0129e41bb7bf5e57476a9280200d825c13f2b",
+    "assets/gtlcore/models/block/dimension_injection_casing.json": "654289970b516e22331c1cb7f1f950c572b7613311229e0d0aa6b6f3f8ae0cc2",
+    "assets/gtlcore/models/block/dimensionally_transcendent_casing.json": "a0133c4069e04c180686d2a019744b22dccbb243f7d3f6909099f2ee49360bd1",
+    "assets/gtlcore/models/block/dragon_strength_tritanium_casing.json": "66d784863669a72c940ba32c2c3ba461c16a307faeee58a278191a3efb56b44d",
+    "assets/gtlcore/models/block/echo_casing.json": "b7bb4ae89d84395a66196f4b3828732e3cc7378ff1168cf0e463c13bc62295e1",
+    "assets/gtlcore/models/block/hyper_mechanical_casing.json": "a5bb618c25f017dc76d42541a1adc2cda5972261c07f5d747c5e7d836172bd8a",
+    "assets/gtlcore/models/block/iridium_casing.json": "cfe6a173032e5ab14f5354cf177b4ff1360e60b65894b07cfa14552aca7d904d",
+    "assets/gtlcore/models/block/molecular_casing.json": "5146db837548055a98482a4fa69fc7b3f6e9b92ceab4ebbfde0b151b3c09ca73",
+    "assets/gtlcore/models/block/naquadah_alloy_casing.json": "a5bb618c25f017dc76d42541a1adc2cda5972261c07f5d747c5e7d836172bd8a",
+    "assets/gtlcore/models/block/uxv_hermetic_casing.json": "4404c01f01f7c29bbb0d13a6d9295d0743bdc065cb6605b9bccede10b7ef8efe",
+    "assets/gtlcore/models/block/variant/hyper_core.json": "67e930540de1f392db331c090b2032eefbc1cedf82a598e00b064159210732f8",
+    "assets/gtlcore/models/block/variant/hyper_core_active.json": "5c5b6fea9d586bb9018776710e6f2fdd2053c7242aa870b1ef61f97f1e1a2d44",
+    "assets/gtlcore/textures/block/casings/degenerate_rhenium_constrained_casing.png": "ca7864ef6bde8a0f32c5d29a4f47676e0dae566295588ba3d8fd6f7df6b5b080",
+    "assets/gtlcore/textures/block/casings/dimension_injection_casing.png": "2b9714c9e7f9e8aee9398d718bcf218dd02ecd98c6b1c1c895c7356026ece5fb",
+    "assets/gtlcore/textures/block/casings/dimensionally_transcendent_casing.png": "934717770330f613b00aafb77275b8248d6e395350d5528d0a9801f116385028",
+    "assets/gtlcore/textures/block/casings/echo_casing.png": "017a46febdee76e81538bf9d97e5878ce30f7dce4989151da05b93cf750c1a07",
+    "assets/gtlcore/textures/block/casings/extreme_strength_tritanium_casing.png": "71e1cd9e011ed82633b8536f0606f824daba7de4cf5e50ea92a50a1ba3f37c84",
+    "assets/gtlcore/textures/block/casings/hyper_mechanical_casing.png": "783c4f8d75340212017d9c2418faa2dfa747834afb17bb93723dde27473fead1",
+    "assets/gtlcore/textures/block/casings/iridium_casing.png": "fa6549f1c28be2efca09a9e8d9d078b417a4982f505425a39a606fe1c2fd0c73",
+    "assets/gtlcore/textures/block/hyper_core.png": "d76cc80584150b5aa94d6c1d2d7ba8f4a782f405ae1f0366bea52b038a24d88d",
+    "assets/gtlcore/textures/block/molecular_casing.png": "09f093c0827fc82f85e3883a1d4c320900927a55374fef2c2460078956023538",
+    "assets/kubejs/textures/block/containment_field_generator.png": "ef0c44bb92b0b4b69efc31f7eb0cf0cd4fe601a4c0dc9eb507a071e7dd1f8ff9",
+    "assets/kubejs/textures/block/dimensional_bridge_casing.png": "683d32e1f120fa3cdbc8d9b3293d8e41f7c363985bd353ba167b76e28ea8e0e6",
+    "assets/kubejs/textures/block/neutronium_pipe_casing.png": "1f4b1eea8a56a1300cc007484c933cb50d745466a61d84a0e012ef6652baae3b",
+    "assets/kubejs/textures/block/restraint_device.png": "5f0b0493580fe8cb1176fe50068a4bb6403c53e30d57de4befd6bd838a074132",
+    "assets/kubejs/textures/block/spacetime_assembly_line_unit.png": "7c18a9b6f7053c6f13467c57b0ddea0b15f4a9a8cb1c048a93193e9dfef15737",
+    "startup_scripts/block_registration.js": "ed29a6909bbd7afcbb8056837ca13e95f8c9378dc8f800f9c08b0fd0c682092e"
+  },
+  "bindingsSha256": "f682084a87689c9a953882c8955a4c92a542f16f5ddddfc66c64dcbb18235ac3"
+}

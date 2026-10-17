@@ -7,6 +7,7 @@ import com.gregtechceu.gtceu.api.pattern.MultiblockShapeInfo;
 import com.gtl.enhancedcore.common.structure.GtlMegastructurePatterns;
 import com.gtl.enhancedcore.common.structure.SpaceElevatorMaintenance;
 import com.gtl.enhancedcore.common.structure.NativeIsolationPatterns;
+import com.gtl.enhancedcore.common.config.MachineOverrideConfig;
 import java.util.List;
 import java.util.function.Supplier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,19 +19,24 @@ public abstract class GtlMegastructurePatternMixin {
     @ModifyVariable(method = "setPatternFactory", at = @At("HEAD"), argsOnly = true)
     private Supplier<BlockPattern> enhanced$replaceGeometry(Supplier<BlockPattern> original) {
         var definition = (MultiblockMachineDefinition) (Object) this;
-        if (SpaceElevatorMaintenance.matches(definition.getId()))
+        boolean enhance = MachineOverrideConfig.current().enhanceOriginalMachines();
+        boolean replace = MachineOverrideConfig.current().replaceOriginalStructures();
+        if (enhance && SpaceElevatorMaintenance.matches(definition.getId()))
             return Suppliers.memoize(() -> SpaceElevatorMaintenance.forbidden(original.get()));
-        if (NativeIsolationPatterns.targets(definition.getId()))
+        if (enhance && (NativeIsolationPatterns.targets(definition.getId())
+                || !replace && com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(definition.getId())))
             return Suppliers.memoize(() -> NativeIsolationPatterns.restrict(definition.getId(), original.get()));
-        if (!GtlMegastructurePatterns.targets(definition.getId())) return original;
+        if (!replace || !GtlMegastructurePatterns.targets(definition.getId())) return original;
         return GtlMegastructurePatterns.wrapFactory(definition.getId(), original);
     }
 
     @ModifyVariable(method = "setShapes", at = @At("HEAD"), argsOnly = true)
     private Supplier<List<MultiblockShapeInfo>> enhanced$useMatchingPreview(Supplier<List<MultiblockShapeInfo>> original) {
         var definition = (MultiblockMachineDefinition) (Object) this;
-        if (!GtlMegastructurePatterns.targets(definition.getId())
-                && !SpaceElevatorMaintenance.matches(definition.getId())) return original;
+        if (!(MachineOverrideConfig.current().replaceOriginalStructures()
+                && GtlMegastructurePatterns.targets(definition.getId()))
+                && !(MachineOverrideConfig.current().enhanceOriginalMachines()
+                && SpaceElevatorMaintenance.matches(definition.getId()))) return original;
         return Suppliers.memoize(() -> {
             var pattern = definition.getPatternFactory().get();
             int[] repetitions = new int[pattern.aisleRepetitions.length];

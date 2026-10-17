@@ -3,6 +3,7 @@ package com.gtl.enhancedcore.common.registration;
 import com.gtl.enhancedcore.GTLEnhancedcore;
 import com.gtl.enhancedcore.common.machine.AdvancedNeutronActivatorMutableMachine;
 import com.gtl.enhancedcore.common.machine.AdvancedSpsCraftingMutableMachine;
+import com.gtl.enhancedcore.common.machine.AddThreadMutableMachine;
 import com.gtl.enhancedcore.common.machine.QftMutableMachine;
 import com.gtl.enhancedcore.common.machine.StarUltimateForgeMutableMachine;
 import com.gtl.enhancedcore.common.machine.SuperParticleColliderMutableMachine;
@@ -29,10 +30,12 @@ public final class AddMutableMachineRegistration {
 
     /** 在 {@code bus.addGenericListener(MachineDefinition.class, ...)} 回调内调用一次。 */
     public static void init() {
+        if (!com.gtl.enhancedcore.common.config.MachineOverrideConfig.current().enhanceOriginalMachines()) return;
         if (applied) return;
         applied = true;
         applyQft();
         applyThreadStacking();
+        applyWoodDistillation();
     }
 
     private static void applyQft() {
@@ -70,6 +73,17 @@ public final class AddMutableMachineRegistration {
                 holder -> new AdvancedNeutronActivatorMutableMachine(holder));
     }
 
+    private static void applyWoodDistillation() {
+        MultiblockMachineDefinition definition = org.gtlcore.gtlcore.common.data.machines.MultiBlockMachineB.WOOD_DISTILLATION;
+        if (definition == null) {
+            GTLEnhancedcore.LOGGER.error("wood_distillation definition missing; ADD mutable 接入跳过");
+            return;
+        }
+        definition.setMachineSupplier(holder -> new com.gtl.enhancedcore.common.machine.WoodDistillationMutableMachine(holder));
+        GTLEnhancedcore.LOGGER.info("gtceu:wood_distillation 已接入 ADD 跨配方并行，线程 {} 条基准 + Ω",
+                com.gtl.enhancedcore.common.machine.WoodDistillationMutableMachine.CROSS_RECIPE_THREADS);
+    }
+
     private static void applyAddThreads(MultiblockMachineDefinition definition, String path,
                                         java.util.function.Function<
                                                 com.gregtechceu.gtceu.api.machine.IMachineBlockEntity, MetaMachine> factory) {
@@ -82,7 +96,5 @@ public final class AddMutableMachineRegistration {
                 path, NATIVE_THREADS);
     }
 
-    /** 与 {@code IvMachineScope.NATIVE_CROSS_RECIPE_THREADS} 同源的日志常量。 */
-    private static final int NATIVE_THREADS =
-            com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.NATIVE_CROSS_RECIPE_THREADS;
+    private static final int NATIVE_THREADS = AddThreadMutableMachine.DEFAULT_ADD_CROSS_RECIPE_THREADS;
 }

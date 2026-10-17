@@ -58,7 +58,7 @@ public final class ConfigEditorRegression {
         // 2026-10-12 用户要求「复制 ID / 复制配方」按键功能可在配置里开关，因此
         // 配置主页新增 copy_keys 入口（进入独立子界面）。主页仍不含机器数值设置，
         // 决策 10「配置页只保留 Tips、删除机器数值配置」继续成立。
-        check(actions.equals(List.of("tips", "reload_tips", "tips_file", "copy_keys", "open_folder", "back")),
+        check(actions.equals(List.of("tips", "reload_tips", "tips_file", "copy_keys", "all_files", "open_folder", "back")),
                 "The configuration entry exposes item Tips actions plus the requested copy-key toggles");
         String copyScreen = Files.readString(Path.of(
                 "src/main/java/com/gtl/enhancedcore/client/config/CopyKeysScreen.java"));

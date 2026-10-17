@@ -29,6 +29,13 @@ public abstract class IvNativeTooltipMixin {
             cir.setReturnValue(MachineTooltips.modifyWithRecipes(cir.getReturnValue(), "qft", definition.getRecipeTypes()));
             return;
         }
+        if (id.getNamespace().equals("gtceu") && id.getPath().equals("wood_distillation")) {
+            String threadLine = "tooltip.gtl_enhancedcore.wood_distillation.threads";
+            cir.setReturnValue(MachineTooltips.modify(cir.getReturnValue(), "wood_distillation",
+                    java.util.Map.of(threadLine,
+                            new Object[]{com.gtl.enhancedcore.common.machine.WoodDistillationMutableMachine.CROSS_RECIPE_THREADS})));
+            return;
+        }
         // 2026-10-12：三台只加 ADD 跨配方线程（不进 IV 隔离）的机器，同样只追加 ADD 能力提示。
         if (IvMachineScope.addThreadOnly(id)) {
             cir.setReturnValue(MachineTooltips.modifyWithRecipes(cir.getReturnValue(),

@@ -15,13 +15,15 @@ public final class StructurePatterns {
     public static FactoryBlockPattern start(String resource) {
         FactoryBlockPattern builder = FactoryBlockPattern.start();
         data(resource).forEachAisle(builder::aisle);
+        // Removed interior cells accept existing blocks as well as air; built structures remain valid.
+        builder.where(' ', com.gregtechceu.gtceu.api.pattern.Predicates.any());
         return builder;
     }
 
     static StructureData data(String resource) {
         return CACHE.computeIfAbsent(resource, path -> {
             try {
-                return StructureData.read(StructurePatterns.class.getResourceAsStream(path));
+                return StructureData.read(StructurePatterns.class.getResourceAsStream(HollowStructureResources.resolve(path)));
             } catch (IOException e) {
                 throw new UncheckedIOException("Cannot load multiblock geometry " + path, e);
             }

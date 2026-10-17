@@ -14,7 +14,7 @@ abstract class ConfigPage extends Screen {
     protected int left, bodyWidth;
     protected ConfigPage(Screen parent, String title) { super(tr(title)); this.parent = parent; }
     public static Component tr(String key, Object... args) { return Component.translatable("config.gtl_enhancedcore." + key, args); }
-    @Override protected void init() { bodyWidth = Math.min(640, width - 24); left = (width - bodyWidth) / 2; }
+    @Override protected void init() { bodyWidth = Math.min(520, width - 24); left = (width - bodyWidth) / 2; }
     protected Button button(Component text, int x, int y, int w, Runnable action) {
         return addRenderableWidget(Button.builder(text, b -> action.run()).bounds(x, y, w, 20).build());
     }
@@ -56,6 +56,7 @@ abstract class ConfigPage extends Screen {
     @Override public void onClose() { minecraft.setScreen(parent); }
     @Override public void render(GuiGraphics graphics, int mouseX, int mouseY, float partial) {
         renderBackground(graphics);
+        graphics.fill(left - 12, 0, left + bodyWidth + 12, height, 0x66000000);
         graphics.drawCenteredString(font, title, width / 2, 10, 0xffffff);
         super.render(graphics, mouseX, mouseY, partial);
         if (!statusVisible()) {

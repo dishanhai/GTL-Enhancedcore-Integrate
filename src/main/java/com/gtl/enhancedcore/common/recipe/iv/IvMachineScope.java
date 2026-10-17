@@ -36,6 +36,7 @@ public final class IvMachineScope {
     public static final Map<String, Set<String>> FOREIGN_NATIVE_IDS = Map.of(
             "gtladditions", Set.of(
                     "inferno_cleft_smelting_vault",
+                    "fuxi_bagua_heaven_forging_furnace",
                     "nexus_satellite_factory_mk1", "nexus_satellite_factory_mk2",
                     "nexus_satellite_factory_mk3", "nexus_satellite_factory_mk4"));
 
@@ -49,6 +50,7 @@ public final class IvMachineScope {
      */
     public static final Set<String> KEEP_NATIVE_THREADS_WITHOUT_BUFFER = Set.of(
             "inferno_cleft_smelting_vault",
+            "fuxi_bagua_heaven_forging_furnace",
             "nexus_satellite_factory_mk1", "nexus_satellite_factory_mk2",
             "nexus_satellite_factory_mk3", "nexus_satellite_factory_mk4");
 
@@ -102,7 +104,9 @@ public final class IvMachineScope {
         return ADD_THREAD_ONLY_IDS.contains(path) ? NATIVE_CROSS_RECIPE_THREADS : 0;
     }
     public static boolean nativeTarget(Object machine) {
-        return machine instanceof WorkableElectricMultiblockMachine electric && nativeTarget(electric.getDefinition().getId());
+        return machine instanceof WorkableElectricMultiblockMachine electric
+                && com.gtl.enhancedcore.common.config.MachineOverrideConfig.current().enhanceOriginalMachines()
+                && nativeTarget(electric.getDefinition().getId());
     }
     public static boolean crossRecipeEnabled(WorkableElectricMultiblockMachine machine) {
         return machine != null && IvBuffers.targetController(machine)

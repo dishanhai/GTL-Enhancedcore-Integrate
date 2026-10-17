@@ -1,0 +1,2265 @@
+{
+  "schema": 1,
+  "algorithm": "exterior-26-once; immutable-visible-shell; removed-to-any",
+  "resources": {
+    "/data/gtl_enhancedcore/structures/gtl/advanced_vacuum_drying_furnace.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/advanced_vacuum_drying_furnace.pattern.gz",
+      "size": [
+        73,
+        78,
+        72
+      ],
+      "sourceSha256": "624c1dd68d56ad32aadf2ead304c503e947c887d0cb326613d5d6066157a692b",
+      "removed": 22681,
+      "removedBySymbol": {
+        "B": 86,
+        "C": 341,
+        "F": 28,
+        "G": 128,
+        "I": 8516,
+        "J": 38,
+        "K": 325,
+        "L": 11133,
+        "M": 2086
+      },
+      "opaqueSymbols": "ABDFGIJKLM",
+      "remaining": 71850,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/advanced_vacuum_drying_furnace.pattern.gz",
+      "optimizedSha256": "31a499132feff9b6041a3bd5763c402f57a2298be57924ba4f588c7fb54c55fe"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/cooling_tower.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/cooling_tower.pattern.gz",
+      "size": [
+        89,
+        122,
+        89
+      ],
+      "sourceSha256": "b2901990960928b39d5872c1c780c5147e1357052c5fef03669b588e0f5bfdab",
+      "removed": 5930,
+      "removedBySymbol": {
+        "A": 1246,
+        "C": 1153,
+        "F": 158,
+        "G": 42,
+        "H": 686,
+        "I": 948,
+        "J": 936,
+        "K": 761
+      },
+      "opaqueSymbols": "ABCFGHIJK",
+      "remaining": 96454,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/cooling_tower.pattern.gz",
+      "optimizedSha256": "2fb329c6e8ece14cc9521de95427c322e3ae40a3f6f7bd4638d0b0196cc53253"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/crystalline_infinity.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/crystalline_infinity.pattern.gz",
+      "size": [
+        105,
+        105,
+        105
+      ],
+      "sourceSha256": "ea09be33082a0e316cbe85c978f0deedb1ab4bc5fd185486632fd062d2796122",
+      "removed": 1518,
+      "removedBySymbol": {
+        "B": 1098,
+        "C": 1,
+        "D": 108,
+        "E": 311
+      },
+      "opaqueSymbols": "BDE",
+      "remaining": 38543,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/crystalline_infinity.pattern.gz",
+      "optimizedSha256": "e7e70ab4539e3dae9b20f9f4d678f37a6984c325424b8ffc838b3c6d94ee0d91"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/dimensional_focus_engraving_array.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/dimensional_focus_engraving_array.pattern.gz",
+      "size": [
+        109,
+        109,
+        109
+      ],
+      "sourceSha256": "877401769aba90508200a3b6e4ec95f6353e700b03a88bf59fec81f6df3ac616",
+      "removed": 758,
+      "removedBySymbol": {
+        "C": 99,
+        "D": 12,
+        "E": 642,
+        "G": 4,
+        "H": 1
+      },
+      "opaqueSymbols": "CDEFG",
+      "remaining": 43616,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/dimensional_focus_engraving_array.pattern.gz",
+      "optimizedSha256": "08b6cd05df455ba3b514cb64f569f331477622bd0c4637909a45f47f9a8cc4db"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/field_extruder_factory.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/field_extruder_factory.pattern.gz",
+      "size": [
+        75,
+        59,
+        107
+      ],
+      "sourceSha256": "94b1fc542cef4ea1ad4a0ef4e5944468326975c6980023a5355839b658dea5e4",
+      "removed": 17852,
+      "removedBySymbol": {
+        "B": 7072,
+        "C": 3876,
+        "D": 6329,
+        "E": 171,
+        "F": 404
+      },
+      "opaqueSymbols": "BCDEF",
+      "remaining": 51923,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/field_extruder_factory.pattern.gz",
+      "optimizedSha256": "382b5a7c113aa41eb442e0b4bb8730395e3ff55d5da4063a277a3efc7247c604"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/holy_separator.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/holy_separator.pattern.gz",
+      "size": [
+        113,
+        105,
+        53
+      ],
+      "sourceSha256": "1b99343307cd73bd3a06ff930a5849fecdc0808383049c809f83ced65414c54d",
+      "removed": 5671,
+      "removedBySymbol": {
+        "A": 1,
+        "B": 262,
+        "C": 2920,
+        "D": 1848,
+        "E": 437,
+        "F": 103,
+        "G": 100
+      },
+      "opaqueSymbols": "BCDEFG",
+      "remaining": 27054,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/holy_separator.pattern.gz",
+      "optimizedSha256": "af2c73a4611cabb80c0d4589c015040119580c2eb85cd41ac718987d9c07fe79"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/mega_canner.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/mega_canner.pattern.gz",
+      "size": [
+        84,
+        59,
+        94
+      ],
+      "sourceSha256": "27fd19d643f0f0d158a61d7c6139859d076fd9a86cf2dc02235c877d4316daec",
+      "removed": 6640,
+      "removedBySymbol": {
+        "B": 1770,
+        "C": 12,
+        "D": 355,
+        "E": 340,
+        "F": 4163
+      },
+      "opaqueSymbols": "BDEF",
+      "remaining": 43757,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/mega_canner.pattern.gz",
+      "optimizedSha256": "cd53a597ee1427e8e99761cc855b1e303a026b73dea45d90097efce54c1e31f1"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/mega_distillery.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/mega_distillery.pattern.gz",
+      "size": [
+        87,
+        140,
+        62
+      ],
+      "sourceSha256": "89df217d0f611a94f5960f5c4501116e8462f7b9ea15993bd857def106fb61ac",
+      "removed": 8064,
+      "removedBySymbol": {
+        "A": 2829,
+        "C": 2773,
+        "D": 2462
+      },
+      "opaqueSymbols": "ACD",
+      "remaining": 74798,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/mega_distillery.pattern.gz",
+      "optimizedSha256": "1d9f9d87d00a64e09a3d3ce57cef1b69afb1810444408b55186547e01bda749a"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/mega_extractor.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/mega_extractor.pattern.gz",
+      "size": [
+        73,
+        99,
+        60
+      ],
+      "sourceSha256": "b339da741cecefc2ac991b65b1a9504c2b460d389c07799fa1760b8b9f1a353d",
+      "removed": 5845,
+      "removedBySymbol": {
+        "B": 1219,
+        "C": 444,
+        "D": 3536,
+        "E": 646
+      },
+      "opaqueSymbols": "BCDE",
+      "remaining": 30212,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/mega_extractor.pattern.gz",
+      "optimizedSha256": "b35a1f1460fe2291d92b210c83d830ad04e359d2c2081fe0b7f9f850f25474ee"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/mega_presser.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/mega_presser.pattern.gz",
+      "size": [
+        79,
+        74,
+        64
+      ],
+      "sourceSha256": "1f20980236d9b53f83fcb9d82766b23e7d4c9e305a17a5434d54529ab244e257",
+      "removed": 23429,
+      "removedBySymbol": {
+        "C": 6,
+        "E": 3604,
+        "F": 19819
+      },
+      "opaqueSymbols": "EF",
+      "remaining": 52232,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/mega_presser.pattern.gz",
+      "optimizedSha256": "7c30fda9b331e5faa8d9fedfcf4b5395503ab71a6cb8a9c36561bcf52c48fadf"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/mega_wiremill.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/mega_wiremill.pattern.gz",
+      "size": [
+        102,
+        55,
+        79
+      ],
+      "sourceSha256": "950ed2b6b0e8fc5ff096df8bf063a585a9b6bf943561caae8bcda0f2ed4864ce",
+      "removed": 25474,
+      "removedBySymbol": {
+        "B": 341,
+        "C": 6441,
+        "D": 6261,
+        "E": 11137,
+        "F": 1294
+      },
+      "opaqueSymbols": "BCDEF",
+      "remaining": 46100,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/mega_wiremill.pattern.gz",
+      "optimizedSha256": "8afedc17148207076d303ee2ec01e706a33e6cbc9b4902def795932bfd32c52d"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/suprachronal_assembly_line.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/suprachronal_assembly_line.pattern.gz",
+      "size": [
+        71,
+        71,
+        157
+      ],
+      "sourceSha256": "22f4e0f8f9e0c9d40b8883a911caf0a4f551abc29bfa24dff2a8f1032b09acc6",
+      "removed": 3027,
+      "removedBySymbol": {
+        "D": 136,
+        "E": 146,
+        "F": 1550,
+        "G": 27,
+        "H": 525,
+        "J": 538,
+        "K": 105
+      },
+      "opaqueSymbols": "CDEFGHJK",
+      "remaining": 50584,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/suprachronal_assembly_line.pattern.gz",
+      "optimizedSha256": "a348e80bdb97a5f996c2c6fb7a4f07513e6f5efd52b2081c6f8024d2b3b7cd1b"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/mega_fluid_heater.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/mega_fluid_heater.pattern.gz",
+      "size": [
+        42,
+        29,
+        40
+      ],
+      "sourceSha256": "309e5bd7dba15794ba03e38faddd6b7d08543671f7955a2d7e8221435662ca5e",
+      "removed": 2820,
+      "removedBySymbol": {
+        "D": 719,
+        "E": 674,
+        "F": 270,
+        "G": 55,
+        "I": 213,
+        "K": 235,
+        "L": 654
+      },
+      "opaqueSymbols": "ABDEGIKL",
+      "remaining": 11944,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/mega_fluid_heater.pattern.gz",
+      "optimizedSha256": "7526f83da9743456d687f4101b68ff5323d7ec851a3f04c34c0edef1be40cbcc"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/advanced_sps_crafting.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/advanced_sps_crafting.pattern.gz",
+      "size": [
+        91,
+        97,
+        91
+      ],
+      "sourceSha256": "f07a2532c16e6c6fbbaeab7bb7b1835da5aaf1eaf0ced6c2512c9efd42d3df90",
+      "removed": 602,
+      "removedBySymbol": {
+        "H": 114,
+        "K": 88,
+        "O": 400
+      },
+      "opaqueSymbols": "AFGHKO",
+      "remaining": 48021,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/advanced_sps_crafting.pattern.gz",
+      "optimizedSha256": "d7add96875f66b2e64db09e9659b393f3b40ab7e9af0fdb4b4b701190c5e67ea"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/dimensionally_transcendent_mixer.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/dimensionally_transcendent_mixer.pattern.gz",
+      "size": [
+        177,
+        136,
+        92
+      ],
+      "sourceSha256": "96bc0c616a5f2009fa522c37a19bc35785750baed15f74081fae7112f65fc467",
+      "removed": 41682,
+      "removedBySymbol": {
+        "A": 594,
+        "C": 2497,
+        "D": 2314,
+        "F": 117,
+        "G": 223,
+        "H": 4,
+        "I": 500,
+        "J": 21008,
+        "K": 4071,
+        "M": 52,
+        "N": 5702,
+        "O": 4600
+      },
+      "opaqueSymbols": "ACDGIJKMNO",
+      "remaining": 119129,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/dimensionally_transcendent_mixer.pattern.gz",
+      "optimizedSha256": "1642a25c4cea0960790266c1ac349efb48e85fdd472913c0e174b1181ffc1df7"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/star_ultimate_material_forge_factory.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/star_ultimate_material_forge_factory.pattern.gz",
+      "size": [
+        213,
+        115,
+        213
+      ],
+      "sourceSha256": "d4a2d6e0012727da82030db02d4e825435c3687d99f75895121d94660be53bc1",
+      "removed": 40787,
+      "removedBySymbol": {
+        "A": 371,
+        "B": 2,
+        "C": 3720,
+        "D": 3765,
+        "F": 377,
+        "G": 605,
+        "I": 6619,
+        "J": 17660,
+        "K": 2710,
+        "L": 325,
+        "N": 2242,
+        "P": 2391
+      },
+      "opaqueSymbols": "ACDGIJKLNP",
+      "remaining": 197055,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/star_ultimate_material_forge_factory.pattern.gz",
+      "optimizedSha256": "7bc81d8f1404e3c5a4e26389b41c8d0b4d202cecf09fa7a97370277830d034f3"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/qft.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/qft.pattern.gz",
+      "size": [
+        189,
+        180,
+        169
+      ],
+      "sourceSha256": "8f9c5040320d062d825a64f154450e6b950754986bdeee265dc2c4f62b80c281",
+      "removed": 85618,
+      "removedBySymbol": {
+        "D": 5713,
+        "E": 23834,
+        "G": 106,
+        "H": 1170,
+        "J": 16210,
+        "K": 35105,
+        "L": 3261,
+        "M": 12,
+        "P": 207
+      },
+      "opaqueSymbols": "BDEHJKLP",
+      "remaining": 154144,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/qft.pattern.gz",
+      "optimizedSha256": "d0c921ebcf34505e86bc6e92d1b52b50fa282615a5691cca13a869d543104c03"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/nano_core.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/nano_core.pattern.gz",
+      "size": [
+        100,
+        157,
+        101
+      ],
+      "sourceSha256": "55d7d020683aae3b2727f618df02e0f56c7c3ddc020fbee890b54bda050fb7a9",
+      "removed": 5799,
+      "removedBySymbol": {
+        "E": 326,
+        "H": 1763,
+        "I": 882,
+        "J": 135,
+        "K": 2194,
+        "L": 13,
+        "M": 1,
+        "O": 174,
+        "P": 311
+      },
+      "opaqueSymbols": "ACDHIJKLOP",
+      "remaining": 94709,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/nano_core.pattern.gz",
+      "optimizedSha256": "2a406eb9e089df96f8dcb3a910f68115b9039dbed9184f8642aa54417f150ed3"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/advanced_neutron_activator.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/advanced_neutron_activator.pattern.gz",
+      "size": [
+        123,
+        193,
+        71
+      ],
+      "sourceSha256": "437a76cf6b85cbb1a02d1723a301401fffb150d9e3433968ee8450219a61dc8c",
+      "removed": 70727,
+      "removedBySymbol": {
+        "A": 40,
+        "D": 60,
+        "E": 660,
+        "F": 1046,
+        "G": 100,
+        "I": 7585,
+        "K": 18629,
+        "L": 13458,
+        "M": 16996,
+        "O": 5442,
+        "Q": 1557,
+        "R": 5154
+      },
+      "opaqueSymbols": "ADEGIKLMNOPQR",
+      "remaining": 171463,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/advanced_neutron_activator.pattern.gz",
+      "optimizedSha256": "3c2003ea6f55cb2c960d149decd1012afc5b10b485801fcb910c54d748a54b41"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/dimensionally_transcendent_chemical_plant.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/dimensionally_transcendent_chemical_plant.pattern.gz",
+      "size": [
+        139,
+        110,
+        139
+      ],
+      "sourceSha256": "7c10f2b54fe1c75d967c92bc426f832eb82e91ecb5aaa524c5825800de660bee",
+      "removed": 78811,
+      "removedBySymbol": {
+        "A": 57,
+        "B": 72,
+        "C": 5658,
+        "D": 26230,
+        "F": 3821,
+        "J": 60,
+        "K": 132,
+        "M": 17371,
+        "N": 1884,
+        "O": 1764,
+        "Q": 21762
+      },
+      "opaqueSymbols": "ACDFJKMNPQ",
+      "remaining": 327756,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/dimensionally_transcendent_chemical_plant.pattern.gz",
+      "optimizedSha256": "266b61fc71dfc180764eb180e059336874092f68aec8487e6acaa9c2c3af0452"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/antientropy_condensation_center.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/antientropy_condensation_center.pattern.gz",
+      "size": [
+        143,
+        113,
+        133
+      ],
+      "sourceSha256": "fd39ef2d535b20bba9b7a4b9463333c4e255bcf8aaa009fc8d2aba84878c7e4b",
+      "removed": 35314,
+      "removedBySymbol": {
+        "A": 60,
+        "E": 1863,
+        "F": 652,
+        "G": 1055,
+        "H": 692,
+        "K": 11559,
+        "L": 16515,
+        "M": 564,
+        "O": 2354
+      },
+      "opaqueSymbols": "AEFGIKLMOQ",
+      "remaining": 205725,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/antientropy_condensation_center.pattern.gz",
+      "optimizedSha256": "a8bdb4c4c49bc43c7081031691d38694f86398d64caa9de8e3e46eded68239e6"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/advanced_integrated_ore_processor.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/advanced_integrated_ore_processor.pattern.gz",
+      "size": [
+        108,
+        69,
+        149
+      ],
+      "sourceSha256": "7c91e5aa790a1ddc0fd46104032034a9421cd89d524431a183bcd8c2b6248814",
+      "removed": 72381,
+      "removedBySymbol": {
+        "A": 1807,
+        "B": 12,
+        "D": 20259,
+        "E": 13545,
+        "G": 330,
+        "H": 13588,
+        "J": 5063,
+        "K": 1256,
+        "L": 152,
+        "M": 11,
+        "O": 6182,
+        "P": 24,
+        "Q": 27,
+        "R": 10101,
+        "S": 24
+      },
+      "opaqueSymbols": "ABDEGHJKLOPRS",
+      "remaining": 118059,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/advanced_integrated_ore_processor.pattern.gz",
+      "optimizedSha256": "6d7aae98141e39ea807dc595845a11375b785e7bdb7977b6efc431437e8749f0"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/atomic_energy_excitation_plant.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/atomic_energy_excitation_plant.pattern.gz",
+      "size": [
+        127,
+        92,
+        74
+      ],
+      "sourceSha256": "18a064cd6d2036cd85c42adb390e1d72ea72900b68d06644af62351f8297fd64",
+      "removed": 6339,
+      "removedBySymbol": {
+        "B": 24,
+        "D": 348,
+        "G": 130,
+        "I": 2018,
+        "J": 364,
+        "K": 774,
+        "L": 1920,
+        "O": 304,
+        "R": 311,
+        "S": 146
+      },
+      "opaqueSymbols": "ABDGIJKLOPQRS",
+      "remaining": 86973,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/atomic_energy_excitation_plant.pattern.gz",
+      "optimizedSha256": "c1ab2f5ede7e5b55f84e78603f1f0aa1dfbbd6f309d4a3bd42c3467b6d33a2a6"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/component_assembly_line.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/component_assembly_line.pattern.gz",
+      "size": [
+        169,
+        56,
+        94
+      ],
+      "sourceSha256": "e5c0bf7bd8895db486d73842275a34966b4f8b1d96d1670793b2b1a0482f18c4",
+      "removed": 56226,
+      "removedBySymbol": {
+        "A": 153,
+        "B": 115,
+        "C": 1,
+        "D": 92,
+        "E": 22472,
+        "F": 7203,
+        "H": 546,
+        "J": 1589,
+        "K": 85,
+        "L": 22,
+        "P": 16314,
+        "Q": 7634
+      },
+      "opaqueSymbols": "ABDEFHJKPQ",
+      "remaining": 92662,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/component_assembly_line.pattern.gz",
+      "optimizedSha256": "b4c2f4ab7cae6930e9dc41d7fa26b3f6a3f5bf80f8917dc330f706b2a7ce6130"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/mage_assembler.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/mage_assembler.pattern.gz",
+      "size": [
+        118,
+        65,
+        113
+      ],
+      "sourceSha256": "da2564d042c56f1f987442434c645c0469e28c74f2ed084b73b19e94e6ca0949",
+      "removed": 87599,
+      "removedBySymbol": {
+        "B": 1108,
+        "D": 246,
+        "E": 35807,
+        "G": 885,
+        "I": 3524,
+        "J": 507,
+        "K": 1,
+        "M": 37529,
+        "N": 7400,
+        "O": 92,
+        "P": 500
+      },
+      "opaqueSymbols": "BDEGIJMNOP",
+      "remaining": 64676,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/mage_assembler.pattern.gz",
+      "optimizedSha256": "ea71e2c7bbbd7d8c6c2bcb230d0227ef0e1e446f1872075a1616334ab9fec495"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/super_blast_smelter.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/super_blast_smelter.pattern.gz",
+      "size": [
+        136,
+        93,
+        121
+      ],
+      "sourceSha256": "768b37d0d84ef84ca2eda3bc548f2abb4975c229ace717e892972c31dacd0d5b",
+      "removed": 80425,
+      "removedBySymbol": {
+        "D": 75099,
+        "E": 3088,
+        "J": 376,
+        "K": 630,
+        "L": 150,
+        "N": 1082
+      },
+      "opaqueSymbols": "ABDEJKLN",
+      "remaining": 133618,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/super_blast_smelter.pattern.gz",
+      "optimizedSha256": "0bad8349abb04f52acb72e725dbf1d06b68b7cc596e30f34667a2cf12df3820b"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/superconducting_electromagnetism.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/superconducting_electromagnetism.pattern.gz",
+      "size": [
+        135,
+        141,
+        107
+      ],
+      "sourceSha256": "3b5af3eaded0677d4f1309bac33e090c71a326ab73ee96674454de64ab51382c",
+      "removed": 21497,
+      "removedBySymbol": {
+        "C": 384,
+        "E": 693,
+        "G": 73,
+        "I": 66,
+        "J": 10,
+        "L": 6742,
+        "M": 487,
+        "N": 12909,
+        "O": 133
+      },
+      "opaqueSymbols": "BCEGIJLMNO",
+      "remaining": 79428,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/superconducting_electromagnetism.pattern.gz",
+      "optimizedSha256": "ff2a57e61b3e0e9740625107fa26d92e0b0fdaf962ad1070d16bdbcb0db04600"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/lucid_etchdreamer.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/lucid_etchdreamer.pattern.gz",
+      "size": [
+        233,
+        233,
+        233
+      ],
+      "sourceSha256": "fc4e8eea31dc7737d3120f6fe0fa3580f310152b9013b0af21d14d47e492cf17",
+      "removed": 50693,
+      "removedBySymbol": {
+        "A": 23316,
+        "D": 7614,
+        "E": 3444,
+        "I": 120,
+        "J": 14147,
+        "K": 2004,
+        "Q": 24,
+        "R": 24
+      },
+      "opaqueSymbols": "ADEFIJKNO",
+      "remaining": 254006,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/lucid_etchdreamer.pattern.gz",
+      "optimizedSha256": "e792b10af6b4ceb3db956667198f7014ae6590f9e233c93ee617aa02bac5d94c"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/super_particle_collider.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/super_particle_collider.pattern.gz",
+      "size": [
+        197,
+        83,
+        209
+      ],
+      "sourceSha256": "ef014750dfb3491ef3de9449ee83c194a4e1e476f8d7165c23283166318a9229",
+      "removed": 48150,
+      "removedBySymbol": {
+        "A": 37909,
+        "B": 1853,
+        "D": 4700,
+        "E": 3157,
+        "J": 117,
+        "L": 100,
+        "N": 314
+      },
+      "opaqueSymbols": "ADJLN",
+      "remaining": 302625,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/super_particle_collider.pattern.gz",
+      "optimizedSha256": "01023570c9f99f8d7ac6c106347ff0b8d3066cf089371ec65a134c1aa6e37b96"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/wood_distillation.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/wood_distillation.pattern.gz",
+      "size": [
+        43,
+        39,
+        47
+      ],
+      "sourceSha256": "dd9aed7e2ee8b19df18f2e3d0975182d67a5d18a5a9e5e03ebc0f868b5ead47a",
+      "removed": 1299,
+      "removedBySymbol": {
+        "A": 390,
+        "B": 883,
+        "E": 8,
+        "G": 5,
+        "N": 1,
+        "O": 12
+      },
+      "opaqueSymbols": "ABDEFGNO",
+      "remaining": 10734,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/wood_distillation.pattern.gz",
+      "optimizedSha256": "d410f8dda38dd921106d4852503c0d2d95e0dfedbe953eaae4d2788af376483a"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/skeleton_shift_rift_engine.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/skeleton_shift_rift_engine.pattern.gz",
+      "size": [
+        200,
+        160,
+        140
+      ],
+      "sourceSha256": "3e5c9b847936dc4247fd7808e9b54a354205a819eddb2eeccdd216e45f00ed68",
+      "removed": 235104,
+      "removedBySymbol": {
+        "A": 52912,
+        "B": 308,
+        "D": 39673,
+        "E": 15181,
+        "G": 7786,
+        "I": 7392,
+        "J": 104106,
+        "L": 61,
+        "P": 1263,
+        "Q": 1,
+        "R": 6417,
+        "T": 1,
+        "U": 3
+      },
+      "opaqueSymbols": "ABDEGIJKLPR",
+      "remaining": 377953,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/skeleton_shift_rift_engine.pattern.gz",
+      "optimizedSha256": "baebcce14736516cc642c3e3c93890fe7c99d51fbb70e7fc332acd742cf7bd21"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/pcb_factory.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/pcb_factory.pattern.gz",
+      "size": [
+        77,
+        34,
+        45
+      ],
+      "sourceSha256": "93124a0d6b82d8c34e4e301492ed2929880847c7d132ffb900c4bdc86f25dfad",
+      "removed": 1673,
+      "removedBySymbol": {
+        "A": 118,
+        "B": 596,
+        "D": 28,
+        "E": 162,
+        "G": 54,
+        "J": 2,
+        "K": 650,
+        "L": 12,
+        "O": 51
+      },
+      "opaqueSymbols": "ABEGKLO",
+      "remaining": 17479,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/pcb_factory.pattern.gz",
+      "optimizedSha256": "08939b58ee88c5aef4526313cec03920964f728a9c72b435079b3c0491dff20c"
+    },
+    "/data/gtl_enhancedcore/structures/gtl/a_mass_fabricator.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/a_mass_fabricator.pattern.gz",
+      "size": [
+        179,
+        131,
+        279
+      ],
+      "sourceSha256": "92a34c733eef5b619b92232e0609a063176f226f8b85276177b743df43d39c09",
+      "removed": 83584,
+      "removedBySymbol": {
+        "A": 52542,
+        "E": 660,
+        "F": 22286,
+        "I": 8096
+      },
+      "opaqueSymbols": "AFI",
+      "remaining": 497971,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/gtl/a_mass_fabricator.pattern.gz",
+      "optimizedSha256": "0dae06b6555f8c8fccaed4a586ac9d9cef4b958fe08bfd4eab1fae67e6161b62"
+    },
+    "/data/gtl_enhancedcore/structures/bxjljzstructure.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/bxjljzstructure.pattern.gz",
+      "size": [
+        29,
+        19,
+        33
+      ],
+      "sourceSha256": "a1060e3f19b1d34fb864b247c452d0a3bbb66b8c8c9f76343e211de47ba1e4df",
+      "removed": 40,
+      "removedBySymbol": {
+        "E": 25,
+        "F": 3,
+        "G": 12
+      },
+      "opaqueSymbols": "ABEFG",
+      "remaining": 3383,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/bxjljzstructure.pattern.gz",
+      "optimizedSha256": "35603c3e0b4c5832101a12aa7d872d231b032eb8500ae53b85dc827de7519ebf"
+    },
+    "/data/gtl_enhancedcore/structures/causality_terminal.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/causality_terminal.pattern.gz",
+      "size": [
+        181,
+        181,
+        81
+      ],
+      "sourceSha256": "ddecbbe7c29ee03ddb6de068cc63f45a5f58891de4d338b12f36836962348068",
+      "removed": 210878,
+      "removedBySymbol": {
+        "F": 7532,
+        "H": 163158,
+        "K": 4953,
+        "W": 35235
+      },
+      "opaqueSymbols": "FHLW",
+      "remaining": 180164,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/causality_terminal.pattern.gz",
+      "optimizedSha256": "6b74b5f880f2edf949278328e8b1a17080759fe3a3fbbc726bcd9099a9e92d70"
+    },
+    "/data/gtl_enhancedcore/structures/dragonfieldproliferationcorestructure.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/dragonfieldproliferationcorestructure.pattern.gz",
+      "size": [
+        75,
+        73,
+        78
+      ],
+      "sourceSha256": "a3c073bebb45cbf1e177d80b876473f88a491b9ca03712f096d325b0142c2b55",
+      "removed": 11330,
+      "removedBySymbol": {
+        "A": 3712,
+        "B": 102,
+        "E": 2661,
+        "F": 26,
+        "I": 2,
+        "K": 17,
+        "N": 3220,
+        "O": 1590
+      },
+      "opaqueSymbols": "AEFNO",
+      "remaining": 69963,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/dragonfieldproliferationcorestructure.pattern.gz",
+      "optimizedSha256": "3054d6715328edfa764835c9b9d0123a25f1f60646e060a7dd8862b7fa1baef2"
+    },
+    "/data/gtl_enhancedcore/structures/extreme_reactor.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/extreme_reactor.pattern.gz",
+      "size": [
+        41,
+        41,
+        41
+      ],
+      "sourceSha256": "f27b342ad116169d548f23292121d35fa0a6a58107c3d6506537ee1d0983337a",
+      "removed": 399,
+      "removedBySymbol": {
+        "B": 179,
+        "E": 89,
+        "G": 119,
+        "I": 12
+      },
+      "opaqueSymbols": "BEFGI",
+      "remaining": 15925,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/extreme_reactor.pattern.gz",
+      "optimizedSha256": "ce67e8192ca06426254f65758726f0f14bd93aa58c8583ed6048d4eb5442f64f"
+    },
+    "/data/gtl_enhancedcore/structures/hadron_catalytic_refinery.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/hadron_catalytic_refinery.pattern.gz",
+      "size": [
+        17,
+        25,
+        17
+      ],
+      "sourceSha256": "2d8a4fcb4f0b2933acf7b0bd16aeb4d0e047075f49e9d0d4afd0ebaf28f42e68",
+      "removed": 54,
+      "removedBySymbol": {
+        "G": 1,
+        "I": 53
+      },
+      "opaqueSymbols": "ADGI",
+      "remaining": 1811,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/hadron_catalytic_refinery.pattern.gz",
+      "optimizedSha256": "604b8f3dec9ca86852b60a7fa460e29bdba13ef385d1b2485ef60e223c73328f"
+    },
+    "/data/gtl_enhancedcore/structures/high_flux_breeder_reactor.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/high_flux_breeder_reactor.pattern.gz",
+      "size": [
+        87,
+        111,
+        93
+      ],
+      "sourceSha256": "e38684732fcf24de91267745da881bce0d00ac7770ff120657939e23de44ab44",
+      "removed": 110734,
+      "removedBySymbol": {
+        "A": 91371,
+        "D": 5085,
+        "E": 12330,
+        "G": 922,
+        "I": 1024,
+        "K": 2
+      },
+      "opaqueSymbols": "ADEG",
+      "remaining": 150579,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/high_flux_breeder_reactor.pattern.gz",
+      "optimizedSha256": "cba523fcc5d36cf78d4fe7900d686dff190d64b8768bfc09fd4732add77a4e8d"
+    },
+    "/data/gtl_enhancedcore/structures/hydrothermal_leaching_complex.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/hydrothermal_leaching_complex.pattern.gz",
+      "size": [
+        109,
+        73,
+        145
+      ],
+      "sourceSha256": "81b97dd863e3b299ca51a88b31b68907abda92bece8297459420e3108569a3e1",
+      "removed": 104069,
+      "removedBySymbol": {
+        "A": 29053,
+        "B": 1028,
+        "D": 12,
+        "E": 11103,
+        "F": 6354,
+        "G": 4580,
+        "I": 663,
+        "J": 1194,
+        "L": 4717,
+        "P": 10,
+        "R": 24,
+        "S": 45331
+      },
+      "opaqueSymbols": "ABDEFGIJLOS",
+      "remaining": 114256,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/hydrothermal_leaching_complex.pattern.gz",
+      "optimizedSha256": "62145272f2d3538a6f2914888e4e883a23891ab15ae6d0d0e5736a0d45ede748"
+    },
+    "/data/gtl_enhancedcore/structures/hyperstructuralchemicaldistorterstructure.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/hyperstructuralchemicaldistorterstructure.pattern.gz",
+      "size": [
+        109,
+        137,
+        111
+      ],
+      "sourceSha256": "7e8133dd1dc4997fa3960947cb4e59392cf3848df6d38980facf37c7679a4021",
+      "removed": 11012,
+      "removedBySymbol": {
+        "A": 6618,
+        "B": 1601,
+        "E": 170,
+        "F": 68,
+        "G": 3,
+        "I": 2,
+        "K": 1060,
+        "P": 1271,
+        "Q": 219
+      },
+      "opaqueSymbols": "ABEFIKPQ",
+      "remaining": 118556,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/hyperstructuralchemicaldistorterstructure.pattern.gz",
+      "optimizedSha256": "5395b8106ae073af47153e4a253caf27e823c4d255e165785ba2780022891681"
+    },
+    "/data/gtl_enhancedcore/structures/integrated_universal_factory.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/integrated_universal_factory.pattern.gz",
+      "size": [
+        49,
+        31,
+        49
+      ],
+      "sourceSha256": "fe528e226b9e49a94ea062ee78d0d7451e5486e55859dc1ef3ff450114a6bfda",
+      "removed": 730,
+      "removedBySymbol": {
+        "A": 713,
+        "B": 15,
+        "E": 2
+      },
+      "opaqueSymbols": "ABDEF",
+      "remaining": 19891,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/integrated_universal_factory.pattern.gz",
+      "optimizedSha256": "158a0548d89d84ba69fd13b9e345108ff550d4d54ed63cacf76648f91507cfa7"
+    },
+    "/data/gtl_enhancedcore/structures/ivsijiantao.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/ivsijiantao.pattern.gz",
+      "size": [
+        18,
+        20,
+        18
+      ],
+      "sourceSha256": "2b4a11741a6a42dea4dea19a277f98666cd518cd82ac7c754553a81c7dd4181d",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "ADFGI",
+      "remaining": 867
+    },
+    "/data/gtl_enhancedcore/structures/large_furnace.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/large_furnace.pattern.gz",
+      "size": [
+        11,
+        13,
+        12
+      ],
+      "sourceSha256": "f9beb0798e62d04abc6fdccc26b2cb0a32ad168ca3137bd08e4f1cfe48a5d214",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "DE",
+      "remaining": 716
+    },
+    "/data/gtl_enhancedcore/structures/l_v_wireless_charger.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/l_v_wireless_charger.pattern.gz",
+      "size": [
+        7,
+        9,
+        6
+      ],
+      "sourceSha256": "770588c63e1f25db3af027588bd5829536e37f6e0cb73f22730f84e4cd85f76a",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "B",
+      "remaining": 56
+    },
+    "/data/gtl_enhancedcore/structures/m_v_wireless_charger.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/m_v_wireless_charger.pattern.gz",
+      "size": [
+        13,
+        8,
+        8
+      ],
+      "sourceSha256": "7ec872b137fb0cab1638e0e983c3dc2572962004c6cd9cd1da6944865c1b5337",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "AB",
+      "remaining": 112
+    },
+    "/data/gtl_enhancedcore/structures/ore_plant.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/ore_plant.pattern.gz",
+      "size": [
+        7,
+        6,
+        12
+      ],
+      "sourceSha256": "1b650c428304c3ec024b39621336c9d281d3dbadb1c0b114cbafc98882026ddd",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "DP",
+      "remaining": 335
+    },
+    "/data/gtl_enhancedcore/structures/plasma_machine_tool.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/plasma_machine_tool.pattern.gz",
+      "size": [
+        17,
+        12,
+        23
+      ],
+      "sourceSha256": "2e72e447df5ee5ea09202e3051d183553abc9062a438105723352b20de2ff10e",
+      "removed": 114,
+      "removedBySymbol": {
+        "A": 54,
+        "I": 60
+      },
+      "opaqueSymbols": "ADGI",
+      "remaining": 1752,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/plasma_machine_tool.pattern.gz",
+      "optimizedSha256": "3e0cd0155ef33fb30b78aadda6fb6a161f8eb393d3420b0cbdb68669f8a25579"
+    },
+    "/data/gtl_enhancedcore/structures/plus_factory.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/plus_factory.pattern.gz",
+      "size": [
+        3,
+        3,
+        3
+      ],
+      "sourceSha256": "4bd4ad6af738cab36ac0428ade2bceb6e4093cbe82d39cd4ce9a65685de69a36",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "",
+      "remaining": 27
+    },
+    "/data/gtl_enhancedcore/structures/qdys.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/qdys.pattern.gz",
+      "size": [
+        283,
+        116,
+        283
+      ],
+      "sourceSha256": "bad984c2840baa6a93b9e68f41b4ab36297a9bb5f741c8c00e018b0e9ba77618",
+      "removed": 10323,
+      "removedBySymbol": {
+        "D": 1,
+        "F": 1882,
+        "G": 23,
+        "H": 7013,
+        "K": 1400,
+        "N": 4
+      },
+      "opaqueSymbols": "DEFGHKMO",
+      "remaining": 137539,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/qdys.pattern.gz",
+      "optimizedSha256": "a65fe5c5aeae2512d163c3376456a2b697041782873492172e85525fd5c448c9"
+    },
+    "/data/gtl_enhancedcore/structures/quantum_mass_spectrum_array.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/quantum_mass_spectrum_array.pattern.gz",
+      "size": [
+        23,
+        13,
+        19
+      ],
+      "sourceSha256": "f1ee5449f1323694fa7636acde6b684a528c31d1e25ead190da91d6a88dbdd62",
+      "removed": 249,
+      "removedBySymbol": {
+        "A": 9,
+        "G": 120,
+        "I": 120
+      },
+      "opaqueSymbols": "ADGI",
+      "remaining": 1963,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/quantum_mass_spectrum_array.pattern.gz",
+      "optimizedSha256": "d31e866e5bb97c5a9de8c33241b961f77604c211d69940fe2be525a6d1b6af83"
+    },
+    "/data/gtl_enhancedcore/structures/star_core_stripper.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/star_core_stripper.pattern.gz",
+      "size": [
+        123,
+        123,
+        73
+      ],
+      "sourceSha256": "6630f34417fc99fe095d107108b9ace4731b06afe8f61e50e157c9f9f86a9f52",
+      "removed": 15296,
+      "removedBySymbol": {
+        "A": 12516,
+        "E": 872,
+        "F": 1908
+      },
+      "opaqueSymbols": "AEF",
+      "remaining": 347070,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/star_core_stripper.pattern.gz",
+      "optimizedSha256": "f25749c501c7af3a137c705af8dd4709e8272c92b9d3009be0cb1a309b702b54"
+    },
+    "/data/gtl_enhancedcore/structures/steam_platform.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/steam_platform.pattern.gz",
+      "size": [
+        7,
+        8,
+        6
+      ],
+      "sourceSha256": "71bbcb94f72b520048c6fdb5b67357bffd36cbd86ade9cee21d5037c6c6ab209",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "E",
+      "remaining": 179
+    },
+    "/data/gtl_enhancedcore/structures/stellarconfinementfusionreactorstructure.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/stellarconfinementfusionreactorstructure.pattern.gz",
+      "size": [
+        209,
+        119,
+        209
+      ],
+      "sourceSha256": "861de9345c339fb7bc10f4a9e3d0f97ec13103db14d946998fe6067b3ef88ab3",
+      "removed": 54539,
+      "removedBySymbol": {
+        "B": 6552,
+        "D": 25845,
+        "E": 1436,
+        "F": 3262,
+        "G": 10534,
+        "I": 1458,
+        "J": 944,
+        "K": 2158,
+        "N": 2206,
+        "O": 144
+      },
+      "opaqueSymbols": "BDGJKNO",
+      "remaining": 287107,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/stellarconfinementfusionreactorstructure.pattern.gz",
+      "optimizedSha256": "a31064c31b10a696309c4a85c369ab517a2576e41b0e7f30dc559f8a108020ae"
+    },
+    "/data/gtl_enhancedcore/structures/superconducting_fusion_assembler.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/superconducting_fusion_assembler.pattern.gz",
+      "size": [
+        21,
+        14,
+        21
+      ],
+      "sourceSha256": "f11812eb378983b3b44dde0274f1d63dfd0488ac62b0eefafba1a04a4f5069cd",
+      "removed": 466,
+      "removedBySymbol": {
+        "A": 60,
+        "G": 238,
+        "I": 168
+      },
+      "opaqueSymbols": "AGI",
+      "remaining": 1772,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/superconducting_fusion_assembler.pattern.gz",
+      "optimizedSha256": "e82cd39fca6e4dc5aee344903a6f29eada128e63a5e6d7d0b6d0f28b64d24ae7"
+    },
+    "/data/gtl_enhancedcore/structures/voidconstrainedminingfieldstructure.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/voidconstrainedminingfieldstructure.pattern.gz",
+      "size": [
+        101,
+        63,
+        104
+      ],
+      "sourceSha256": "d412a87a64258b8ed4b3220e175ecd1d578cbffcdad32c24b264294bdecf20ae",
+      "removed": 8100,
+      "removedBySymbol": {
+        "A": 5341,
+        "B": 2005,
+        "D": 127,
+        "E": 153,
+        "F": 14,
+        "G": 457,
+        "J": 3
+      },
+      "opaqueSymbols": "ABDEGI",
+      "remaining": 64133,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/voidconstrainedminingfieldstructure.pattern.gz",
+      "optimizedSha256": "2cbcaf9e2415680016f0e3bab0c353009332d8801e2f33287935d807b1477b8f"
+    },
+    "/data/gtl_enhancedcore/structures/weather_anchor.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/weather_anchor.pattern.gz",
+      "size": [
+        23,
+        29,
+        23
+      ],
+      "sourceSha256": "c5f9f867910d3b1fda58b865bcf59a0d3bdb2eb71d860350914a9906867b49f8",
+      "removed": 373,
+      "removedBySymbol": {
+        "H": 373
+      },
+      "opaqueSymbols": "HL",
+      "remaining": 2527,
+      "optimizedResource": "/data/gtl_enhancedcore/structures/hollow/weather_anchor.pattern.gz",
+      "optimizedSha256": "a9e59cf403ff7854864b1bb7ac7a0d6f97b15abd7a9c26fc668d7605b996715e"
+    },
+    "/data/gtl_enhancedcore/structures/zzkzgc.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/zzkzgc.pattern.gz",
+      "size": [
+        15,
+        21,
+        13
+      ],
+      "sourceSha256": "f06c8ef1b9accbb950644ab09f6435a5e02a8211d8c9d657d089bce220c65832",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "BG",
+      "remaining": 2211
+    },
+    "/data/gtl_enhancedcore/structures/gtl/lucid_etchdreamer_preview_panel.pattern.gz": {
+      "resource": "/data/gtl_enhancedcore/structures/gtl/lucid_etchdreamer_preview_panel.pattern.gz",
+      "size": [
+        5,
+        5,
+        3
+      ],
+      "sourceSha256": "2bdd0352efa62b6f73f982688ab747571ebcfd93e817cd0f86d346893fb6f9a9",
+      "removed": 0,
+      "removedBySymbol": {},
+      "opaqueSymbols": "J",
+      "remaining": 50
+    }
+  },
+  "opacity": {
+    "ae2:mysterious_cube": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "ae2:quartz_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:advanced_computer_casing": {
+      "opaque": false,
+      "evidence": "custom/translucent model gtceu:block/advanced_computer_casing"
+    },
+    "gtceu:assembly_line_grating": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:assembly_line_unit": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:black_metal_sheet": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:black_steel_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:blue_lamp": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:blue_steel_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:bronze_brick_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:bronze_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:bronze_gearbox": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:bronze_pipe_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:clean_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:cleanroom_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:coke_oven_bricks": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:computer_casing": {
+      "opaque": false,
+      "evidence": "custom/translucent model gtceu:block/computer_casing"
+    },
+    "gtceu:computer_heat_vent": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:cupronickel_coil_block": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:cyan_lamp": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:electrolytic_cell": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:enriched_naquadah_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:extreme_engine_intake_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:filter_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:firebricks": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:frostproof_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:fusion_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:fusion_casing_mk2": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:fusion_casing_mk3": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:fusion_coil": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:fusion_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:heat_vent": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:heatproof_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:high_power_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:high_temperature_smelting_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:hsla_steel_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:hssg_coil_block": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:hv_hermetic_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:inert_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:laminated_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:large_scale_assembler_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:laser_safe_engraving_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:light_blue_lamp": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:luv_hermetic_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:luv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:molybdenum_disilicide_coil_block": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:mv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:neutronium_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:opv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:orange_lamp": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:plascrete": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:ptfe_pipe_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:purple_lamp": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:purple_metal_sheet": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:robust_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:solid_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:spacetime_block": {
+      "opaque": false,
+      "evidence": "missing asset assets/gtceu/blockstates/spacetime_block.json"
+    },
+    "gtceu:stable_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:stainless_evaporation_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:stainless_steel_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:stainless_steel_gearbox": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:stainless_steel_turbine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:steel_block": {
+      "opaque": false,
+      "evidence": "missing asset assets/gtceu/blockstates/steel_block.json"
+    },
+    "gtceu:steel_firebox_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:steel_gearbox": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:steel_pipe_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:stress_proof_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:superconducting_coil": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:tempered_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:titanium_gearbox": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:titanium_pipe_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:treated_wood_planks": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:tritanium_coil_block": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:tungstensteel_firebox_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:tungstensteel_gearbox": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:tungstensteel_pipe_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:tungstensteel_turbine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:uev_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:uhv_hermetic_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:uhv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:uiv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:ultimet_frame": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:uv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:uxv_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:vibration_safe_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:watertight_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtceu:white_lamp": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:yellow_lamp": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtceu:zpm_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:advanced_assembly_line_unit": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:antifreeze_heatproof_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:cooler": {
+      "opaque": false,
+      "evidence": "custom/translucent model gtlcore:block/variant/cooler_active"
+    },
+    "gtlcore:degenerate_rhenium_constrained_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:dimension_connection_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:dimension_injection_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:dimensionally_transcendent_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:enhance_hyper_mechanical_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:extreme_strength_tritanium_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:fission_reactor_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:fusion_casing_mk5": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:fusion_coil_mk2": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:graviton_field_constraint_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:hsss_reinforced_borosilicate_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtlcore:hyper_core": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:hyper_mechanical_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:improved_superconductor_coil": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:iridium_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:lafium_mechanical_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:manipulator": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:molecular_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:multi_functional_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:naquadah_alloy_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:oxidation_resistant_hastelloy_n_mechanical_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:process_machine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:qft_coil": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:rhenium_reinforced_energy_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "gtlcore:spacetimebendingcore": {
+      "opaque": false,
+      "evidence": "custom/translucent model gtlcore:block/variant/spacetimebendingcore_active"
+    },
+    "gtlcore:spacetimecontinuumripper": {
+      "opaque": false,
+      "evidence": "custom/translucent model gtlcore:block/variant/spacetimecontinuumripper_active"
+    },
+    "gtlcore:sps_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:supercritical_turbine_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:uev_hermetic_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:ultimate_stellar_containment_casing": {
+      "opaque": true,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "gtlcore:uxv_hermetic_casing": {
+      "opaque": false,
+      "evidence": "all state variants: full cube + six fully opaque PNG faces"
+    },
+    "kubejs:accelerated_pipeline": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:aggregatione_core": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:annihilate_core": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:containment_field_generator": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:dimensional_bridge_casing": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:eternity_coil_block": {
+      "opaque": true,
+      "evidence": "reviewed gtceu:coil full cube + opaque PNG"
+    },
+    "kubejs:force_field_glass": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "kubejs:high_strength_concrete": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:hollow_casing": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:laser_cooling_casing": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:machine_casing_circuit_assembly_line": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:magic_core": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    },
+    "kubejs:molecular_coil": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    },
+    "kubejs:neutronium_gearbox": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:neutronium_pipe_casing": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:red_steel_casing": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    },
+    "kubejs:restraint_device": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:spacetime_assembly_line_casing": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:spacetime_assembly_line_unit": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal full cube + opaque PNG"
+    },
+    "kubejs:speeding_pipe": {
+      "opaque": true,
+      "evidence": "reviewed KubeJS basicMetal faces + opaque PNGs"
+    },
+    "kubejs:titansteel_coil_block": {
+      "opaque": true,
+      "evidence": "reviewed gtceu:coil full cube + opaque PNG"
+    },
+    "minecraft:beacon": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "minecraft:glowstone": {
+      "opaque": true,
+      "evidence": "vanilla full opaque cube"
+    },
+    "minecraft:gold_block": {
+      "opaque": true,
+      "evidence": "vanilla full opaque cube"
+    },
+    "minecraft:iron_bars": {
+      "opaque": false,
+      "evidence": "transparent/partial/variable renderer; conducts sight"
+    },
+    "minecraft:iron_block": {
+      "opaque": true,
+      "evidence": "vanilla full opaque cube"
+    },
+    "minecraft:lava": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    },
+    "minecraft:polished_blackstone_bricks": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    },
+    "minecraft:quartz_block": {
+      "opaque": true,
+      "evidence": "vanilla full opaque cube"
+    },
+    "minecraft:raw_copper_block": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    },
+    "minecraft:raw_iron_block": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    },
+    "minecraft:sea_lantern": {
+      "opaque": true,
+      "evidence": "vanilla full opaque cube"
+    },
+    "minecraft:shroomlight": {
+      "opaque": true,
+      "evidence": "vanilla full opaque cube"
+    },
+    "minecraft:water": {
+      "opaque": false,
+      "evidence": "unknown geometry/texture; conducts sight"
+    }
+  },
+  "assetHashes": {
+    "assets/ae2/blockstates/mysterious_cube.json": "70f63b89909a040efd3ec8468c2c5fa6cc43ab5652fffc41258969581db15d80",
+    "assets/ae2/models/block/mysterious_cube.json": "be4605aa98173b68f947ae09276c587ae0fdfa04cfa4ce59b45e6ad2b49eb8b4",
+    "assets/gtceu/blockstates/advanced_computer_casing.json": "7e0368abd320b0053715a8cb49ddf4a0a75a7d8dd24dbfae4bf284594ccb63ea",
+    "assets/gtceu/blockstates/assembly_line_grating.json": "b8b8ca05a363937eaa52a12ff122fd5063f66b2631c33c44bfe88a6ad314c8d7",
+    "assets/gtceu/blockstates/assembly_line_unit.json": "3dc28e2aa8794a2f4161c0e7b3e29ea4ce900c3e92b2f6a4145384b9e167d3eb",
+    "assets/gtceu/blockstates/black_metal_sheet.json": "e3d778395551a6b672f3ecbbe9f101c3d315c259a2c8551adfe2d1e07222da1c",
+    "assets/gtceu/blockstates/bronze_brick_casing.json": "6950879adc1fdebc5129db710b3b299016547b069f55c78b563023badb8ee1bd",
+    "assets/gtceu/blockstates/bronze_gearbox.json": "920b6405cdaa093c2e7f8deebf636c8712ca4428330c7ffda26a294aacca135b",
+    "assets/gtceu/blockstates/bronze_pipe_casing.json": "8529a76eb3d7ab298eb09db16c90345be05ca65bf89caa79791f85a0b5304317",
+    "assets/gtceu/blockstates/clean_machine_casing.json": "d8c45e93cbe3765f0c5a0320c03c4d54e81054234d366ad8ed009c8e90930724",
+    "assets/gtceu/blockstates/coke_oven_bricks.json": "90a9a94e3e8c8141fd2d1646cb13b9fba2259f5381b3687d3b6392b94bb0b599",
+    "assets/gtceu/blockstates/computer_casing.json": "2e0dafea36475fce52b1ed9d1a417adfe9539d13e3e4af862de264e8ec5265f6",
+    "assets/gtceu/blockstates/computer_heat_vent.json": "7c18e873240f65c4022d8505bdebcab15ac5bfa3aa99e9e126c60feddb94d676",
+    "assets/gtceu/blockstates/cupronickel_coil_block.json": "58a2cc5c0007d11516f0ffa22ef0e8adfece6f380393269aff66dd5249f49c92",
+    "assets/gtceu/blockstates/electrolytic_cell.json": "1b328a311cc7f65b591cae4f1bc748b5e9d2419ee4a475abd1bbdb3080b9218f",
+    "assets/gtceu/blockstates/extreme_engine_intake_casing.json": "62d5e586ca87e288a41a383bfae7e8393e7906649018370ba9cb5562d6afd9c7",
+    "assets/gtceu/blockstates/filter_casing.json": "d59a998c001aea83d5afac035a540d411c71dd60a8956636b03ac943b68e0a02",
+    "assets/gtceu/blockstates/firebricks.json": "9a9863ef2e97cf5025859442535788f39cb8a7c3adf6c8a179be2587df0d4138",
+    "assets/gtceu/blockstates/frostproof_machine_casing.json": "882791699467ddb3819e179b396df31d55285b82009445c7c528e0910a9eb2d9",
+    "assets/gtceu/blockstates/fusion_casing.json": "607bfd96ee950716ec4841b57244714c445804e439511bab27a13717353ee257",
+    "assets/gtceu/blockstates/fusion_casing_mk2.json": "20c16f18e74667336cb4f27e6cef917e670ee1af4751c302cbce58da21e33b9d",
+    "assets/gtceu/blockstates/fusion_casing_mk3.json": "20bbb0e4848d8921035b9fa0367abe417ea53f565441a2bf982efda87886f822",
+    "assets/gtceu/blockstates/fusion_coil.json": "d240b72afaad10659937f4c1762355b90b379b3ce69800f701fcaf120437267a",
+    "assets/gtceu/blockstates/heat_vent.json": "fedbfbd64042820184d56e298693405ff5ede58f3eae7c5828e24d681ded0801",
+    "assets/gtceu/blockstates/heatproof_machine_casing.json": "fd59dae29213a1f4d3c0e82ba8517593b389be2af69849b3701892cf84ed5807",
+    "assets/gtceu/blockstates/high_power_casing.json": "dc96db6042ab5cb228ca1597068e4933d2309457335ec009b41d0ed1840d22aa",
+    "assets/gtceu/blockstates/high_temperature_smelting_casing.json": "fa5e35e18024304249dd95ea4d4be5f43f74872deeacfa104a11f10f9414ff11",
+    "assets/gtceu/blockstates/hssg_coil_block.json": "7c0329ce91be88f65f7ba754f7d29577a14e6aa53f7c4ab7654610b65a99a961",
+    "assets/gtceu/blockstates/hv_hermetic_casing.json": "d52a8a70f1fe2541917d541345c8824128bd47a758ab15d6540f118277079c7e",
+    "assets/gtceu/blockstates/inert_machine_casing.json": "7922ae3ac4b15ecff02fae20a74121b1b3977a1231f2d2c00bac9519b18e2b43",
+    "assets/gtceu/blockstates/large_scale_assembler_casing.json": "5dd9930a340e8d5e4c840f781e17a831ca728dcaeccfc42a32cf03a6ee472311",
+    "assets/gtceu/blockstates/laser_safe_engraving_casing.json": "7f6d9a3e2733bef4fdd249b0f6d4c91b9ae55f62507d8306944f6d542677b939",
+    "assets/gtceu/blockstates/luv_hermetic_casing.json": "aab0401396b4f3110127eb909e7992f47440260ae62528989d6a9ff5901aa44e",
+    "assets/gtceu/blockstates/luv_machine_casing.json": "52b0de3cc4f0b2f6ca59386ecebd47f486a371e6379afe2425fbb8b91c847c84",
+    "assets/gtceu/blockstates/molybdenum_disilicide_coil_block.json": "6ac56e36ec17d73b1c5d43722ccfdaf0ded47e6773fff5138458c60c93202d68",
+    "assets/gtceu/blockstates/mv_machine_casing.json": "3bdc3416397b54b7964f1f509b85eddbf9aaaa7ba29f8d07211cfe377b44de17",
+    "assets/gtceu/blockstates/opv_machine_casing.json": "e897b1e2a843a78280279b51f624ada456e3f246153062e91b8b09f01ef1f122",
+    "assets/gtceu/blockstates/plascrete.json": "707efbba2135b9a8eb12da3d99d190702be497cf12d52cc9e7edb95f6f2af58b",
+    "assets/gtceu/blockstates/ptfe_pipe_casing.json": "1b424ee775103d6b37815ddeaf0497f38f914633c9cf510c97b526aaf2ba29a3",
+    "assets/gtceu/blockstates/purple_metal_sheet.json": "02abb7e712199befefa5561cfde53b956b2384eaa854bacaeb799cbdef3e2f5c",
+    "assets/gtceu/blockstates/robust_machine_casing.json": "2a3315b9832e715329125f53378057822d4ea648217248f3bfb1a1d65755f480",
+    "assets/gtceu/blockstates/solid_machine_casing.json": "6282e39ef47b2f8b6825d442f79b50bac665411f8567fdcd959029281ae4bdcd",
+    "assets/gtceu/blockstates/stable_machine_casing.json": "ebc63358fcb7570fbcaa63d3ea1404b965b56daed499084bc338f06991ee0708",
+    "assets/gtceu/blockstates/stainless_evaporation_casing.json": "f4f4bb7619fd9a6dd037a1ee42e3beb6d74e4d686825a71f25bc3cbef7341902",
+    "assets/gtceu/blockstates/stainless_steel_gearbox.json": "44c7b2d77de458822b7eb1894de318994935b1e40affcec668a1b9d10f746865",
+    "assets/gtceu/blockstates/stainless_steel_turbine_casing.json": "58933def433c16a70372b4df614bb2b7d4122f3dcb93567f20a7369f54b81f2e",
+    "assets/gtceu/blockstates/steel_firebox_casing.json": "e0efdf109775447dbff4e373c5af6bcf01a9a2c807f6826a17fc2153cd46356f",
+    "assets/gtceu/blockstates/steel_gearbox.json": "7157c54223a948a20371eb736191b875bf0bf41264f4682134386da64acaed66",
+    "assets/gtceu/blockstates/steel_pipe_casing.json": "bdd4bd683d3fe41c560bf13aa0f469f251169d3bb7dd2af655df56eef79b41fa",
+    "assets/gtceu/blockstates/stress_proof_casing.json": "6bf8e55568291c4893480bc1576f6a3906373c90138ce8a922df29adb96f3c41",
+    "assets/gtceu/blockstates/superconducting_coil.json": "db6a43ddde0ac34fa5b03db6c3cc4fa8000b83572a72199f40e1e3057e7adbaa",
+    "assets/gtceu/blockstates/titanium_gearbox.json": "1b26f59c97371542497b1ba7079dfd834230759ff7b7fbb1ab3e1c517176dbff",
+    "assets/gtceu/blockstates/titanium_pipe_casing.json": "3509827e9733ef747870ff0802720305df3f0a019cffe9ddbc5e9620d733d26e",
+    "assets/gtceu/blockstates/treated_wood_planks.json": "8a34bf97a55366da10e275d1ccbda11bbbe51cb6c5d1a61dadede0e4302aee35",
+    "assets/gtceu/blockstates/tritanium_coil_block.json": "f9d2258c509f46a7a137456baeaff721974933108cfeccbcf0fed3b786221323",
+    "assets/gtceu/blockstates/tungstensteel_firebox_casing.json": "94aa5c05319640c94aafe874e81c07876a42432b65e62ecff16286261abf49b1",
+    "assets/gtceu/blockstates/tungstensteel_gearbox.json": "6834fedcac7ce0d36ad5da9137511fdca57a8e707f8f13cd85805420ece88312",
+    "assets/gtceu/blockstates/tungstensteel_pipe_casing.json": "4bfde49d605ed0d22130e8f3fb1e962ca351366756f0bcb6e9ac5752c70950aa",
+    "assets/gtceu/blockstates/tungstensteel_turbine_casing.json": "4b150a0a141da024bb44566198dc027b81a34b5e19818cd05fa2fb61f24aa061",
+    "assets/gtceu/blockstates/uev_machine_casing.json": "33fda84d8b5c2f0fddf61316cb7438592400f973efcaacceeefa5110db78cc91",
+    "assets/gtceu/blockstates/uhv_hermetic_casing.json": "d5ef829b84455bf9312d3335a7e4d67551cb8754c8599f642e65f653d43f6b85",
+    "assets/gtceu/blockstates/uhv_machine_casing.json": "bb757576c9b0bee779e3ad396238f67848bc84b6dff05c63b35ef35c9e05d88e",
+    "assets/gtceu/blockstates/uiv_machine_casing.json": "cac9edfa0c396bc19a572843c415c5cd6a3b95e51165ca06e2eb2490bc0ea6bc",
+    "assets/gtceu/blockstates/uv_machine_casing.json": "ecb7590f490b273b861e5127d63a652b997f21a166c4bfe4f47a01e52da751e3",
+    "assets/gtceu/blockstates/uxv_machine_casing.json": "0781405959c52ca22a2b50c5799a39f7c2e2bec4379b951b12b0780d5c0f9fc6",
+    "assets/gtceu/blockstates/vibration_safe_casing.json": "e1161b99ce638de3d7e38922528c2da276d91220c4c78ed836beedd9f5228108",
+    "assets/gtceu/blockstates/watertight_casing.json": "d9833657a2c9c9f446120e08092ec2bfd02c9bd04cc403615c082ce76e8cc4af",
+    "assets/gtceu/blockstates/zpm_machine_casing.json": "4bdadceea552d0a4b800134bf2d84f10cc8db7acae2574a6ba44ebd4f6138363",
+    "assets/gtceu/models/block/advanced_computer_casing.json": "ecf00fd409f73e1b1998f5d5eb86a631de69fd58f41af27df092bb342e4ed31b",
+    "assets/gtceu/models/block/assembly_line_grating.json": "1362d9665aa527ec536031d7a6107c40ff010bd0f4fe66522828750e18f6a98f",
+    "assets/gtceu/models/block/black_metal_sheet.json": "9b8bcbf7652db9bfa3f2e8c0a1d9b71b54d6feadd870572858467bc19244a6aa",
+    "assets/gtceu/models/block/bronze_brick_casing.json": "8898b5fd3c714b8e4544d2da21921b7af3d4b4c586f2871657e55ce14828aa35",
+    "assets/gtceu/models/block/bronze_gearbox.json": "21fb9da1372e0a472e5f5b2c198396c8539e21f64b40a829e266daf15207babb",
+    "assets/gtceu/models/block/bronze_pipe_casing.json": "a67d21ee5e54e9ea21e597d42ec3e50085cb4ac6054a22f8a3d5b45fbb684ac8",
+    "assets/gtceu/models/block/clean_machine_casing.json": "23a40466a97e894642ffb631a54b95d0c7efabe7a2ec77ec47f534fbfe136126",
+    "assets/gtceu/models/block/coke_oven_bricks.json": "ff70ffbbe12c8e4a94d5152e509337ff6745b5806dbe781a8c566f32066234a3",
+    "assets/gtceu/models/block/computer_casing.json": "1a987d7633c417108063ca222a2ded4b02b9ef5994668749b4bed650e6da8fc6",
+    "assets/gtceu/models/block/computer_heat_vent.json": "f5ed4d6a742cf668aad70f6ca2a15a7665465cd161ab73db73af278b8e751409",
+    "assets/gtceu/models/block/cube/all.json": "1dc1a48303c56c147ce733f119f433f2116bde5030953af321510727f6e90dc9",
+    "assets/gtceu/models/block/cube/default.json": "00ff75c12676a4f9cebb982d35948da4d0033d65d5181c8af51547d5ca4e2c19",
+    "assets/gtceu/models/block/cube/tinted/bottom_top.json": "49320f20167a2fd95c4f79a68f5eaf766ec6c5da34d73c5b260245ede9633707",
+    "assets/gtceu/models/block/cube/tinted/default.json": "67c3f91109fbb4944a73bd9f30599b386da044c919e08cbb93b5748ef3b639d5",
+    "assets/gtceu/models/block/cube_2_layer/all.json": "66bb29d330a1251a78d299d5bdba0f762b4d92d529f30b5c8c6eba19d8a0fc8e",
+    "assets/gtceu/models/block/cube_2_layer/default.json": "c33061253b31f6836d025c3ddba28b568527fe4302e79349c8da86e1f87c3bf4",
+    "assets/gtceu/models/block/cupronickel_coil_block.json": "64f80e7ad16a73e1f8cbcf8faad697e59fab90ebf0b64a6a6a3fe729d3fa2bde",
+    "assets/gtceu/models/block/cupronickel_coil_block_active.json": "774e4a0d693fbfb2587ee95ded97d737a6d1a2aaaeebb4546b71b8f915efdfe4",
+    "assets/gtceu/models/block/filter_casing.json": "5312f24bb9acca33ae557ce3a292a88d3fc186479511b0d05e37dcd064b7aef6",
+    "assets/gtceu/models/block/fire_box_active.json": "5d58a180c7656e457f22460c5bf4289ae63bd6603bb26261a14f35ccae8c9472",
+    "assets/gtceu/models/block/firebricks.json": "d3fc0c6081cbc1a787965b0d0bc24d83c818aac572b6fde8fd483aea228abfb7",
+    "assets/gtceu/models/block/frostproof_machine_casing.json": "d2e78facdcb6c800a4d1fab158e672f2201d362cedbb8d79c351688104443dca",
+    "assets/gtceu/models/block/fusion_casing.json": "e9bd44a499419b4ae7e102add293ec526b9d8f81885bfe5c29caee84c96c74f1",
+    "assets/gtceu/models/block/fusion_casing_active.json": "bdd095283edc0817131a0e5ffb9655dc886d4272b7e6bb7d52e162ac37a01831",
+    "assets/gtceu/models/block/fusion_casing_mk2.json": "cf83b4afee04ff934cd464479a39eca1614e49f452ba033b2d9b541e9d503a12",
+    "assets/gtceu/models/block/fusion_casing_mk2_active.json": "9bac3d85e4852ea507a4fb65bd2750b078487decfeade03c4fc441f484bf33ef",
+    "assets/gtceu/models/block/fusion_casing_mk3.json": "e91ff8065bc2ae57fe3373fb85f436d8cdbf18270056de3a85edf41df1901b4c",
+    "assets/gtceu/models/block/fusion_casing_mk3_active.json": "59a3a05140f2c7756e2f8042c33754749d177e965abf6ecf6bc497183bdc3f13",
+    "assets/gtceu/models/block/fusion_coil.json": "87c9d938d84b8358649f23975785271ceedc52f7ca3d668e4677f4c192ec54f2",
+    "assets/gtceu/models/block/fusion_coil_active.json": "1658cee6174c619b3237de1c7d8e0c227422910f9a50e02a5dce3cd441f88569",
+    "assets/gtceu/models/block/heatproof_machine_casing.json": "db621fabeb2d46f8fae480d9561d2dd01169cbd2173b2c7d3e4a32c3f8b5a76a",
+    "assets/gtceu/models/block/hermetic_casing.json": "1a9ec513de5493f0739ea60f3d6c3c417cf34d411db65a630d3ad2f05898a97b",
+    "assets/gtceu/models/block/high_power_casing.json": "0bcb725cf4f36157408cb5ae0d035b2220378dcbf17966b0200378b21290d13a",
+    "assets/gtceu/models/block/high_temperature_smelting_casing.json": "73f4ffd4c81918e880817131ecc8eeade79e7eca3b5f2b9cb4605e1873934d09",
+    "assets/gtceu/models/block/hssg_coil_block.json": "abb04cd373d89d257c63891edbd947c926bfd29c7c116f815f28b2286c77d064",
+    "assets/gtceu/models/block/hssg_coil_block_active.json": "e25f5d908a9036a9dbdf3ed9a8e76ed27633dbccfd2af52b9c04083e74e5b034",
+    "assets/gtceu/models/block/hv_hermetic_casing.json": "93bc9ece52fa8f6e67c9dc9f7e49e3ae506346ba8c2c31f57b965cbbeea98b5f",
+    "assets/gtceu/models/block/inert_machine_casing.json": "51860b18ac0c7dfe7c3d338df685cd2fcf5c448fba87b070eb5d6255a2c8cb35",
+    "assets/gtceu/models/block/large_scale_assembler_casing.json": "c669214832b5890fa67ce12939a2f0bffd6687adf705dc97e5b733b17ddb02cd",
+    "assets/gtceu/models/block/laser_safe_engraving_casing.json": "950898c480a4c6aa19f7e738b31879da3c2ff4a53a840a5e991b263df437511f",
+    "assets/gtceu/models/block/luv_hermetic_casing.json": "4992949a7054af1e4fe96fb6025a79bb5f0806c320eed62f5600f63794ee4a59",
+    "assets/gtceu/models/block/luv_machine_casing.json": "679d5b2cc1a084ce68e18e01b2c766454e528598ddfc3e86bce8a6c26a2320fc",
+    "assets/gtceu/models/block/mv_machine_casing.json": "e56368dd41378d9451fff1f02ba119173b657abe51925728ad1e9b99ae7daa38",
+    "assets/gtceu/models/block/opv_machine_casing.json": "4b7c91b5af617023dfdf212e4468d1cfa42f65c6660856999c1a7a62b844ffe2",
+    "assets/gtceu/models/block/plascrete.json": "158c618ff43fde19b08b927b95e908f98ecad49c17fca02d299d800aaeb648a6",
+    "assets/gtceu/models/block/ptfe_pipe_casing.json": "52fa0a3958320c11d408aa698828cb73a4fcdc82f6226a74b50ef1fbffe96847",
+    "assets/gtceu/models/block/purple_metal_sheet.json": "5d0fac2d8f707aaa37d2e36c3ad8c4a9abf0b01c4badb98770dca8b9b20cef78",
+    "assets/gtceu/models/block/robust_machine_casing.json": "f479528694509f408f63cc7fbd5cc6701f8a6d4d509dfda5a2a40099b010ad8e",
+    "assets/gtceu/models/block/solid_machine_casing.json": "6fe02906f06b642d5727d48a13931ed94e865f6403145606730e3ea1c0b1f622",
+    "assets/gtceu/models/block/stable_machine_casing.json": "98773ace75aadbeb202341d0587f83f7c16fa37ead78cb67d5e4540637fca077",
+    "assets/gtceu/models/block/stainless_evaporation_casing.json": "a6e241f5b44045ae6f897b0e75582ca3320f0d919eca73cfaaa8b7574af897a3",
+    "assets/gtceu/models/block/stainless_steel_gearbox.json": "cea7dc6a4b46dc37e3cfad1ec03d6b8c2cbbacdb74a4759b4fe182f6d09720d6",
+    "assets/gtceu/models/block/stainless_steel_turbine_casing.json": "874d1e388bfcb42294ce854779c8a431a59d99ad3f0ef1d1daa7ab5a9c720b78",
+    "assets/gtceu/models/block/steel_firebox_casing.json": "3b29b45e6029f3257bb2263b1a362c21bc55780d3eebd360468755f535177cad",
+    "assets/gtceu/models/block/steel_firebox_casing_active.json": "e80a2fbe04615ab7687c4598caf0ee42b3b938e2a5dcc81df2376215bd2543c7",
+    "assets/gtceu/models/block/steel_gearbox.json": "b77fa9b1a9b67b059869ac7c3b1c0e767041b52eab6ae0330254444ca10b4a12",
+    "assets/gtceu/models/block/steel_pipe_casing.json": "14dc1d4b846b872021090f9147b0645a839a932061361d92c681e624bceb8a57",
+    "assets/gtceu/models/block/stress_proof_casing.json": "a216d5ce0431221e8e954a53357b4d47e808e834c1087d2c731ea9bc8a293ddf",
+    "assets/gtceu/models/block/superconducting_coil.json": "24cea2109dbf64de15bff3b443affdc8e95e66b468f41e6d648ee47d86ce058c",
+    "assets/gtceu/models/block/superconducting_coil_active.json": "895a4cdf605bbd71bb8e0946438c45062babaee955ebe06b6203d1bb2f8f898f",
+    "assets/gtceu/models/block/titanium_gearbox.json": "35d25a21899620c6ec115115d707ef36cc0f3516d631293b2335151fce607698",
+    "assets/gtceu/models/block/titanium_pipe_casing.json": "f28650f45d14fbcc9bc847fdc809cff5315d2835ff1a4eb3ad6eec9ef303499f",
+    "assets/gtceu/models/block/treated_wood_planks.json": "c9d0fa2c0e9886e3fb0a18803a55d8cfdf523f028f1c5142b35541bbe9d2c011",
+    "assets/gtceu/models/block/tritanium_coil_block.json": "71cb6a0acbad8065e9c55fe0bffea4a8adf977bac94b21496a028ccc83b3afdf",
+    "assets/gtceu/models/block/tritanium_coil_block_active.json": "c9e2851b3cd07e32b09b6f4d316581fe9e307a7826083e98f7c1384041845ac0",
+    "assets/gtceu/models/block/tungstensteel_firebox_casing.json": "8a3087557f84d9cb7cb8b98fa00ab8d7b22b7d8491e97bc6e46c270a2aac361a",
+    "assets/gtceu/models/block/tungstensteel_firebox_casing_active.json": "0fefdf056c435cd43f8d8f26fc456be1786416794d954d9d0dc11f83a7028173",
+    "assets/gtceu/models/block/tungstensteel_gearbox.json": "fc294a7412dbdb1346039ce267deeb745dd3039dc7968113dd616ecaeef3c9b1",
+    "assets/gtceu/models/block/tungstensteel_pipe_casing.json": "b3b28a17411c7e074944feac8da49b7a68d416ffff0a2cb970bb3b0cdcbf80ac",
+    "assets/gtceu/models/block/tungstensteel_turbine_casing.json": "dcbd38697d03fa9313107953cd31a5fcb57ca34dcfff13fe82f5d0f5436559e7",
+    "assets/gtceu/models/block/uev_machine_casing.json": "a8423d868dcad10cb9b4161386ad15630e07d94c0616caa3428fb5e913b64136",
+    "assets/gtceu/models/block/uhv_hermetic_casing.json": "c1e37f577df544e1209fa64ce40a890f2640cd0b9b5f3bd0b3de17def004727a",
+    "assets/gtceu/models/block/uhv_machine_casing.json": "3ba5e29c7d22e332f805b2a1e5bc55f37cf50ade68fd94ca6bc1a478a931727d",
+    "assets/gtceu/models/block/uiv_machine_casing.json": "4ee3007449a697f4753476f351d2fcebfa9b4c807e90ebb37a46596b6609ca91",
+    "assets/gtceu/models/block/uv_machine_casing.json": "e666004691375c71413964a1a55f46ae0fbc81afbbd0c8f955bfa6d30b10d7c8",
+    "assets/gtceu/models/block/uxv_machine_casing.json": "3ea1218d75957baf49a7677c0adc50faca43480bb932212ce5b23d6312318e08",
+    "assets/gtceu/models/block/variant/assembly_line.json": "90e1f698dfa7b0fbfabb743c482cba8efca6722af9ceac54661e58f61b29b81a",
+    "assets/gtceu/models/block/variant/assembly_line_active.json": "0ac688649648a932cf05b305c93f75085d4867cf5ae2413589691963d36ec663",
+    "assets/gtceu/models/block/variant/electrolytic_cell.json": "89ec9f6f172f22be58583afd2a1ffdc6352a994368e8d4ca00d241bd18ec9162",
+    "assets/gtceu/models/block/variant/electrolytic_cell_active.json": "11c081f200a815d47f8fb1a1260bc933fc0c072d8a9eec866a435497f387235d",
+    "assets/gtceu/models/block/variant/extreme_engine_intake.json": "3c82388ae7063800c6c41e43cd360aa9176e51a5723503f21e43c5e880d358ba",
+    "assets/gtceu/models/block/variant/extreme_engine_intake_active.json": "4d9e4c40ce4e29b5a7123a48b644c6b0ff3f54b066356b9b6feaa0d2bd193ae1",
+    "assets/gtceu/models/block/variant/heat_vent.json": "3a91e1832acfcf8c5a3831c9dfc57bc2565aa8da6e981f54f87bdea99bb4c138",
+    "assets/gtceu/models/block/variant/heat_vent_active.json": "ed3daafe40973db2044b2cddc53d22e497a657934cc06426d207aaa14f64259e",
+    "assets/gtceu/models/block/variant/molybdenum_disilicide_coil_block.json": "15a78d1d06e439d48af8fcfd0e4caa19b415433669795f4a2a5bb6d6f86c81ed",
+    "assets/gtceu/models/block/variant/molybdenum_disilicide_coil_block_active.json": "78a26bf8c661e225609e8ac29b87ad62947ef7cbb15f7ef822ea00eacea520ef",
+    "assets/gtceu/models/block/vibration_safe_casing.json": "f6720ba00a1ba1a6018f764940bed4593812d02c3b32a85f39ca2ee18453e020",
+    "assets/gtceu/models/block/watertight_casing.json": "5a4849799ffdbfa475d6adb7a097fad15124eb726591da9931cdef3f2bffa0d1",
+    "assets/gtceu/models/block/zpm_machine_casing.json": "3e19f15a2879f9b836dfad73acc22d0e37fd02fbd2b053006f623f28047fede6",
+    "assets/gtceu/textures/block/casings/cleanroom/filter_casing.png": "f6b89cfce8725d1d538d2ae1f23a5fafaf445c45c4ff960cc4a2bdbeb500d938",
+    "assets/gtceu/textures/block/casings/cleanroom/plascrete.png": "9e17eb96738bde10ac8a7533fc46c715a8c872d03b5aae8c6f48bce903eae4c5",
+    "assets/gtceu/textures/block/casings/coils/machine_coil_cupronickel.png": "63ab538e5a9fc81b3b8e21144e7b4851856810f6625ed02bca38c031e69c0c47",
+    "assets/gtceu/textures/block/casings/coils/machine_coil_hssg.png": "a598ef7f82a24013166b1e17e9648abff373c7ec97368c8eb35483bef85d90dd",
+    "assets/gtceu/textures/block/casings/coils/machine_coil_molybdenum_disilicide.png": "49ad0a08226ec0a71544a74a45a980c339340fbec1b1688abfd7e554fc58f00c",
+    "assets/gtceu/textures/block/casings/coils/machine_coil_tritanium.png": "9c915123d4ab71dc57591b3635af3dcc733a1bde6d987f6186f710063fe79ccb",
+    "assets/gtceu/textures/block/casings/firebox/machine_casing_firebox_steel.png": "2d6cc2d5a2c9f30a9f63f080b102a2954d5ceefe34905a2a051b36337613cca1",
+    "assets/gtceu/textures/block/casings/firebox/machine_casing_firebox_tungstensteel.png": "27606e6fb751177a6510e3a684f0961eaf94e29f10742eee7a57048c5bca6ac5",
+    "assets/gtceu/textures/block/casings/fusion/fusion_casing.png": "f6c2256d2df1cc5eb89135024353b70b4200dce1ed1816fe11145888b5a4e624",
+    "assets/gtceu/textures/block/casings/fusion/fusion_casing_mk2.png": "d255a2f1a3c1352d1ada87bc68157ebce21378803ef35fb4511289fa39f9caff",
+    "assets/gtceu/textures/block/casings/fusion/fusion_casing_mk3.png": "f96108098b0fbf2d3f78d820e89879f26e7f6a9fd652b340bf6ec77baf72810e",
+    "assets/gtceu/textures/block/casings/fusion/fusion_coil.png": "0d3ae8e67893f46a2449739c58e325a5eb06355e56107ea2a25a9c3bd3443818",
+    "assets/gtceu/textures/block/casings/fusion/superconducting_coil.png": "4373575d41ec8fab184845fd9c2c5fb4d4bc63d52b1491b93f46b0c845be976c",
+    "assets/gtceu/textures/block/casings/gcym/high_temperature_smelting_casing.png": "40dfa687e6bfebefc86043c398b793f962d3b0633a560b2b58e9654ecc6f0e65",
+    "assets/gtceu/textures/block/casings/gcym/large_scale_assembling_casing.png": "6a63b2b55334b06f28073ebe83196437047631618dc667cf0e438c17e47bf49e",
+    "assets/gtceu/textures/block/casings/gcym/laser_safe_engraving_casing.png": "394ac5e86efc2ba4210e1586462c798a9dbf18d49d987dc103820009c5fa973a",
+    "assets/gtceu/textures/block/casings/gcym/stress_proof_casing.png": "2291c1bf53ca4ef485f5ab4934ede16825d9b41826b0d021ac5a8a0fda485011",
+    "assets/gtceu/textures/block/casings/gcym/vibration_safe_casing.png": "de711df9d6e33080eb3dc49e220241ee0f6759c1d913d9fb767519200763c89a",
+    "assets/gtceu/textures/block/casings/gcym/watertight_casing.png": "dbd90b323c5afea83d8ad0ca600eecc62461c1bc03830d7a351a3cee07e1571b",
+    "assets/gtceu/textures/block/casings/gearbox/machine_casing_gearbox_bronze.png": "3e8139c8c9a4f5204942925cb5282b9eedacf7abe986620faba8778c6c174779",
+    "assets/gtceu/textures/block/casings/gearbox/machine_casing_gearbox_stainless_steel.png": "1e81c20d9c922fcb0ab6b6e9f81b7cac9160c6cece5f9f5b6cb12afa1197d528",
+    "assets/gtceu/textures/block/casings/gearbox/machine_casing_gearbox_steel.png": "f161fbbd0370ddf0dda6331ed54c61e9b0164b97d30c4442e3c310b1b26e318a",
+    "assets/gtceu/textures/block/casings/gearbox/machine_casing_gearbox_titanium.png": "5b56d09443c6742363725dbb181d5c5b99d3dc5790223e4a69cec58afa2f30a2",
+    "assets/gtceu/textures/block/casings/gearbox/machine_casing_gearbox_tungstensteel.png": "32bd770f4724d37e71f3b69f6baafbf1d63cc49ae969aab6f241e25915e10646",
+    "assets/gtceu/textures/block/casings/hpca/computer_heat_vent_side.png": "d0164e47a44617151c6745ac81772bf6ffc4dd78416f2f043cdfb0c2884d582a",
+    "assets/gtceu/textures/block/casings/hpca/computer_heat_vent_top_bot.png": "a57fda818401134532ea57173cae8046772ad20e9c52b105bab97512863ad0c7",
+    "assets/gtceu/textures/block/casings/hpca/high_power_casing.png": "afe520a01bff4eea1600d5b2e00c210714d829f8ef2ad4dda27f37e9ba245d04",
+    "assets/gtceu/textures/block/casings/mechanic/machine_casing_assembly_line.png": "7321763c9e79242dac6452894a7e6168674ad25c2757c5b0eab2d9595b789b5e",
+    "assets/gtceu/textures/block/casings/mechanic/machine_casing_turbine_stainless_steel.png": "1552e64a57c34d29173bac1aa589d3951a95f7c3ec0e221719030d46504ccf79",
+    "assets/gtceu/textures/block/casings/mechanic/machine_casing_turbine_tungstensteel.png": "9fa28fa458e0502418e8142c2b691b608b1c9a09199e51261f9828b2fa541bc0",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_extreme_engine_intake.png": "29d7e3fb6df708bc510a861ecefe05a36c58f0f8f7a7b3c824fd7a16435e97a4",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_extreme_engine_intake_active.png": "c6dee1aa0dcdbab3f596aa4d8e542c32f667ce4f8d65fc60874b476c01d40e97",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_grate.png": "4a12a33460d0a77f8159ea2a18af290a26cb3ed8a0949f2fbfdd0df9e6f98a1c",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_pipe_bronze.png": "08523e25145f0edd656171888b3331bcdd17350fdcdf226812616d5eb9f82a8f",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_pipe_polytetrafluoroethylene.png": "67d6757bc7ce292b8304ae9c963b38ca8f798d3a815b140f3e607118923efa65",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_pipe_steel.png": "e85cc5041626fcb774049a25ed7f59b4fd617dece6b8c8b0f0043c54456fff13",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_pipe_titanium.png": "c44875134fd6950f1feaab023f88c161f2ee32bc9211eb1195d9920e34f1b92f",
+    "assets/gtceu/textures/block/casings/pipe/machine_casing_pipe_tungstensteel.png": "62d7a21194a4cf3eeb3e889fcf1e0f46c6f9084389fdc8dd271c691828aac9b8",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_clean_stainless_steel.png": "52de0430dbe7a58daed34dfcb405519d66d20b33152bc0d1d9d07c6d98cd4ffa",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_frost_proof.png": "9b06b0012391b1d59e1f2e37e4aa2cf1a9bd05dc18d7370992e0cfa6bb63357c",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_heatproof.png": "337b90cc78f9ccde6b2ea615571a90ddc076e691563992e045c56e6a879d494b",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_inert_ptfe.png": "f56604e01e54bf885ce60165b2013bb9c38ce45539a29d2fa6879edcbf7f61ad",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_robust_tungstensteel.png": "dcb4fc8632b813ca9b7316197dff8e05be92cfa6d52150071bd3220e69a626f7",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_solid_steel.png": "de3a1acebc026423e774c258fc6698b5f70d466d8ebd72d933c932e54a4fbc7b",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_stable_titanium.png": "b5ca162c62c6aabc9f2c5aea259dd64e72c5d222fc88101d5872ebe1b9a5c446",
+    "assets/gtceu/textures/block/casings/solid/machine_casing_stainless_evaporation.png": "89f337fb39bd22fc78a8eb6373d960809ed83846151d3c3f60fb90fcfe20bfd8",
+    "assets/gtceu/textures/block/casings/solid/machine_coke_bricks.png": "4748f6b686002a69844a0d397097caefe491c41792d6dde2d2ed96c9a173754c",
+    "assets/gtceu/textures/block/casings/solid/machine_primitive_bricks.png": "cce84e110f2a87f96a5e9e0cfda8406eddbf7473a68c631896b799bce755380d",
+    "assets/gtceu/textures/block/casings/steam/bricked_bronze/bottom.png": "14415414e77c576fcbf6f888ebcb537c45cac2083f4873ef9d922f239560c763",
+    "assets/gtceu/textures/block/casings/steam/bricked_bronze/side.png": "fc943ca0baa3dbe7ec3279e3452b9e6a2ad67e13be553d5cec64cf738f780292",
+    "assets/gtceu/textures/block/casings/steam/bricked_bronze/top.png": "f406531977c5a7bf096547c28b5f83a90926fa2d5ccd7c5b121abaadf365d68b",
+    "assets/gtceu/textures/block/casings/unique/electrolytic_cell.png": "2aba36eda54cc536a3c363af9756c72d0db74137b7425c1eb3c501ebe692ae92",
+    "assets/gtceu/textures/block/casings/unique/electrolytic_cell_active.png": "4dc25856378faddf40b1c3c44ad3bc4d06e69a481eb86738c4099112e87bd390",
+    "assets/gtceu/textures/block/casings/unique/heat_vent.png": "624ad250b20e0c4c7dad44156ce268c5e591e64c3b0532bda6c0e6325c9a73de",
+    "assets/gtceu/textures/block/casings/voltage/luv/bottom.png": "05992f9741bb6ac830c9b3849ea0c293aeec8e0d80f7d2ee7e9072b764cd92ce",
+    "assets/gtceu/textures/block/casings/voltage/luv/side.png": "05992f9741bb6ac830c9b3849ea0c293aeec8e0d80f7d2ee7e9072b764cd92ce",
+    "assets/gtceu/textures/block/casings/voltage/luv/top.png": "05992f9741bb6ac830c9b3849ea0c293aeec8e0d80f7d2ee7e9072b764cd92ce",
+    "assets/gtceu/textures/block/casings/voltage/mv/bottom.png": "7249618487da01c7051e9b978fb5180f1fee0a86f0fa43cd3feb1b66d43878e4",
+    "assets/gtceu/textures/block/casings/voltage/mv/side.png": "7249618487da01c7051e9b978fb5180f1fee0a86f0fa43cd3feb1b66d43878e4",
+    "assets/gtceu/textures/block/casings/voltage/mv/top.png": "7249618487da01c7051e9b978fb5180f1fee0a86f0fa43cd3feb1b66d43878e4",
+    "assets/gtceu/textures/block/casings/voltage/opv/bottom.png": "8d2d153d4fb6ca5ff0a2ccdfbe84aacdca7585963666c21de2f21730c25887fc",
+    "assets/gtceu/textures/block/casings/voltage/opv/side.png": "9d03e78e54f5cb64befb2d8c1f192a33aaed5a6407f0d219fe8129083b2eaa37",
+    "assets/gtceu/textures/block/casings/voltage/opv/top.png": "9cc9f6b2c78d3aaa7630628eb94a163b6fb64b5b11124985d97f745dded940a1",
+    "assets/gtceu/textures/block/casings/voltage/uev/bottom.png": "1131d06b83d823d7ef328e2eaec853b0e167ba1645a99ab0e12f31ef3123be9f",
+    "assets/gtceu/textures/block/casings/voltage/uev/side.png": "a048384c3bc8e24be7d31b8aa09f470a9b6b783608ef590a01ef0fd9db2c26f5",
+    "assets/gtceu/textures/block/casings/voltage/uev/top.png": "bdfa79f1e9efb2add4dbae85f11bc6e780a74f75b06a4db584e3fe6716413f30",
+    "assets/gtceu/textures/block/casings/voltage/uhv/bottom.png": "fd0321d1a57925f7fd1554688c71f428530d3ac82c55ebbb8315274e3b159798",
+    "assets/gtceu/textures/block/casings/voltage/uhv/side.png": "141c0fa75a9227decee8c192a92aef1bb798f6d32fb1391854f6e2ae9cea143f",
+    "assets/gtceu/textures/block/casings/voltage/uhv/top.png": "40a0d1b3c016c53408d1c503c9e80fda608182a9ac106c24f22c25121478370a",
+    "assets/gtceu/textures/block/casings/voltage/uiv/bottom.png": "91cae63cc62caf0cb077a3b5dd2a3063756a19c4dee31d59ac9e3e7e4648c15e",
+    "assets/gtceu/textures/block/casings/voltage/uiv/side.png": "aee0570f4781de7dafedc495c2a9bb8cfa59dd9b4ade9dbbddee416544f2a787",
+    "assets/gtceu/textures/block/casings/voltage/uiv/top.png": "5107918cd4d982a5d1d9a49f768bc9a0f4679546472f64d0e1b5ba32698d7484",
+    "assets/gtceu/textures/block/casings/voltage/uv/bottom.png": "9ba78e722bdbef5d0e867998c1818e04d5a5aee95a97687337b81cb37e40103f",
+    "assets/gtceu/textures/block/casings/voltage/uv/side.png": "ae4f36590ac59397887182c4eddc31269c97c8d8c93e3f4b42f762581c5a8723",
+    "assets/gtceu/textures/block/casings/voltage/uv/top.png": "792fbb0918a798e6967d6146465d38448e11178d6fae17491abf070f6ead9b08",
+    "assets/gtceu/textures/block/casings/voltage/uxv/bottom.png": "bfe6b57bfe12a94db42b48b73dbe56baffaea83da935e096a2e01def82dfa148",
+    "assets/gtceu/textures/block/casings/voltage/uxv/side.png": "1f0f22260ab0b8e51658a635253f5d202a8ecc0bbfec7a394585cb115c22202a",
+    "assets/gtceu/textures/block/casings/voltage/uxv/top.png": "bc7ce80fe896549f4a2ec7cdd3a8df7d27cb1a55bf71d2ac9e1b069d5aaaeb66",
+    "assets/gtceu/textures/block/casings/voltage/zpm/bottom.png": "5d2636a1735d790dea563f94e080d90f19966fdf1cfc22d6276792fa07c1be13",
+    "assets/gtceu/textures/block/casings/voltage/zpm/side.png": "c83269d6826609bea6b20d2efec88d48acf3edd23fd7543fd0e39fa97ecdd511",
+    "assets/gtceu/textures/block/casings/voltage/zpm/top.png": "7b70ff11cc2c415cf23857244555666782748d6051c72e36f082b9ee57900cac",
+    "assets/gtceu/textures/block/decoration/metalsheet_black.png": "b337515efe41e53c4981bb901395482b5eba8eed903bbac438671cb276a22afd",
+    "assets/gtceu/textures/block/decoration/metalsheet_purple.png": "1ff74c13e4cc34b1f3956081947ff6222134469d9067f2ce5c0ce3366e5bee08",
+    "assets/gtceu/textures/block/treated_wood_planks.png": "3850c81ff7edab0f2b8891bef8e06146903a1332b6abeeaba0ba89c8535efe70",
+    "assets/gtlcore/blockstates/advanced_assembly_line_unit.json": "748e88cafe477cdc18ef6fb162f0fc6a330d7ac29c0726005669a5bd77bdaf19",
+    "assets/gtlcore/blockstates/antifreeze_heatproof_machine_casing.json": "7a470fead20e5c270428825aa04aa9ae6ed8b1bc4c4c7711b1fe0b576c9334c5",
+    "assets/gtlcore/blockstates/cooler.json": "907e63dcf21962b3af3cfbbc62f32feb826b2c5a26e1c9d12b26aba609160dbb",
+    "assets/gtlcore/blockstates/degenerate_rhenium_constrained_casing.json": "9f4efd40ee5cae7c5c8678017c405f59c7476de9c8a1fab6b184acd2fcc219a3",
+    "assets/gtlcore/blockstates/dimension_connection_casing.json": "9bd8a38a58ee55c9bdd1c9b9938e0be60df41b8f9062e00fa2958c93ecb3e69e",
+    "assets/gtlcore/blockstates/dimension_injection_casing.json": "7dc81a47dd884261d8391e1b1cf35d939d082c54ba09365b98776a10b8eeecea",
+    "assets/gtlcore/blockstates/dimensionally_transcendent_casing.json": "88bd78e3e351bfc468d03b9f03cf10d0da91f83347f6318970428908f130d906",
+    "assets/gtlcore/blockstates/enhance_hyper_mechanical_casing.json": "510ce100700c1528e9016507756f11f6201de9d686e8f82c66d101b4b9cf1bce",
+    "assets/gtlcore/blockstates/extreme_strength_tritanium_casing.json": "40657842cb8dc4f8b4ede6e2f25545654b2059d78a7fb9c9ba2d05d0a84b4a57",
+    "assets/gtlcore/blockstates/fission_reactor_casing.json": "5e4e746280bcdcde676c9cf160011af0efe2f1781a03ec3a142bbea91cdd5609",
+    "assets/gtlcore/blockstates/fusion_casing_mk5.json": "ad1c59d094f6842168a12daba7034c9d392eaacda8c3e8f85a2afed4533f88ee",
+    "assets/gtlcore/blockstates/fusion_coil_mk2.json": "82d2b19c017e0b22962da4c7a3b5f2d96987dd4d7a7e248fdb14c0782dcf0c33",
+    "assets/gtlcore/blockstates/graviton_field_constraint_casing.json": "fa3f0d292c949a5a5f2c815160f652e065134c86712cf205a577546222c895af",
+    "assets/gtlcore/blockstates/hyper_core.json": "222c3594bb8b4dc07652356179b21d538e38a23d8513ebbaa38b525143b38273",
+    "assets/gtlcore/blockstates/hyper_mechanical_casing.json": "08188819b006055f815e4e547c3551f47257141e44d20e848b333bd4411de4a0",
+    "assets/gtlcore/blockstates/improved_superconductor_coil.json": "51a0b096c69b212d441e46d8455b4d56562682fa36cd6defc3f41878d0a553ea",
+    "assets/gtlcore/blockstates/iridium_casing.json": "0076c84a6767241f60ebe72b910081ee2520f1274245b43681e54d5044dd597e",
+    "assets/gtlcore/blockstates/lafium_mechanical_casing.json": "66ec3b3e4d796ad3dc33d8bf57e306a9b84c3eae61712927fdaf5794ad31729c",
+    "assets/gtlcore/blockstates/manipulator.json": "6d9c245d86987bd7d041d8d8ad3c46ef15d68806f7e28316062460d39a22c245",
+    "assets/gtlcore/blockstates/molecular_casing.json": "ffc3083f6925a3b971c913684f84709d4c3975825028e63f54dc52a490786599",
+    "assets/gtlcore/blockstates/multi_functional_casing.json": "b96d76636135fa8b63baea64b214493e3f3a0aec88f450a9240ffb49be3b60d6",
+    "assets/gtlcore/blockstates/naquadah_alloy_casing.json": "3f1aaf622dc3950ea30f32889abb754ed68337355827926c54951999dcc11391",
+    "assets/gtlcore/blockstates/oxidation_resistant_hastelloy_n_mechanical_casing.json": "e253c621d9691c489700ba01161c67baa6b7a0f3b75730d5413813cf211986b4",
+    "assets/gtlcore/blockstates/process_machine_casing.json": "4f42ab6fad68bfb210e18a4000f91c5269564148ea4d7102b722db5cb4bd43d0",
+    "assets/gtlcore/blockstates/qft_coil.json": "d1c75e4b404fc927cdc6ba701bd77df3159f8417d4d4548b204522a7b0fc4e8b",
+    "assets/gtlcore/blockstates/spacetimebendingcore.json": "0425ac9e7cd68a0fea63db8d3ab23d4b14ba8bc485bcd68e5d6d31b109348e2d",
+    "assets/gtlcore/blockstates/spacetimecontinuumripper.json": "fcfb95148a24afbe2a2484165f96d2d5b9e611f14d98a62ceef266c41d7c872a",
+    "assets/gtlcore/blockstates/sps_casing.json": "887c1a11c205264ee63abd2d4462f16d09dd79b2f5afa9cbe9b7bd0729238ca3",
+    "assets/gtlcore/blockstates/supercritical_turbine_casing.json": "9c868f41faad462d31be09f55e26b11b181c3bcbcf417c2b524c91c65112e0fe",
+    "assets/gtlcore/blockstates/uev_hermetic_casing.json": "55c42e87fa9ddb86ff1cd56152df9eb3c7282d815ba266f5f787d489cc52b552",
+    "assets/gtlcore/blockstates/ultimate_stellar_containment_casing.json": "96f1a2a30ddf5467cc6d508651c2120acc923c982dbcc1033328a3214a28018d",
+    "assets/gtlcore/blockstates/uxv_hermetic_casing.json": "5853bef41fea04087246d181970be6b5eee2148d1ff5446dae4f224b32606187",
+    "assets/gtlcore/models/block/antifreeze_heatproof_machine_casing.json": "5556ed709a7ef2655ffd70d93f0e57bb763939dd15eb935ca477e70ab0215e14",
+    "assets/gtlcore/models/block/degenerate_rhenium_constrained_casing.json": "9c7aeacf225d939f75115f2d95a0129e41bb7bf5e57476a9280200d825c13f2b",
+    "assets/gtlcore/models/block/dimension_connection_casing.json": "9c016ed060a0e617dfaeac87a7f7310fd627a052e35990e7a70f024ccde4864c",
+    "assets/gtlcore/models/block/dimension_injection_casing.json": "654289970b516e22331c1cb7f1f950c572b7613311229e0d0aa6b6f3f8ae0cc2",
+    "assets/gtlcore/models/block/dimensionally_transcendent_casing.json": "a0133c4069e04c180686d2a019744b22dccbb243f7d3f6909099f2ee49360bd1",
+    "assets/gtlcore/models/block/enhance_hyper_mechanical_casing.json": "b9b61e1418b9ba39f713566f2f4a6be7181d3a7e9c386051de0944c3cea4510c",
+    "assets/gtlcore/models/block/extreme_strength_tritanium_casing.json": "66d784863669a72c940ba32c2c3ba461c16a307faeee58a278191a3efb56b44d",
+    "assets/gtlcore/models/block/fission_reactor_casing.json": "d4e7048e23dea6cc8572a98e17e2d8780a3b39408df88859e1e1f29b70ec400c",
+    "assets/gtlcore/models/block/fusion_casing_mk5.json": "4e17bf6c9a4cd4d4cf3fe1ef573629ff947bf23809cf686ab364501f6844a7b5",
+    "assets/gtlcore/models/block/fusion_casing_mk5_active.json": "2f1c45efce79d6ae5099e9b87272165a6ad6d9159f8edcc2fc57e4643f26edb7",
+    "assets/gtlcore/models/block/graviton_field_constraint_casing.json": "ccf14ea457e8f5f1f5e4e8e8063906219f719c83d4e835f4cd2c57f22fff7ac2",
+    "assets/gtlcore/models/block/hyper_mechanical_casing.json": "a5bb618c25f017dc76d42541a1adc2cda5972261c07f5d747c5e7d836172bd8a",
+    "assets/gtlcore/models/block/iridium_casing.json": "cfe6a173032e5ab14f5354cf177b4ff1360e60b65894b07cfa14552aca7d904d",
+    "assets/gtlcore/models/block/lafium_mechanical_casing.json": "e9af5804aec9e2222f1ba358a07a4606f4635b228618ba190de07af29491f0f7",
+    "assets/gtlcore/models/block/manipulator.json": "73bceba4da5da6157ae16c57225502ab27aa8260130382fdee5851ed202d6e5a",
+    "assets/gtlcore/models/block/molecular_casing.json": "5146db837548055a98482a4fa69fc7b3f6e9b92ceab4ebbfde0b151b3c09ca73",
+    "assets/gtlcore/models/block/multi_functional_casing.json": "6fba672839f33b80d8361f3aed1f5d7f743ee325dd055aa4259515b1fedfd3ad",
+    "assets/gtlcore/models/block/naquadah_alloy_casing.json": "a5bb618c25f017dc76d42541a1adc2cda5972261c07f5d747c5e7d836172bd8a",
+    "assets/gtlcore/models/block/oxidation_resistant_hastelloy_n_mechanical_casing.json": "59a6b5b40a85b648bf6175de0492df98ab1d466d62165919cc7c946f5f9b33d0",
+    "assets/gtlcore/models/block/process_machine_casing.json": "96daf26caeb84b2bb9b546370dfb55b690302c0ef52d76246e81fcc84b1ce02d",
+    "assets/gtlcore/models/block/sps_casing.json": "7bde111672fb36e7313e5f9bda03a9a0a36a574d2ba2f75a4ab20733c07a6723",
+    "assets/gtlcore/models/block/supercritical_turbine_casing.json": "dca78f27ad5b065e188b521353bb8601e9475d403dd1c52120094301857e4d8d",
+    "assets/gtlcore/models/block/uev_hermetic_casing.json": "1b32c764e67a2d9e9d5fc603f74d3596b9cf8424530f93e44584881e134df299",
+    "assets/gtlcore/models/block/ultimate_stellar_containment_casing.json": "08cb79f79454fa721087319ace2468a56ff800d2593e30d3868435523b394725",
+    "assets/gtlcore/models/block/uxv_hermetic_casing.json": "4404c01f01f7c29bbb0d13a6d9295d0743bdc065cb6605b9bccede10b7ef8efe",
+    "assets/gtlcore/models/block/variant/advanced_assembly_line_unit.json": "6e59549acf8a4ee6905dfa1a12cfac91f003011e2c0cde4e26975d1009ccd53a",
+    "assets/gtlcore/models/block/variant/advanced_assembly_line_unit_active.json": "9b789e45803edd07b6b2aeb810103b933094bf7d39e571a527b4db71a17df513",
+    "assets/gtlcore/models/block/variant/cooler.json": "43afbb03dfc95c4bc7a8aa69343c488e837e5d581745d68d119f0254acbd4c1f",
+    "assets/gtlcore/models/block/variant/cooler_active.json": "92c2e34219a5b832a732db16bc38a4e2652f0db82b4b59dd74963f275d3c52e9",
+    "assets/gtlcore/models/block/variant/fusion_coil_mk2.json": "d8a5f1b4203c7cc0728879fa012978b99193e493d0b236376adb896d663070cf",
+    "assets/gtlcore/models/block/variant/fusion_coil_mk2_active.json": "4c06abb4fe7eea7555d662ee9ef9e6f7b9421ff891b3b60be1afe7f266b871ba",
+    "assets/gtlcore/models/block/variant/hyper_core.json": "67e930540de1f392db331c090b2032eefbc1cedf82a598e00b064159210732f8",
+    "assets/gtlcore/models/block/variant/hyper_core_active.json": "5c5b6fea9d586bb9018776710e6f2fdd2053c7242aa870b1ef61f97f1e1a2d44",
+    "assets/gtlcore/models/block/variant/improved_superconductor_coil.json": "2de6a6ca007dbc8220b0491b7addc24e4d41fd72606a7cd64736d17a3ba7f5e8",
+    "assets/gtlcore/models/block/variant/improved_superconductor_coil_active.json": "506f1bf4227cc85f290c3e3223dd9b34c586cc7f3fdfa3f07f3539442279d331",
+    "assets/gtlcore/models/block/variant/qft_coil.json": "d556f33f7755cd1f35094ffe56273cd095280f40167c72c07add2d9e6887b6c5",
+    "assets/gtlcore/models/block/variant/qft_coil_active.json": "479bbf6197a540b6304ea4e5cffa37b34363f69c548be45df6223336549893ba",
+    "assets/gtlcore/models/block/variant/spacetimebendingcore.json": "8a8a6008d2f36ea7153f852c8498c3789c795e22b079eb79f7afd8020cf41fc9",
+    "assets/gtlcore/models/block/variant/spacetimebendingcore_active.json": "0ae1800622dd096ae08eaaf7ee9cd88cc948269ba3d8cce7a2e7a472f0db8606",
+    "assets/gtlcore/models/block/variant/spacetimecontinuumripper.json": "2213e93583f77a326cb0aefa484cd9a1873896e6398e18fe9248128d77bbd9f9",
+    "assets/gtlcore/models/block/variant/spacetimecontinuumripper_active.json": "450f3d3aa5226a0b9950222b4112961fab803fbef0798531c50136b0f70035ae",
+    "assets/gtlcore/textures/block/advanced_assembly_line_unit.png": "2c50e25063e3d5416e68841c8c721ee831d978e72b6e7cfd4110430b1ca3ed88",
+    "assets/gtlcore/textures/block/casings/antifreeze_heatproof_machine_casing.png": "abf16e7af9e0a5c435b4cfeddd56f2bb118d1f8fc2ad981a4bc8101756969d46",
+    "assets/gtlcore/textures/block/casings/degenerate_rhenium_constrained_casing.png": "ca7864ef6bde8a0f32c5d29a4f47676e0dae566295588ba3d8fd6f7df6b5b080",
+    "assets/gtlcore/textures/block/casings/dimension_injection_casing.png": "2b9714c9e7f9e8aee9398d718bcf218dd02ecd98c6b1c1c895c7356026ece5fb",
+    "assets/gtlcore/textures/block/casings/dimensionally_transcendent_casing.png": "934717770330f613b00aafb77275b8248d6e395350d5528d0a9801f116385028",
+    "assets/gtlcore/textures/block/casings/enhance_hyper_mechanical_casing.png": "78d1d38ba67c554fc2f8acd2a7ab3bfb6da98f717edf64b4dda669a9db1d9237",
+    "assets/gtlcore/textures/block/casings/extreme_strength_tritanium_casing.png": "71e1cd9e011ed82633b8536f0606f824daba7de4cf5e50ea92a50a1ba3f37c84",
+    "assets/gtlcore/textures/block/casings/fission_reactor_casing.png": "27b63de32392d18bba9b4b42a85c006fcce4243b5535c6166c3898df4efef005",
+    "assets/gtlcore/textures/block/casings/fusion/fusion_casing_mk5.png": "46f379ad0b28ce62ce03a53e2536df0f01aa8ddb985faf362bde01e674c81db5",
+    "assets/gtlcore/textures/block/casings/graviton_field_constraint_casing.png": "cb60df399b04859b5032f8e5ca1174d6877e04e080220c4bba3a6383a9692a0f",
+    "assets/gtlcore/textures/block/casings/hyper_mechanical_casing.png": "783c4f8d75340212017d9c2418faa2dfa747834afb17bb93723dde27473fead1",
+    "assets/gtlcore/textures/block/casings/iridium_casing.png": "fa6549f1c28be2efca09a9e8d9d078b417a4982f505425a39a606fe1c2fd0c73",
+    "assets/gtlcore/textures/block/casings/lafium_mechanical_casing.png": "23c2aaaa23b41042cd682f31e92c707b1411637ac241829ca4e24d4443eb1363",
+    "assets/gtlcore/textures/block/casings/oxidation_resistant_hastelloy_n_mechanical_casing.png": "9c00b6fe2a446d437899745aa3f0ae7779c0546b6fd39830171976247cc1121a",
+    "assets/gtlcore/textures/block/casings/process_machine_casing.png": "3cff9015844b2764675048b86fe8f2101d9f8f9cfd31a551fc1aec37392305c0",
+    "assets/gtlcore/textures/block/casings/sps_casing.png": "929c7cc24fac16a2eb14a26c9c7fa2aaf69ca1e7a6b063b08e5b5ed56ad20b42",
+    "assets/gtlcore/textures/block/compressed_fusion_coil_mk2.png": "c87de4fb0f1f7cd06f3b5fb108d249237f0d9ace6c4e65d81d12ac2b75ff5389",
+    "assets/gtlcore/textures/block/cooler.png": "9c93ac8d83c6486ac3b84b616dba38c3ea1cda5d364a173ffbe10e6ba3f97b08",
+    "assets/gtlcore/textures/block/dimension_connection_casing.png": "0bcd3d1d6423a11532e62c272afa726a0fe196567c1c1b6fc4a816c4f329b1b8",
+    "assets/gtlcore/textures/block/hyper_core.png": "d76cc80584150b5aa94d6c1d2d7ba8f4a782f405ae1f0366bea52b038a24d88d",
+    "assets/gtlcore/textures/block/improved_superconductor_coil.png": "6e1cb743524e091ec6081bc52681f023dc6bccec4966b02a112b2806b558c1f6",
+    "assets/gtlcore/textures/block/improved_superconductor_coil_active.png": "af54a046419ff7fee1218923b3323041737c573e8d009046accce8a73f865ff8",
+    "assets/gtlcore/textures/block/manipulator.png": "923475f2c9b119f8ad3debde7f91b334239514f8a96e1876989c477089e5d601",
+    "assets/gtlcore/textures/block/molecular_casing.png": "09f093c0827fc82f85e3883a1d4c320900927a55374fef2c2460078956023538",
+    "assets/gtlcore/textures/block/multi_functional_casing.png": "1d0cc0cfefa92a31872b3264dc0e4dcd41e4f5af620130481b6e0ea3e7d22b09",
+    "assets/gtlcore/textures/block/qft_coil.png": "768d971475d3f67356ed53aa52e2da2a844a53f4b13b7c0b9c6ddedf1da04da0",
+    "assets/gtlcore/textures/block/qft_coil_active.png": "dded7ac222fa2ee532bc66aa8db535d0f20ac76a12391bb09c7ee3d23bce1c24",
+    "assets/gtlcore/textures/block/spacetimebendingcore.png": "bd26c4e03df34cf61b91bc4087184b8cb72fba3c95e9ed84270c3f45572201bb",
+    "assets/gtlcore/textures/block/spacetimecontinuumripper.png": "bee121752bc17143be2e6b240f7722d6a4af674e6ad7406953020c9b3b3da7fc",
+    "assets/gtlcore/textures/block/stellar_containment_casing.png": "d3720d6f17366579a7a86109963273137e94bfac9440aafbec172e4359821d40",
+    "assets/gtlcore/textures/block/supercritical_turbine_casing.png": "3d8926b35334713689883f1e1116a46333b41fdaa8de999b046c1e702a091b32",
+    "assets/kubejs/textures/block/accelerated_pipeline.png": "f2ec2f9e337af767914d8eb4a3899e70f555d04fc201290750214670f283fd4b",
+    "assets/kubejs/textures/block/aggregatione_core.png": "6002ca5640ba0623234d3fbbbfb52327590a29172de602f1560acfea2153a172",
+    "assets/kubejs/textures/block/annihilate_core.png": "a3d194d82bb0f36da510b582b840527c766330048b366c0e37c3ea61aea46786",
+    "assets/kubejs/textures/block/containment_field_generator.png": "ef0c44bb92b0b4b69efc31f7eb0cf0cd4fe601a4c0dc9eb507a071e7dd1f8ff9",
+    "assets/kubejs/textures/block/dimensional_bridge_casing.png": "683d32e1f120fa3cdbc8d9b3293d8e41f7c363985bd353ba167b76e28ea8e0e6",
+    "assets/kubejs/textures/block/eternity_coil_block.png": "62c5260c190007dc676fa919d9602be565e19304865e3a98d994ae5f5a83c744",
+    "assets/kubejs/textures/block/high_strength_concrete.png": "cee3ac6d9d73b34e29c7c5e2e54451fb1d14605e0ee365bc45de72a827142876",
+    "assets/kubejs/textures/block/hollow_casing.png": "6cff6faa0262b71f5612a15866e0e4c5e0a63525bb9510980f05112b30b37f8e",
+    "assets/kubejs/textures/block/laser_cooling_casing.png": "3ac39af9bd3dd04f8bc9972e9c3344938bb4dd5872aa90bba74b7cdf420c77e5",
+    "assets/kubejs/textures/block/machine_casing_circuit_assembly_line.png": "3e78adcb3e283f29497734b89d2230b7d75433b1c02f8bf4b932a0cbe6680372",
+    "assets/kubejs/textures/block/neutronium_gearbox.png": "9a894c22887037b41323c33c8e877ad69f93fb18ebe78690ce7bb3b8d5a195b4",
+    "assets/kubejs/textures/block/neutronium_pipe_casing.png": "1f4b1eea8a56a1300cc007484c933cb50d745466a61d84a0e012ef6652baae3b",
+    "assets/kubejs/textures/block/restraint_device.png": "5f0b0493580fe8cb1176fe50068a4bb6403c53e30d57de4befd6bd838a074132",
+    "assets/kubejs/textures/block/spacetime_assembly_line_casing.png": "ad141be4d50282e463261a66cff1edc4d7a03b2f6c7d44b2b53f3f6ee6931c75",
+    "assets/kubejs/textures/block/spacetime_assembly_line_unit.png": "7c18a9b6f7053c6f13467c57b0ddea0b15f4a9a8cb1c048a93193e9dfef15737",
+    "assets/kubejs/textures/block/speeding_pipe_side.png": "edc685b2d3893f37f99980e75de5f51451124c5ad2fec1c50b21bf44b4b3c080",
+    "assets/kubejs/textures/block/speeding_pipe_top.png": "2e48a5c974eb81d98276c2e5d695cb4e89670baa37a46f7722650f55c158a644",
+    "assets/kubejs/textures/block/titansteel_coil_block.png": "1b48df4832b2ff6b5e1f1a2cda0f7a95a6908104a5c015fdd61d613fefcc6f5c",
+    "startup_scripts/block_registration.js": "ed29a6909bbd7afcbb8056837ca13e95f8c9378dc8f800f9c08b0fd0c682092e"
+  },
+  "bindingsSha256": "4dcf27fd43ca4e95a717784038408f771dda29f80ca0965ce386fb403f87519d"
+}

@@ -99,6 +99,22 @@ public final class InfinitySingularityRecipeLoader {
         GTLEnhancedcore.LOGGER.info("[InfinitySingularity] Registered {} recipes", count);
     }
 
+    /** Validate before saving; a malformed line must not silently remove a working recipe. */
+    public static void validate(String text) {
+        var parsed = SingularityRecipeConfig.parse(text, InfinitySingularityRecipeLoader::isItem,
+                InfinitySingularityRecipeLoader::isFluid);
+        if (!parsed.errors().isEmpty()) throw new IllegalArgumentException(String.join("; ", parsed.errors()));
+    }
+
+    public static java.util.Map<ResourceLocation, com.google.gson.JsonElement> reloadRecipes(
+            java.util.Map<ResourceLocation, com.google.gson.JsonElement> recipes) {
+        var result = new java.util.HashMap<>(recipes);
+        result.keySet().removeIf(id -> id.getNamespace().equals("gtl_enhancedcore")
+                && id.getPath().startsWith("infinity_singularity/"));
+        registerRecipes(recipe -> result.put(recipe.getId(), recipe.serializeRecipe()));
+        return result;
+    }
+
     /** 读取配置文件并重新解析（每次强制，避免早期解析失败被缓存）。 */
     public static List<Entry> parseAndCache() {
         ensureDefaultConfig();

@@ -14,7 +14,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
  */
 public final class GTLEnhancedcoreNetworkHandler {
     public static final GTLEnhancedcoreNetworkHandler INSTANCE = new GTLEnhancedcoreNetworkHandler();
-    public static final String PROTOCOL_VERSION = "2";
+    public static final String PROTOCOL_VERSION = "3";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(GTLEnhancedcore.MOD_ID, "main"),
             () -> PROTOCOL_VERSION,
@@ -33,6 +33,12 @@ public final class GTLEnhancedcoreNetworkHandler {
         CHANNEL.registerMessage(1, C2SCircuitEncoderPacket.class,
                 C2SCircuitEncoderPacket::encode, C2SCircuitEncoderPacket::decode, C2SCircuitEncoderPacket::handle,
                 Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(2, ConfigFilePackets.Request.class,
+                ConfigFilePackets.Request::encode, ConfigFilePackets.Request::decode, ConfigFilePackets.Request::handle,
+                Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(3, ConfigFilePackets.Response.class,
+                ConfigFilePackets.Response::encode, ConfigFilePackets.Response::decode, ConfigFilePackets.Response::handle,
+                Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         initialized = true;
         GTLEnhancedcore.LOGGER.debug("GTL-Enhancedcore network handler initialized");
     }

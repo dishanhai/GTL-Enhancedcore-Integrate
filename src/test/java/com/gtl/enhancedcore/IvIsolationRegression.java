@@ -56,6 +56,7 @@ public final class IvIsolationRegression {
         nativeThreadBudget();
         addThreadOnly20261012();
         infernoVault20261014();
+        fuxiFurnace20261017();
         var retimed = IvRemainingTime.calculate(BigInteger.valueOf(1000), 100, 2, 1);
         check(retimed.duration() == 12 && retimed.eut() == 100, "reformation preserves unpaid energy and shortens remaining time");
         var slower = IvRemainingTime.calculate(BigInteger.valueOf(1000), 50, 2, 1);
@@ -188,9 +189,11 @@ public final class IvIsolationRegression {
                     "src/main/java/com/gtl/enhancedcore/common/machine/AddThreadMutableMachine.java"));
             check(base.contains("extends MutableElectricParallelHatchMultiblockMachine"),
                     "the ADD mutable base makes the controller implement IThreadModifierMachine");
-            check(base.contains("IvMachineScope.NATIVE_CROSS_RECIPE_THREADS")
-                            && base.contains("owner.getAdditionalThread()"),
-                    "threads are 128 plus the omega count, added at the scheduling exit");
+            check(base.contains("DEFAULT_ADD_CROSS_RECIPE_THREADS = 128")
+                            && base.contains("owner.threadBaseline()") && base.contains("owner.getAdditionalThread()"),
+                    "ADD threads use their own baseline plus omega at the scheduling exit");
+            check(!base.contains("import com.gtl.enhancedcore.common.recipe.iv.IvMachineScope;"),
+                    "ADD thread dispatch does not depend on IV isolation");
             check(!base.contains("public int getAdditionalThread()"),
                     "the pure omega accessor must not be rewritten or the baseline would double-count");
             check(base.contains("setUseMultipleRecipes(true)"),
@@ -317,13 +320,45 @@ public final class IvIsolationRegression {
                     "the module is matched under gtladditions, not gtceu: " + path);
         }
         check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.FOREIGN_NATIVE_IDS
-                        .get("gtladditions").size() == 5,
-                "the foreign whitelist holds the vault plus four satellite modules");
+                        .get("gtladditions").size() == 6,
+                "the foreign whitelist holds the vault, Fuxi furnace and four satellite modules");
         // 派生判定：无定制几何的原生机器都应被结构侧接管（四台 mk 均无 pattern.gz）。
         for (int mk = 1; mk <= 4; mk++) {
             var id = new net.minecraft.resources.ResourceLocation("gtladditions", "nexus_satellite_factory_mk" + mk);
             check(!com.gtl.enhancedcore.common.structure.GtlMegastructurePatterns.targets(id),
                     "the module has no project-owned geometry: mk" + mk);
+        }
+    }
+
+    private static void fuxiFurnace20261017() {
+        String path = "fuxi_bagua_heaven_forging_furnace";
+        var id = new net.minecraft.resources.ResourceLocation("gtladditions", path);
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(id),
+                "Fuxi furnace opts into native IV cross-recipe-type orders");
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.addThreadOnly(id),
+                "Fuxi furnace must not enter the ADD-only thread path");
+        check(!com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(
+                        new net.minecraft.resources.ResourceLocation("gtceu", path)),
+                "Fuxi registration namespace stays exact");
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.baseThreadsFor(path) == 128,
+                "Fuxi isolated-order baseline is 128 threads");
+        check(com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.KEEP_NATIVE_THREADS_WITHOUT_BUFFER.contains(path),
+                "ordinary Fuxi mode retains upstream ADD thread behavior");
+        check(com.gtl.enhancedcore.common.structure.NativeIsolationPatterns.targets(id),
+                "Fuxi keeps upstream geometry while its material ports receive IV mutual-exclusion rules");
+        check(com.gtl.enhancedcore.common.util.TooltipPolicy.nativePages(path).contains("native_isolation"),
+                "Fuxi reuses localized native isolation restrictions, thread count and recipe catalog");
+        try {
+            String engine = java.nio.file.Files.readString(java.nio.file.Path.of(
+                    "src/main/java/com/gtl/enhancedcore/common/recipe/iv/IvNativeEngine.java"));
+            check(engine.contains("add.iv$addRecipeCheck().test(job.recipe, machine)"),
+                    "isolated orders retain ADD original recipe-specific checks including Fuxi temperature");
+            String accessor = java.nio.file.Files.readString(java.nio.file.Path.of(
+                    "src/main/java/com/gtl/enhancedcore/mixin/gtlcore/IvNativeAddMultipleAccessor.java"));
+            check(accessor.contains("GTLAddMultipleRecipesLogic.class") && accessor.contains("@Invoker(\"getRecipeCheck\")"),
+                    "ADD protected recipe-check callback is accessed through a precise invoker");
+        } catch (java.io.IOException failure) {
+            throw new AssertionError(failure);
         }
     }
 }

@@ -40,7 +40,7 @@ import net.minecraftforge.fml.common.Mod;
 /** Actual OpenGL GUI with a disposable dummy player; never opens a player's world. */
 @Mod.EventBusSubscriber(modid = "enhancedcore_audit", value = Dist.CLIENT)
 public final class PatternGeneratorClientChecks {
-    private static int phase, wait, checks, packets;
+    private static int phase, wait, checks, packets, lastAction;
     private static boolean done;
     private static Player player;
     private static ModularUI ui;
@@ -129,6 +129,17 @@ public final class PatternGeneratorClientChecks {
                 for (int step = 0; step < 16; step++) scrolled &= grid.mouseWheelMove(grid.getPosition().x + 5, grid.getPosition().y + 5, -1);
                 check(scrolled, "Mouse wheel scrolls the real preview viewport");
                 check(grid.widgets.get(14).isVisible() && !grid.widgets.getFirst().isVisible(), "The fifteenth row is reachable without covering the header/footer");
+                var nextField = PatternGeneratorWidget.class.getDeclaredField("nextButton"); nextField.setAccessible(true);
+                var nextButton = (Widget) nextField.get(widget);
+                var nextPos = nextButton.getPosition(); var nextSize = nextButton.getSize();
+                int beforeClick = packets;
+                check(!widget.mouseClicked(nextPos.x + nextSize.width, nextPos.y + nextSize.height / 2.0, 0)
+                                && packets == beforeClick,
+                        "A click exactly beyond the next-page button's right edge is outside its hitbox");
+                check(widget.mouseClicked(nextPos.x + nextSize.width / 2.0, nextPos.y + nextSize.height / 2.0, 0),
+                        "Root GUI dispatch accepts the visible next-page button after scrolling to the bottom");
+                check(packets == beforeClick + 1 && lastAction == 105,
+                        "Bottom-of-list page-button click emits only PAGE, never the recipe SELECT action");
             } else if (phase == 7) {
                 screenshot("07-preview-last-row.png");
                 var requested = PatternGeneratorWidget.class.getDeclaredField("saveRequested"); requested.setAccessible(true); requested.set(widget, true);
@@ -212,7 +223,7 @@ public final class PatternGeneratorClientChecks {
             @Override public boolean attemptMergeStack(ItemStack stack, boolean a, boolean b) { return false; }
             @Override public void writeClientAction(Widget source, int id, Consumer<FriendlyByteBuf> writer) {
                 var buffer = new FriendlyByteBuf(Unpooled.buffer());
-                try { writer.accept(buffer); check(buffer.readableBytes() > 0 || id >= 101, "Client action has a payload or a known root action"); packets++; }
+                try { writer.accept(buffer); check(buffer.readableBytes() > 0 || id >= 101, "Client action has a payload or a known root action"); packets++; lastAction = id; }
                 finally { buffer.release(); }
             }
             @Override public void writeUpdateInfo(Widget source, int id, Consumer<FriendlyByteBuf> writer) {}

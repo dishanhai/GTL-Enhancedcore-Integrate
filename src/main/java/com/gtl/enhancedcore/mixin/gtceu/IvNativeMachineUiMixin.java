@@ -1,18 +1,11 @@
 package com.gtl.enhancedcore.mixin.gtceu;
 
-import com.google.common.primitives.Ints;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
 import com.gtl.enhancedcore.common.recipe.iv.*;
-import com.gtladd.gtladditions.api.machine.IThreadModifierMachine;
-import com.gtladd.gtladditions.api.machine.logic.MutableRecipesLogic;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.ae.MEPatternBufferPartMachine;
-import org.gtlcore.gtlcore.common.machine.trait.MultipleRecipesLogic;
 import com.lowdragmc.lowdraglib.gui.widget.*;
-import com.gregtechceu.gtceu.utils.FormattingUtil;
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.contents.TranslatableContents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
@@ -76,83 +69,21 @@ public abstract class IvNativeMachineUiMixin implements com.gregtechceu.gtceu.ap
                 true, () -> { boolean accepting = !iv$accepting(); iv$buffers().forEach(buffer -> IvCancellation.setAccepting(buffer, accepting)); }));
         cir.setReturnValue(group);
     }
-    @Unique private static String iv$key(Component line) {
-        return line.getContents() instanceof TranslatableContents translated ? translated.getKey() : "";
+    // The virtual addDisplayText callback may be completely overridden by GTLCore/ADD subclasses.
+    // Project only after it returns, for both initial text and subsequent server updates.
+    @ModifyArg(method = "createUIWidget", at = @At(value = "INVOKE",
+            target = "Lcom/lowdragmc/lowdraglib/gui/widget/ComponentPanelWidget;<init>(IILjava/util/function/Consumer;)V"),
+            index = 2, require = 1, allow = 1)
+    private java.util.function.Consumer<List<Component>> iv$initialDisplay(
+            java.util.function.Consumer<List<Component>> upstream) {
+        return IvMachineDisplay.wrap(iv$self(), upstream);
     }
-    /** Replace only known upstream rows, preserving their position and every machine-specific display line. */
-    @Unique private static void iv$canonicalLine(List<Component> text, String key, Component replacement) {
-        boolean found = false;
-        for (int i = 0; i < text.size();) {
-            if (!key.equals(iv$key(text.get(i)))) {
-                i++;
-            } else if (!found && replacement != null) {
-                text.set(i++, replacement);
-                found = true;
-            } else {
-                text.remove(i);
-            }
-        }
-        if (!found && replacement != null) {
-            int insertAt = text.size();
-            if (key.equals("gtladditions.multiblock.threads")) {
-                boolean anchored = false;
-                for (String anchor : List.of("gtceu.multiblock.parallel", "gtceu.gui.machinemode",
-                        "gtceu.multiblock.max_recipe_tier")) {
-                    for (int i = 0; i < text.size(); i++) {
-                        if (anchor.equals(iv$key(text.get(i)))) {
-                            insertAt = i + 1;
-                            anchored = true;
-                            break;
-                        }
-                    }
-                    if (anchored) break;
-                }
-            }
-            text.add(insertAt, replacement);
-        }
-    }
-    @Unique private static Component iv$threadLine(int threads) {
-        return Component.translatable("gtladditions.multiblock.threads",
-                Component.literal(FormattingUtil.formatNumbers(threads)).withStyle(ChatFormatting.GOLD))
-                .withStyle(ChatFormatting.GRAY);
-    }
-    @Unique private static int iv$plainBatchThreads(int additionalThreads) {
-        return Ints.saturatedCast((long)IvMachineScope.UPSTREAM_MULTIPLE_RECIPE_THREADS + additionalThreads);
-    }
-    /** Match the ordinary-mode branches of GTLAdditions' ParallelProviderMixin. */
-    @Unique private static int iv$plainThreads(WorkableElectricMultiblockMachine machine) {
-        var logic = machine.getRecipeLogic();
-        if (logic instanceof MultipleRecipesLogic && machine instanceof IThreadModifierMachine modifier)
-            return iv$plainBatchThreads(modifier.getAdditionalThread());
-        if (logic instanceof MutableRecipesLogic<?> mutable && mutable.isMultipleRecipeMode())
-            return mutable.getMultipleThreads();
-        return 0;
-    }
-    @Inject(method = "addDisplayText", at = @At("TAIL"))
-    private void iv$display(List<Component> text, CallbackInfo ci) {
-        var machine = iv$self();
-        if (!IvMachineScope.nativeTarget(machine) || !machine.isFormed()) return;
-        if (!IvMachineScope.crossRecipeEnabled(machine)) {
-            int threads = iv$plainThreads(machine);
-            iv$canonicalLine(text, "gtladditions.multiblock.threads", threads > 1 ? iv$threadLine(threads) : null);
-            return;
-        }
-        // The GTCEu method has already added its energy tier, status, and registration-specific diagnostics.
-        iv$canonicalLine(text, "gtceu.gui.machinemode",
-                Component.translatable("gtceu.gui.machinemode", Component.translatable("gtl_enhancedcore.gui.iv_mode"))
-                        .withStyle(ChatFormatting.AQUA));
-        int parallel = IvMachineScope.parallel(machine);
-        iv$canonicalLine(text, "gtceu.multiblock.parallel", parallel > 1
-                ? Component.translatable("gtceu.multiblock.parallel",
-                        Component.literal(FormattingUtil.formatNumbers(parallel)).withStyle(ChatFormatting.DARK_PURPLE))
-                        .withStyle(ChatFormatting.GRAY) : null);
-        int threads = IvMachineScope.threads(machine);
-        iv$canonicalLine(text, "gtladditions.multiblock.threads", threads > 1 ? iv$threadLine(threads) : null);
-        IvPresentation.append(text, ((IvNativeAccess)machine.getRecipeLogic()).iv$summary(), true);
-    }
-    @Inject(method = "addDisplayText", at = @At("TAIL"))
-    private void iv$plainModeWarning(List<Component> text, CallbackInfo ci) {
-        if (IvMachineScope.nativeTarget(iv$self()) && !IvMachineScope.crossRecipeEnabled(iv$self()) && iv$self().isFormed())
-            text.add(Component.translatable("gtl_enhancedcore.tooltip.iv_native.1").withStyle(ChatFormatting.YELLOW));
+
+    @ModifyArg(method = "createUIWidget", at = @At(value = "INVOKE",
+            target = "Lcom/lowdragmc/lowdraglib/gui/widget/ComponentPanelWidget;textSupplier(Ljava/util/function/Consumer;)Lcom/lowdragmc/lowdraglib/gui/widget/ComponentPanelWidget;"),
+            index = 0, require = 1, allow = 1)
+    private java.util.function.Consumer<List<Component>> iv$updatedDisplay(
+            java.util.function.Consumer<List<Component>> upstream) {
+        return IvMachineDisplay.wrap(iv$self(), upstream);
     }
 }

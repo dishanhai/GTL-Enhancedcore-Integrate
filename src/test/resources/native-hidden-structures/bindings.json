@@ -1,0 +1,265 @@
+{
+  "schema": 1,
+  "sourceEvidence": "Current GTLCore fix4 javap geometry/registrations; ADD 3.3.1Custom GTLASB3 grids and registration lambdas. Blocks.f_50056_ maps to SPONGE under official 1.20.1 mappings.",
+  "structures": {
+    "huge_incubator": {
+      "machines": [
+        "gtceu:huge_incubator"
+      ],
+      "symbols": {
+        "~": {
+          "mode": "controller",
+          "block": "gtceu:huge_incubator"
+        },
+        "A": {
+          "mode": "fixed",
+          "block": "gtlcore:iridium_casing"
+        },
+        "B": {
+          "mode": "fixed",
+          "block": "gtceu:sterilizing_filter_casing"
+        },
+        "C": {
+          "mode": "hatch",
+          "block": "gtceu:inert_machine_casing"
+        },
+        "D": {
+          "mode": "fixed",
+          "block": "gtceu:high_power_casing"
+        },
+        "E": {
+          "mode": "fixed",
+          "block": "gtceu:sturdy_machine_casing"
+        },
+        "F": {
+          "mode": "fixed",
+          "block": "gtceu:ptfe_pipe_casing"
+        },
+        "G": {
+          "mode": "fixed",
+          "block": "gtlcore:molecular_casing"
+        },
+        "H": {
+          "mode": "fixed",
+          "block": "gtceu:cleanroom_glass"
+        },
+        "I": {
+          "mode": "fixed",
+          "block": "kubejs:containment_field_generator"
+        },
+        "J": {
+          "mode": "fixed",
+          "block": "gtceu:stainless_steel_turbine_casing"
+        },
+        "K": {
+          "mode": "fixed",
+          "block": "gtlcore:degenerate_rhenium_constrained_casing"
+        },
+        "L": {
+          "mode": "fixed",
+          "block": "gtceu:plascrete"
+        },
+        "M": {
+          "mode": "fixed",
+          "block": "minecraft:sponge"
+        },
+        "N": {
+          "mode": "fixed",
+          "block": "gtlcore:hyper_core"
+        },
+        "O": {
+          "mode": "fixed",
+          "block": "gtceu:tungstensteel_turbine_casing"
+        },
+        "P": {
+          "mode": "fixed",
+          "block": "gtceu:naquadria_frame"
+        },
+        "R": {
+          "mode": "fixed",
+          "block": "kubejs:containment_field_generator"
+        },
+        " ": {
+          "mode": "any",
+          "block": null
+        }
+      },
+      "removableSymbols": "F",
+      "retentionReason": "No certified hidden cells when ability-capable C is protected and conducts sight; glass/frame/unknown models conduct sight."
+    },
+    "gravitation_shockburst": {
+      "machines": [
+        "gtceu:gravitation_shockburst"
+      ],
+      "symbols": {
+        "~": {
+          "mode": "controller",
+          "block": "gtceu:gravitation_shockburst"
+        },
+        "a": {
+          "mode": "hatch",
+          "block": "gtlcore:create_casing"
+        },
+        "b": {
+          "mode": "fixed",
+          "block": "gtlcore:infinity_glass"
+        },
+        "c": {
+          "mode": "fixed",
+          "block": "gtceu:infinity_block"
+        },
+        " ": {
+          "mode": "any",
+          "block": null
+        }
+      },
+      "removableSymbols": "c",
+      "retentionReason": "Infinity material blocks are generated at runtime and lack complete static opacity evidence; infinity glass and ability positions conduct sight."
+    },
+    "inferno_cleft_smelting_vault": {
+      "machines": [
+        "gtladditions:inferno_cleft_smelting_vault"
+      ],
+      "symbols": {
+        "L": {
+          "mode": "controller",
+          "block": "gtladditions:inferno_cleft_smelting_vault"
+        },
+        "I": {
+          "mode": "hatch",
+          "block": "gtlcore:iridium_casing"
+        },
+        "M": {
+          "mode": "part",
+          "block": "gtceu:uv_muffler_hatch"
+        },
+        "G": {
+          "mode": "heating_coils",
+          "block": "parameter:heating_coils"
+        },
+        "H": {
+          "mode": "heating_coils",
+          "block": "parameter:heating_coils"
+        },
+        "B": {
+          "mode": "fixed",
+          "block": "gtlcore:iridium_casing"
+        },
+        "A": {
+          "mode": "fixed",
+          "block": "gtlcore:molecular_casing"
+        },
+        "J": {
+          "mode": "fixed",
+          "block": "gtceu:luv_hermetic_casing"
+        },
+        "C": {
+          "mode": "fixed",
+          "block": "gtlcore:hyper_mechanical_casing"
+        },
+        "E": {
+          "mode": "fixed",
+          "block": "kubejs:neutronium_pipe_casing"
+        },
+        "K": {
+          "mode": "fixed",
+          "block": "gtlcore:hyper_core"
+        },
+        "D": {
+          "mode": "fixed",
+          "block": "gtceu:high_temperature_smelting_casing"
+        },
+        "F": {
+          "mode": "fixed",
+          "block": "gtceu:fusion_glass"
+        },
+        " ": {
+          "mode": "any",
+          "block": null
+        }
+      },
+      "removableSymbols": "GH",
+      "retentionReason": "All registered heating-coil variants lack complete opacity proof; glass, controller and ability positions conduct sight, yielding no certified hidden cells."
+    },
+    "nexus_satellite_factory": {
+      "machines": [
+        "gtladditions:nexus_satellite_factory_mk1",
+        "gtladditions:nexus_satellite_factory_mk2",
+        "gtladditions:nexus_satellite_factory_mk3",
+        "gtladditions:nexus_satellite_factory_mk4"
+      ],
+      "symbols": {
+        "~": {
+          "mode": "controller",
+          "block": "parameter:controller"
+        },
+        "N": {
+          "mode": "connector",
+          "block": "kubejs:module_connector"
+        },
+        "J": {
+          "mode": "fixed",
+          "block": "kubejs:restraint_device"
+        },
+        "O": {
+          "mode": "hatch",
+          "block": "gtceu:high_power_casing"
+        },
+        "C": {
+          "mode": "fixed",
+          "block": "gtceu:atomic_casing"
+        },
+        "L": {
+          "mode": "fixed",
+          "block": "kubejs:spacetime_assembly_line_unit"
+        },
+        "E": {
+          "mode": "fixed",
+          "block": "gtlcore:hyper_core"
+        },
+        "M": {
+          "mode": "fixed",
+          "block": "kubejs:dimensional_bridge_casing"
+        },
+        "D": {
+          "mode": "fixed",
+          "block": "gtlcore:dragon_strength_tritanium_casing"
+        },
+        "F": {
+          "mode": "fixed",
+          "block": "gtlcore:dimensionally_transcendent_casing"
+        },
+        "H": {
+          "mode": "fixed",
+          "block": "gtlcore:naquadah_alloy_casing"
+        },
+        "A": {
+          "mode": "fixed",
+          "block": "gtlcore:echo_casing"
+        },
+        "K": {
+          "mode": "fixed",
+          "block": "gtlcore:dimension_injection_casing"
+        },
+        "G": {
+          "mode": "fixed",
+          "block": "gtceu:uhv_machine_casing"
+        },
+        "B": {
+          "mode": "fixed",
+          "block": "gtceu:uxv_machine_casing"
+        },
+        "I": {
+          "mode": "fixed",
+          "block": "gtlcore:uxv_hermetic_casing"
+        },
+        " ": {
+          "mode": "any",
+          "block": null
+        }
+      },
+      "removableSymbols": "FM",
+      "retentionReason": "Only three certified hidden fixed-block cells removed; module connector N, controller and every hatch remain. Registration predicates for F/M are plain blocks; module host scan uses controller positions, not F/M."
+    }
+  }
+}

@@ -654,6 +654,25 @@
       ]
     },
     {
+      "output": "adaptive_maintenance_hatch",
+      "tier": "max",
+      "method": "assembly_line",
+      "duration": 12000,
+      "ingredients": [
+        { "item": "gtceu:max_machine_hull", "count": 1 },
+        { "item": "gtceu:auto_maintenance_hatch", "count": 4 },
+        { "item": "gtceu:uhv_robot_arm", "count": 8 },
+        { "item": "gtceu:uhv_sensor", "count": 8 },
+        { "item": "gtl_enhancedcore:max_crystal_resonator", "count": 2 },
+        { "item": "kubejs:cosmic_mainframe", "count": 4 },
+        { "tag": "gtceu:circuits/max", "count": 8 }
+      ],
+      "fluids": [
+        { "fluid": "gtceu:soldering_alloy", "amount": 9216 },
+        { "fluid": "gtceu:polyetheretherketone", "amount": 4608 }
+      ]
+    },
+    {
       "output": "pattern_generator",
       "tier": "ev",
       "method": "assembler",

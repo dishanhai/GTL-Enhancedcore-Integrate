@@ -17,7 +17,7 @@ public final class EquipmentRecipesRegression {
             for (var recipe : EquipmentRecipeCatalog.read(reader)) byOutput.put(recipe.output(), recipe);
         }
         var baseline = JsonParser.parseString(Files.readString(Path.of("src/test/resources/registration-baseline.json"))).getAsJsonObject();
-        Set<String> expected = new HashSet<>(Set.of("pattern_generator"));
+        Set<String> expected = new HashSet<>(Set.of("pattern_generator", "plot_world_controller"));
         for (String list : new String[]{"literal_machine_ids", "tiered_machine_ids"}) {
             baseline.getAsJsonArray(list).forEach(value -> expected.add(value.getAsString()));
         }

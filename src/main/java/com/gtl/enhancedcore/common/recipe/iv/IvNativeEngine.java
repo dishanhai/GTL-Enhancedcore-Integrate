@@ -278,6 +278,18 @@ public final class IvNativeEngine {
                 && mutable.iv$recipeCheck() != null && !mutable.iv$recipeCheck().test(job.recipe, machine)) {
             waiting(ref, "gtl_enhancedcore.diagnostic.conditions", dataDetail(job)); return false;
         }
+        if (logic instanceof com.gtl.enhancedcore.mixin.gtlcore.IvNativeAddMultipleAccessor add
+                && add.iv$addRecipeCheck() != null && !add.iv$addRecipeCheck().test(job.recipe, machine)) {
+            Component detail = dataDetail(job);
+            if (job.recipe.data.contains("ebf_temp") && machine instanceof
+                    com.gtladd.gtladditions.api.machine.multiblock.GTLAddCoilWorkableElectricMultipleRecipesMultiblockMachine coil) {
+                long available = (long)coil.getCoilType().getCoilTemperature()
+                        + 100L * Math.max(0, machine.getTier() - 2);
+                if (job.recipe.data.getInt("ebf_temp") > available)
+                    detail = nativeDetail("temperature", job.recipe.data.getInt("ebf_temp"), available);
+            }
+            waiting(ref, "gtl_enhancedcore.diagnostic.conditions", detail); return false;
+        }
         return true;
     }
     private void start(List<Ref> all) {

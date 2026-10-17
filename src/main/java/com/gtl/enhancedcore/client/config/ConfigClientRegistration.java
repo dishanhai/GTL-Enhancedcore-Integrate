@@ -20,6 +20,7 @@ public final class ConfigClientRegistration {
         event.enqueueWork(ClientTooltipConfig::initialize);
         event.enqueueWork(CopyKeysConfig::initialize);
         event.enqueueWork(CopyKeysClient::register);
+        event.enqueueWork(PreviewLayerConfig::initialize);
     }
 
     /** 复制 ID / 复制配方 的按键注册（默认 0 与 .）。 */

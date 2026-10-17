@@ -7,7 +7,12 @@ import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.TickableSubscription;
 import com.gregtechceu.gtceu.api.machine.feature.IMachineLife;
 import com.gregtechceu.gtceu.api.machine.multiblock.MultiblockDisplayText;
-import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.TieredMachine;
+import com.gregtechceu.gtceu.api.capability.IWorkable;
+import com.gregtechceu.gtceu.api.machine.feature.IFancyUIMachine;
+import com.lowdragmc.lowdraglib.gui.widget.ComponentPanelWidget;
+import com.lowdragmc.lowdraglib.gui.widget.Widget;
+import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import com.gregtechceu.gtceu.common.machine.multiblock.part.EnergyHatchPartMachine;
 import com.gregtechceu.gtceu.common.machine.electric.HullMachine;
 import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
@@ -15,6 +20,7 @@ import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiPart;
 import com.hepdd.gtmthings.api.misc.WirelessEnergyManager;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
+import com.lowdragmc.lowdraglib.syncdata.annotation.UpdateListener;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 
 import java.math.BigInteger;
@@ -38,7 +44,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * 无线充能器 —— 仅 LV（低压）/MV（高压）两台多方块，均用专用 schem 结构（无仓室位）。
+ * 无线充能器 —— 仅 LV（低压）/MV（中压）两台单方块，直接从放置者无线电网取电。
  * 2026-08-13 用户要求移除 MV 以上全部无线充能器（HV~MAX）。
  *
  * 规则（见 功能与需求.md「无线充能器」）：
@@ -46,19 +52,17 @@ import org.jetbrains.annotations.Nullable;
  * - 固定以机器所在区块为中心扫描，默认 11×11（半径 5）共 121 个区块，每 20 tick 一次。
  * - 辐散功耗：扫描区块数 × 当前电压 × 1A（每 tick 累计，每 20 tick 结算）。
  * - 辐散供能：扫描区块内所有 GT 机器的能源容器，按缺电量从无线电网拉电并补满。
- * - 支持仓室：维护仓；不支持：并行控制仓、能源仓、激光靶仓。
+ * - 无结构、仓室或有线输入；工作状态同步给 GUI、Jade 和运行特效。
  */
-public class WirelessChargerMachine extends WorkableElectricMultiblockMachine implements IMachineLife {
+public class WirelessChargerMachine extends TieredMachine implements IMachineLife, IFancyUIMachine, IWorkable {
 
     @NotNull
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER =
-            new ManagedFieldHolder(WirelessChargerMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
+            new ManagedFieldHolder(WirelessChargerMachine.class, TieredMachine.MANAGED_FIELD_HOLDER);
 
     private static final int SCAN_INTERVAL = 20;
     /** 默认扫描半径 5（11×11 = 121 区块）；保留作默认值与文档锚点。 */
     private static final int CHUNK_RADIUS = 5;
-    /** 默认扫描区块数（半径 5 → 121）；保留作默认值与文档锚点。 */
-    private static final int CHUNK_COUNT = (2 * CHUNK_RADIUS + 1) * (2 * CHUNK_RADIUS + 1);
 
     /** 扫描半径（区块）；默认 5，即 11×11 = 121 区块。 */
     public static int chunkRadius() {
@@ -71,8 +75,6 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
         return (2 * radius + 1) * (2 * radius + 1);
     }
 
-
-    private final int tier;
 
     @Persisted
     @DescSynced
@@ -92,14 +94,18 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
 
     private transient TickableSubscription chargerSubs;
     private int scanTimer;
+    @Persisted
     @DescSynced
+    @UpdateListener(methodName = "onFieldSynced")
+    private boolean workingEnabled = true;
+    @DescSynced
+    @UpdateListener(methodName = "onFieldSynced")
     private boolean charging;
     @DescSynced
     private boolean wirelessPowerMissing;
 
     public WirelessChargerMachine(IMachineBlockEntity holder, int tier, Object... args) {
-        super(holder, args);
-        this.tier = tier;
+        super(holder, tier);
     }
 
     @Override
@@ -113,12 +119,10 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
         return this.tier;
     }
 
-    @Override
     public long getMaxVoltage() {
         return GTValues.V[this.tier];
     }
 
-    @Override
     public long getOverclockVoltage() {
         return GTValues.V[this.tier];
     }
@@ -173,12 +177,12 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
     // ==================== 充能逻辑 ====================
 
     private void chargerTick() {
-        if (!this.isFormed() || !this.recipeLogic.isWorkingEnabled()) {
-            this.charging = false;
+        if (!this.workingEnabled) {
+            this.setCharging(false);
             return;
         }
         if (this.userId == null) {
-            this.charging = false;
+            this.setCharging(false);
             this.tryAutoBindUserId();
             return;
         }
@@ -198,14 +202,14 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
                     this.userId, BigInteger.valueOf(-this.accumulatedConsumption), this)) {
                 this.accumulatedConsumption = 0;
                 this.lastDistributed = 0;
-                this.charging = false;
+                this.setCharging(false);
                 this.wirelessPowerMissing = true;
                 return;
             }
             this.accumulatedConsumption = 0;
         }
 
-        this.charging = true;
+        this.setCharging(true);
         this.wirelessPowerMissing = false;
         this.lastDistributed = distributeEnergy();
         this.totalDistributed = saturatingAdd(this.totalDistributed, this.lastDistributed);
@@ -306,15 +310,10 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
 
     // ==================== 显示文本 ====================
 
-    @Override
     public void addDisplayText(java.util.List<Component> textList) {
-        if (!this.isFormed()) {
-            super.addDisplayText(textList);
-            return;
-        }
-        // 不调用 super：无线充能器无能源仓，父类会显示无意义的 0 EU 能源行。
+        // No local energy container: only show the actual wireless account activity.
         MultiblockDisplayText.builder(textList, true)
-                .setWorkingStatus(this.recipeLogic.isWorkingEnabled(), this.charging)
+                .setWorkingStatus(this.workingEnabled, this.charging)
                 .addWorkingStatusLine();
         long voltage = GTValues.V[this.tier];
         int chunks = chunkCount();
@@ -341,6 +340,50 @@ public class WirelessChargerMachine extends WorkableElectricMultiblockMachine im
     public Component getDiagnostic() {
         if (userId == null) return com.gtl.enhancedcore.common.recipe.MachineDiagnostics.text("wireless_owner");
         return wirelessPowerMissing ? com.gtl.enhancedcore.common.recipe.MachineDiagnostics.text("wireless_power") : null;
+    }
+
+    @Override
+    public Widget createUIWidget() {
+        WidgetGroup group = new WidgetGroup(0, 0, 176, 136);
+        group.addWidget(new ComponentPanelWidget(8, 8, this::addDisplayText).setMaxWidthLimit(160));
+        return group;
+    }
+
+    @Override
+    public void onAddFancyInformationTooltip(java.util.List<Component> textList) {
+        addDisplayText(textList);
+    }
+
+    @Override
+    public boolean isWorkingEnabled() { return workingEnabled; }
+
+    @Override
+    public void setWorkingEnabled(boolean enabled) {
+        if (isRemote() || workingEnabled == enabled) return;
+        workingEnabled = enabled;
+        if (!enabled) setCharging(false);
+        markDirty();
+    }
+
+    @Override
+    public boolean isActive() { return charging && workingEnabled; }
+
+    @Override
+    public int getProgress() { return 0; }
+
+    @Override
+    public int getMaxProgress() { return 0; }
+
+    protected void onFieldSynced(boolean previous, boolean value) {
+        scheduleRenderUpdate();
+    }
+
+    private void setCharging(boolean value) {
+        if (charging == value) return;
+        charging = value;
+        markDirty();
+        // The baked front indicator and the client field use the same synced state.
+        notifyBlockUpdate();
     }
 
     // ==================== 工具方法 ====================

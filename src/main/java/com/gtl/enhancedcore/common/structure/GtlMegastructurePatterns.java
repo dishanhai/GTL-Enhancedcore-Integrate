@@ -9,6 +9,7 @@ import com.gregtechceu.gtceu.api.pattern.Predicates;
 import com.gregtechceu.gtceu.api.pattern.TraceabilityPredicate;
 import com.gregtechceu.gtceu.api.pattern.predicates.SimplePredicate;
 import com.gtl.enhancedcore.mixin.gtceu.BlockPatternAccessor;
+import com.gtl.enhancedcore.common.config.MachineOverrideConfig;
 import com.gtl.enhancedcore.integration.terminal.LampPlacement;
 import com.lowdragmc.lowdraglib.utils.BlockInfo;
 import java.io.IOException;
@@ -108,7 +109,8 @@ public final class GtlMegastructurePatterns {
         // Imported schematics are already rotated to LEFT/UP/FRONT, independently
         // of the old machine's aisle axes (some originals were built vertically).
         FactoryBlockPattern builder = StructurePatterns.start(ROOT + id.getPath() + ".pattern.gz");
-        var isolatedHatches = com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(id)
+        var isolatedHatches = MachineOverrideConfig.current().enhanceOriginalMachines()
+                && com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.nativeTarget(id)
                 ? new com.gtl.enhancedcore.common.recipe.iv.IvNativeHatches() : null;
         for (var entry : spec.getAsJsonObject("bindings").entrySet()) {
             var binding = entry.getValue().getAsJsonObject();
@@ -162,7 +164,8 @@ public final class GtlMegastructurePatterns {
                     }
                 }
             }
-            if (mode.equals("hatch") && MegastructureMaintenancePolicy.matches(id.getNamespace(), id.getPath())) {
+            if (MachineOverrideConfig.current().enhanceOriginalMachines() && mode.equals("hatch")
+                    && MegastructureMaintenancePolicy.matches(id.getNamespace(), id.getPath())) {
                 predicate = new TraceabilityPredicate(predicate).or(Predicates.abilities(
                         com.gregtechceu.gtceu.api.machine.multiblock.PartAbility.MAINTENANCE)
                         .setMaxGlobalLimited(1).setPreviewCount(1));

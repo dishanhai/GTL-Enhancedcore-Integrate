@@ -27,6 +27,7 @@ public final class GTLEnhancedcoreMachines {
     private static volatile MachineDefinition quantumDataAccessHatch;
     private static volatile MachineDefinition creativeComputationReceiverHatch;
     private static volatile MachineDefinition circuitEncoderHatch;
+    private static volatile MachineDefinition adaptiveMaintenanceHatch;
     private static volatile MultiblockMachineDefinition largeFurnace;
     private static volatile MultiblockMachineDefinition steamPlatform;
     private static volatile MultiblockMachineDefinition plasmaMachineTool;
@@ -47,7 +48,7 @@ public final class GTLEnhancedcoreMachines {
     private static volatile MultiblockMachineDefinition hyperstructuralChemicalDistorter;
     private static volatile MultiblockMachineDefinition stellarConfinementFusionReactor;
     private static volatile MachineDefinition[] crystalResonators;
-    private static volatile MultiblockMachineDefinition[] wirelessChargers;
+    private static volatile MachineDefinition[] wirelessChargers;
     private static volatile MultiblockMachineDefinition basicOrePlant;
     private static volatile MultiblockMachineDefinition processingPlus;
     private static volatile MultiblockMachineDefinition assemblingPlus;
@@ -66,6 +67,7 @@ public final class GTLEnhancedcoreMachines {
         GTLEnhancedcoreRecipeTypes.init();
         meDrive = PartMachineRegistration.registerMEDrive();
         circuitEncoderHatch = PartMachineRegistration.registerCircuitEncoderHatch();
+        adaptiveMaintenanceHatch = PartMachineRegistration.registerAdaptiveMaintenanceHatch();
         claimReplacementTerminal = PartMachineRegistration.registerClaimReplacementTerminal();
         quantumDataAccessHatch = PartMachineRegistration.registerQuantumDataAccessHatch();
         creativeComputationReceiverHatch = PartMachineRegistration.registerCreativeComputationReceiverHatch();
@@ -213,8 +215,8 @@ public final class GTLEnhancedcoreMachines {
         return crystalResonators == null ? new MachineDefinition[0] : crystalResonators.clone();
     }
 
-    public static MultiblockMachineDefinition[] getWirelessChargers() {
-        return wirelessChargers == null ? new MultiblockMachineDefinition[0] : wirelessChargers.clone();
+    public static MachineDefinition[] getWirelessChargers() {
+        return wirelessChargers == null ? new MachineDefinition[0] : wirelessChargers.clone();
     }
 
     public static MultiblockMachineDefinition getBasicOrePlant() {
@@ -238,7 +240,7 @@ public final class GTLEnhancedcoreMachines {
     public static List<MachineDefinition> all() {
         if (!initialized) return List.of();
         List<MachineDefinition> result = new ArrayList<>(List.of(
-                meDrive, circuitEncoderHatch, claimReplacementTerminal, quantumDataAccessHatch,
+                meDrive, circuitEncoderHatch, adaptiveMaintenanceHatch, claimReplacementTerminal, quantumDataAccessHatch,
                 creativeComputationReceiverHatch,
                 largeFurnace, steamPlatform, plasmaMachineTool, hadronRefinery, quantumMassArray,
                 fusionAssembler, weatherAnchor, causalityTerminal, infinitySingularityCompressor,

@@ -139,12 +139,9 @@ public final class PatternGeneratorWidget extends WidgetGroup {
         columns.setId("pattern_generator.columns");
         previousButton = button(10, 45, 18, 16, () -> "<", () -> page(-1));
         nextButton = button(100, 45, 18, 16, () -> ">", () -> page(1));
-        previews.addWidget(previousButton);
         previews.addWidget(center(30, 45, 68, 16, () -> count == 0 ? "0 / 0" : (page + 1) + " / " + PatternGeneratorLayout.pages(count, settings.previewColumns)));
-        previews.addWidget(nextButton);
         selectAllButton = button(128, 45, 80, 16, () -> tr(selected == count && count > 0 ? "unselect_all" : "select_all"),
                 () -> send(SELECT_ALL, b -> { b.writeVarInt(revision); b.writeBoolean(selected != count); }));
-        previews.addWidget(selectAllButton);
         previews.addWidget(text(216, 45, 84, 16, () -> tr("page_capacity", PatternGeneratorLayout.capacity(settings.previewColumns))));
         grid.setClientSideWidget(); grid.setBackground(GuiTextures.BACKGROUND_INVERSE); previews.addWidget(grid);
         previews.addWidget(text(10, 196, 224, 14, () -> feedback.getString().isEmpty() ? tr("selected_total", selected, count) : feedback.getString()));
@@ -155,6 +152,10 @@ public final class PatternGeneratorWidget extends WidgetGroup {
         fillButton = button(160, 214, 140, 18, this::fillLabel, this::requestFill);
         fillButton.setHoverTooltips(List.of(Component.translatable(PREFIX + "fill_hint"))); previews.addWidget(fillButton);
         previews.addWidget(columns);
+        // Keep navigation above the scroll viewport in LDLib's reverse-order input dispatch.
+        previews.addWidget(previousButton);
+        previews.addWidget(nextButton);
+        previews.addWidget(selectAllButton);
 
         buildFilters(); buildCircuits();
         presets.addWidget(button(10, 24, 60, 18, () -> tr("back_main"), () -> show(main)));
@@ -413,6 +414,10 @@ public final class PatternGeneratorWidget extends WidgetGroup {
             checkTexture = new TextTexture("✓").setColor(0xff265226).setDropShadow(false);
             setOnPressCallback(click -> { if (click.isRemote && selectable && pendingCount == 0 && ready)
                 send(SELECT, b -> { b.writeVarInt(revision); b.writeUtf(value.id(), 256); }); });
+        }
+        @Override public boolean mouseClicked(double mouseX, double mouseY, int button) {
+            if (!grid.isMouseOverElement(mouseX, mouseY) || !isMouseOverElement(mouseX, mouseY)) return false;
+            return super.mouseClicked(mouseX, mouseY, button);
         }
         @Override public void drawInBackground(net.minecraft.client.gui.GuiGraphics graphics, int mx, int my, float partial) {
             super.drawInBackground(graphics, mx, my, partial);

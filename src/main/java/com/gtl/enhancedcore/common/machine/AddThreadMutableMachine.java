@@ -2,7 +2,6 @@ package com.gtl.enhancedcore.common.machine;
 
 import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
 import com.gregtechceu.gtceu.api.machine.trait.RecipeLogic;
-import com.gtl.enhancedcore.common.recipe.iv.IvMachineScope;
 import com.gtladd.gtladditions.api.machine.logic.MutableRecipesLogic;
 import com.gtladd.gtladditions.api.machine.mutable.MutableElectricParallelHatchMultiblockMachine;
 
@@ -15,7 +14,7 @@ import com.gtladd.gtladditions.api.machine.mutable.MutableElectricParallelHatchM
  * 「支持跨配方类型并行」标识。线程完全由 GTLAdditions 自己的
  * {@code MutableRecipesLogic} 调度。
  *
- * <p><b>线程口径</b>：128 条基准 + 天球分歧引擎（Ω）叠加。
+ * <p><b>线程口径</b>：默认 128 条基准 + 天球分歧引擎（Ω）叠加；个别接入可覆盖基数。
  * {@code MutableRecipesLogic.getMultipleThreads()} 原实现为
  * {@code getAdditionalThread() > 0 ? 该值 : 1}，其 {@code getAdditionalThread()} 即 Ω 交付的线程数
  * （无 Ω 为 0），故覆写为 128 + Ω。
@@ -27,6 +26,7 @@ import com.gtladd.gtladditions.api.machine.mutable.MutableElectricParallelHatchM
  * 继承 {@link MutableElectricParallelHatchMultiblockMachine} 后两点同时满足。
  */
 public abstract class AddThreadMutableMachine extends MutableElectricParallelHatchMultiblockMachine {
+    public static final int DEFAULT_ADD_CROSS_RECIPE_THREADS = 128;
 
     /** 机器显示名，用于日志与诊断。 */
     private final String path;
@@ -52,6 +52,10 @@ public abstract class AddThreadMutableMachine extends MutableElectricParallelHat
      */
     protected int parallelBaseline() {
         return 0;
+    }
+
+    protected int threadBaseline() {
+        return DEFAULT_ADD_CROSS_RECIPE_THREADS;
     }
 
     /**
@@ -87,7 +91,7 @@ public abstract class AddThreadMutableMachine extends MutableElectricParallelHat
 
         @Override
         public int getMultipleThreads() {
-            long total = (long) IvMachineScope.NATIVE_CROSS_RECIPE_THREADS
+            long total = (long) owner.threadBaseline()
                     + Math.max(0, owner.getAdditionalThread());
             return (int) Math.max(1L, Math.min(Integer.MAX_VALUE, total));
         }

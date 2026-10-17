@@ -6,8 +6,12 @@
   "plugin": "com.gtl.enhancedcore.common.performance.PerformanceMixinPlugin",
   "mixins": [
     "ae2.PatternEncodingTerminalActionsMixin",
+    "ae2.remote.PlusProviderRemoteOpenMixin",
+    "ae2.remote.PlusGtmProviderRemoteOpenMixin",
+    "ae2.remote.PatternProviderHostAccessor",
     "gtmadvancedhatch.GridEnergyRecipeInputMixin",
     "gtlcore.GTLItemsDebugPatternToolMixin",
+    "gtlcore.StructureDetectNormalModeMixin",
     "jade.IvMachineModeProviderMixin",
     "jade.IvParallelProviderMixin",
     "gtceu.DisableNaturalOreGenerationMixin",
@@ -18,6 +22,7 @@
     "gtceu.IvNativeMutableAccessor",
     "gtceu.LightHunterRecipeBuilderMixin",
     "gtlcore.IvNativeMultipleAccessor",
+    "gtlcore.IvNativeAddMultipleAccessor",
     "gtlcore.IvComputationRecipesMixin",
     "gtlcore.IvComputationScopeMixin",
     "gtlcore.IvNativeBatchMixin",
@@ -47,8 +52,11 @@
     "gtceu.MvCircuitAssemblerTooltipMixin",
     "mc.ChunkBlockEntityRemovalMixin",
     "gtlcore.TerminalLampCandidatesMixin",
+    "gtlcore.UltimateTerminalDismantleMixin",
+    "gtlcore.TerminalDismantlePatternAccessor",
     "gtlcore.AutoConfigMaintenanceHatchMixin",
     "gtlcore.AutoConfigMaintenanceHatchAccessor",
+    "gtlcore.AdaptiveMaintenanceGravityConditionMixin",
     "gtlcore.BedrockDrillingRigNoBreakMixin",
     "gtlcore.AggregationDevicePatternBufferMixin",
     "gtlcore.SpaceProbeRecipeNoCWUMixin",
@@ -62,6 +70,8 @@
     "gtceu.IMultiControllerLockFixMixin",
     "gtceu.MultiblockControllerLockFixMixin",
     "gtceu.MultiblockControllerMachinePartsFixMixin",
+    "gtceu.MultiblockPartControllerPositionsAccessor",
+    "gtceu.WorkableActiveBlocksSnapshotMixin",
     "gtceu.BlockPatternAccessor",
     "gtceu.LucidEtchdreamerPreviewMixin",
     "gtceu.GtlMegastructurePatternMixin",
@@ -77,9 +87,16 @@
     "gtceu.MachineDefinitionDimensionalFocusEngravingArrayTooltipMixin",
     "gtceu.MachineDefinitionStarUltimateForgeParallelMixin",
     "gtceu.MachineDefinitionStarUltimateForgeTooltipMixin",
-    "gtceu.MultiblockMachineDefinitionStarUltimateForgeDisplayMixin"
+    "gtceu.MultiblockMachineDefinitionStarUltimateForgeDisplayMixin",
+    "mc.SingularityConfigRecipesMixin",
+    "mc.PersonalPlotServerAccessor",
+    "gtceu.PersonalPlotDimensionConditionMixin"
   ],
   "client": [
+    "ae2.client.RemoteProviderLocatorMixin",
+    "ae2.client.RemoteProviderPartLocatorMixin",
+    "gtceu.client.RemoteMachineUiHolderMixin",
+    "gtceu.client.MultiblockPreviewLayerConfigMixin",
     "ae2ct.client.CraftingTreeHelperMemoryMixin",
     "ae2ct.client.CraftingTreeWidgetMemoryMixin",
     "ae2ct.client.CraftingTreeScreenMemoryMixin",
@@ -115,7 +132,9 @@
     "mc.client.MultilineTextFieldAccessor",
     "ftbchunks.client.ChunkScreenAccessor",
     "ftbchunks.client.ChunkButtonMixin",
-    "ftbchunks.client.ChunkScreenMixin"
+    "ftbchunks.client.ChunkScreenMixin",
+    "mc.client.CreateWorldPlotGameTabMixin",
+    "mc.client.CreateWorldPlotUiStateMixin"
   ],
   "refmap": "gtl_enhancedcore.refmap.json"
 }

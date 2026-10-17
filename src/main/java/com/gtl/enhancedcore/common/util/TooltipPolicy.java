@@ -55,6 +55,8 @@ public final class TooltipPolicy {
                     List.of("qft.cross_recipe", "qft.threads"), List.of())),
             Map.entry("add_threads", page(
                     List.of("add_threads.cross_recipe", "add_threads.threads"), List.of())),
+            Map.entry("wood_distillation", page(
+                    List.of("wood_distillation.cross_recipe", "wood_distillation.threads"), List.of())),
             Map.entry("weather_anchor", page(
                     List.of("weather_anchor.flavor", "weather_anchor.intro", "weather_anchor.power",
                             "weather_anchor.supply", "supports_laser_hatch"),
@@ -114,6 +116,12 @@ public final class TooltipPolicy {
             Map.entry("circuit_encoder_hatch", page(
                     List.of("circuit_encoder_hatch.intro", "circuit_encoder_hatch.mechanism", "circuit_encoder_hatch.limit"),
                     List.of())),
+            Map.entry("adaptive_maintenance_hatch", page(
+                    List.of("adaptive_maintenance_hatch.intro", "adaptive_maintenance_hatch.shared",
+                            "adaptive_maintenance_hatch.cleanroom_title", "adaptive_maintenance_hatch.cleanroom_absolute",
+                            "adaptive_maintenance_hatch.cleanroom_standard", "adaptive_maintenance_hatch.cleanroom_sterile",
+                            "adaptive_maintenance_hatch.gravity", "adaptive_maintenance_hatch.credit",
+                            "adaptive_maintenance_hatch.brand"), List.of())),
             Map.entry("me_drive", page(
                     List.of("me_drive.intro", "me_drive.auto_fill_desc"),
                     List.of("me_drive.priority_desc"))),

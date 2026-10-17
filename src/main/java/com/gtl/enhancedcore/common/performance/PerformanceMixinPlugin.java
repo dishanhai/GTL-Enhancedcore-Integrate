@@ -1,5 +1,7 @@
 package com.gtl.enhancedcore.common.performance;
 
+import com.gtl.enhancedcore.common.config.ForeignMachineMixinPolicy;
+import com.gtl.enhancedcore.common.config.MachineOverrideConfig;
 import com.gtl.enhancedcore.common.integration.GtlTerminalExtras;
 import com.gtl.enhancedcore.common.integration.JerMobWorldLaziness;
 import com.gtl.enhancedcore.common.integration.MultiblockPreviewLaziness;
@@ -15,10 +17,14 @@ public final class PerformanceMixinPlugin implements IMixinConfigPlugin {
     private static final String GRID_HATCH_MIXIN = "com.gtl.enhancedcore.mixin.gtmadvancedhatch.GridEnergyRecipeInputMixin";
     private static Boolean jeiPresent;
 
-    @Override public void onLoad(String mixinPackage) { ClientThreadSettings.configureBackground(); }
+    @Override public void onLoad(String mixinPackage) {
+        MachineOverrideConfig.current();
+        ClientThreadSettings.configureBackground();
+    }
     @Override public String getRefMapperConfig() { return null; }
 
     @Override public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if (!ForeignMachineMixinPolicy.shouldApply(MachineOverrideConfig.current(), mixinClassName)) return false;
         if (mixinClassName.startsWith("com.gtl.enhancedcore.mixin.ae2ct.client.")
                 || mixinClassName.startsWith("com.gtl.enhancedcore.mixin.jer.client."))
             return PerformanceMixinPlugin.class.getClassLoader().getResource(targetClassName.replace('.', '/') + ".class") != null;
@@ -26,6 +32,9 @@ public final class PerformanceMixinPlugin implements IMixinConfigPlugin {
         if (mixinClassName.startsWith("com.gtl.enhancedcore.mixin.jei.")) return jeiPresent();
         if (GRID_HATCH_MIXIN.equals(mixinClassName))
             return PerformanceMixinPlugin.class.getClassLoader().getResource(targetClassName.replace('.', '/') + ".class") != null;
+        if (mixinClassName.startsWith("com.gtl.enhancedcore.mixin.ae2.remote."))
+            return PerformanceMixinPlugin.class.getClassLoader().getResource(
+                    targetClassName.replace('.', '/') + ".class") != null;
         return true;
     }
 

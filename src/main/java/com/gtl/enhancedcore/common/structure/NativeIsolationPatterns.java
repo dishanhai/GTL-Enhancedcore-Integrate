@@ -22,7 +22,7 @@ import net.minecraft.resources.ResourceLocation;
  * </ol>
  * 已做结构替换的机器由 {@code GtlMegastructurePatterns.replace()} 顺带换仓室，不走这里。
  * 覆盖 {@code gtceu:huge_incubator}、{@code gtceu:gravitation_shockburst}、
- * {@code gtladditions:inferno_cleft_smelting_vault} 与 {@code gtladditions:nexus_satellite_factory_mk1~4}。
+ * {@code gtladditions:inferno_cleft_smelting_vault}、伏羲八卦锻天炉与四台 Nexus 卫星工厂。
  */
 public final class NativeIsolationPatterns {
     private NativeIsolationPatterns() {}
@@ -55,6 +55,7 @@ public final class NativeIsolationPatterns {
                 }
             }
         }
+        NativeHiddenStructureCells.apply(id, original, matches);
         return new BlockPattern(matches, original.structureDir, original.aisleRepetitions,
                 access.enhanced$getCenterOffset().clone());
     }

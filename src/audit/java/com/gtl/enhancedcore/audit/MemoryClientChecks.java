@@ -69,7 +69,8 @@ public final class MemoryClientChecks {
 
     @SubscribeEvent
     public static void tick(TickEvent.ClientTickEvent event) {
-        if (!ENABLED || finished || event.phase != TickEvent.Phase.END) return;
+        if (!ENABLED || Boolean.getBoolean("gtl.enhancedcore.lateGameMemoryAudit")
+                || finished || event.phase != TickEvent.Phase.END) return;
         Minecraft mc = Minecraft.getInstance();
         try {
             mc.options.pauseOnLostFocus = false;

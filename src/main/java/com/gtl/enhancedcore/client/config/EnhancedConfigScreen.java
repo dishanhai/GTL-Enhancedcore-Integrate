@@ -15,11 +15,12 @@ public final class EnhancedConfigScreen extends ConfigPage {
     static Path directory() { return FMLPaths.CONFIGDIR.get().resolve("GTL-Enhancedcore"); }
     @Override protected void init() {
         super.init(); int half = (bodyWidth - 6) / 2;
-        button("tips", left, 45, bodyWidth, () -> minecraft.setScreen(new ItemTipBrowser(this)));
-        button("reload_tips", left, 71, half, () -> attempt(() -> { ClientTooltipConfig.reload(); status = tr("reloaded"); }));
-        button("tips_file", left + half + 6, 71, half, () -> attempt(this::openTooltipFile));
-        button("copy_keys", left, 97, bodyWidth, () -> minecraft.setScreen(new CopyKeysScreen(this)));
-        button("open_folder", left, 123, bodyWidth, () -> attempt(() -> {
+        button("tips", left, 49, bodyWidth, () -> minecraft.setScreen(new ItemTipBrowser(this)));
+        button("reload_tips", left, 77, half, () -> attempt(() -> { ClientTooltipConfig.reload(); notice(tr("reloaded")); }));
+        button("tips_file", left + half + 6, 77, half, () -> attempt(this::openTooltipFile));
+        button("copy_keys", left, 105, half, () -> minecraft.setScreen(new CopyKeysScreen(this)));
+        button("all_files", left + half + 6, 105, half, () -> minecraft.setScreen(new ConfigFilesScreen(this)));
+        button("open_folder", left, 133, bodyWidth, () -> attempt(() -> {
             Files.createDirectories(directory()); Util.getPlatform().openFile(directory().toFile());
         }));
         button("back", left, height - 27, bodyWidth, this::onClose);

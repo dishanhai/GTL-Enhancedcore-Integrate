@@ -33,6 +33,19 @@ public final class PartMachineRegistration {
                 .register();
     }
 
+    public static MachineDefinition registerAdaptiveMaintenanceHatch() {
+        return GTLEnhancedcore.REGISTRATE
+                .machine("adaptive_maintenance_hatch", com.gtl.enhancedcore.common.machine.hatch.AdaptiveMaintenanceHatchMachine::new)
+                .langValue("自适应维护仓")
+                .rotationState(RotationState.ALL)
+                .tier(GTValues.MAX)
+                .abilities(PartAbility.MAINTENANCE)
+                .renderer(() -> new OverlayTieredMachineRenderer(GTValues.MAX,
+                        GTLEnhancedcore.id("block/machine/part/adaptive_maintenance_hatch")))
+                .tooltipBuilder(MachineTooltips.create("adaptive_maintenance_hatch"))
+                .register();
+    }
+
     public static MachineDefinition registerMEDrive() {
         return GTLEnhancedcore.REGISTRATE
                 .machine("me_drive", holder -> new MEDrivePartMachine(holder))

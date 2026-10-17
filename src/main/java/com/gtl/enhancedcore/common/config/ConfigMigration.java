@@ -20,7 +20,6 @@ public final class ConfigMigration {
     /** 迁移的旧文件名列表。 */
     private static final List<String> LEGACY_FILES = List.of(
             "gtl_enhancedcore_ae_pins.json",
-            "gtl_enhancedcore_recipe_type_sets.json",
             "gtl_enhancedcore-server.toml"
     );
 
@@ -29,6 +28,8 @@ public final class ConfigMigration {
             Path configDir = FMLPaths.CONFIGDIR.get();
             Path targetDir = configDir.resolve("GTL-Enhancedcore");
             Files.createDirectories(targetDir);
+            var retired = ConfigConsolidation.consolidate(targetDir);
+            if (!retired.isEmpty()) GTLEnhancedcore.LOGGER.info("Retired configuration files: {}", retired);
             for (String name : LEGACY_FILES) {
                 Path legacy = configDir.resolve(name);
                 Path target = targetDir.resolve(name.equals("gtl_enhancedcore_ae_pins.json") ? "ae_pins.json"

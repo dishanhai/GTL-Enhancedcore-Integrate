@@ -91,9 +91,7 @@ public class TieredParallelMachine extends GTLAddWorkableElectricParallelHatchMu
     @Override
     protected void addMachineModeDisplay(java.util.List<net.minecraft.network.chat.Component> text) {
         if (com.gtl.enhancedcore.common.recipe.iv.IvMachineScope.crossRecipeEnabled(this)) {
-            text.add(net.minecraft.network.chat.Component.translatable("gtceu.gui.machinemode",
-                    net.minecraft.network.chat.Component.translatable("gtl_enhancedcore.gui.iv_mode"))
-                    .withStyle(net.minecraft.ChatFormatting.AQUA));
+            text.add(com.gtl.enhancedcore.common.recipe.iv.IvMachineDisplay.modeLine());
         } else {
             super.addMachineModeDisplay(text);
         }

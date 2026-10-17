@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * 规则（见 API标准.md「末晶谐振器」）：
  * - 顶面正上方存在末影水晶即持续发电，不消耗水晶。
- * - 发电量 = 对应电压 × 安培数，每 tick 累计，每 20 tick 结算到 GTMThings 无线电网。
+ * - 发电量 = 对应电压 × 安培数 × 2，每 tick 累计，每 20 tick 结算到 GTMThings 无线电网。
  * - 只向放置者所属队伍结算，不接有线输出。
  * - 电量缓存 accumulatedEU 持久化，避免卸载区块时丢电。
  * - 电压/安培/容量统一由本类的静态方法计算，注册端与逻辑端共用同一份公式（禁止各写一遍）。
@@ -46,6 +46,7 @@ public class EndCrystalResonatorMachine extends TieredEnergyMachine implements I
     private static final int WIRELESS_FLUSH_INTERVAL = 20;
     private static final long LV_AMPS = 16L;
     private static final long DEFAULT_AMPS = 64L;
+    private static final long GENERATION_MULTIPLIER = 2L;
 
     /** 待结算电量缓存。持久化，防止卸载区块丢失。 */
     @Persisted
@@ -80,7 +81,7 @@ public class EndCrystalResonatorMachine extends TieredEnergyMachine implements I
 
     /** 标称发电量（EU/t）= 电压 × 安培。 */
     public static long generationForTier(int tier) {
-        return GTValues.V[tier] * amperageForTier(tier);
+        return GTValues.V[tier] * amperageForTier(tier) * GENERATION_MULTIPLIER;
     }
 
     // ==================== 能量容器 ====================

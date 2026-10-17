@@ -76,6 +76,27 @@ public final class AEPinnedKeysStore {
         return keys;
     }
 
+    public static List<AEKey> validate(String text) {
+        var keys = new ArrayList<AEKey>();
+        var array = JsonParser.parseString(text).getAsJsonArray();
+        if (array.size() > 9) throw new IllegalArgumentException("At most 9 pinned keys");
+        for (var element : array) {
+            CompoundTag tag = (CompoundTag) JsonOps.INSTANCE.convertTo(NbtOps.INSTANCE, element);
+            AEKey key = AEKey.fromTagGeneric(tag);
+            if (key == null || keys.contains(key)) throw new IllegalArgumentException("Unknown or duplicate AE key");
+            keys.add(key);
+        }
+        return keys;
+    }
+
+    public static void applyEdited(String text) {
+        var keys = validate(text);
+        // Remove only manual pins; active crafting pins belong to AE's task display.
+        for (AEKey old : PinnedKeysTracker.snapshot()) PinnedKeys.unpin(old);
+        PinnedKeysTracker.clear();
+        for (AEKey key : keys) { PinnedKeys.pinKey(key, PinnedKeys.PinReason.CRAFTING); PinnedKeysTracker.mark(key); }
+    }
+
     /** 进档时恢复手动置顶（超出上限由 PinnedKeys.pinKey 淘汰逻辑处理，随后回写修正文件）。 */
     public static void restore() {
         List<AEKey> keys = load();

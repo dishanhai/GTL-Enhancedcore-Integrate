@@ -32,6 +32,7 @@ import com.lowdragmc.lowdraglib.gui.texture.IGuiTexture;
 import com.lowdragmc.lowdraglib.gui.texture.ResourceTexture;
 import com.lowdragmc.lowdraglib.gui.widget.Widget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+import com.lowdragmc.lowdraglib.misc.ItemStackTransfer;
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
@@ -76,7 +77,8 @@ IStorageProvider {
     private static final int SLOT_COUNT = SLOTS_PER_PAGE * DEFAULT_MAX_PAGES;
     @Persisted
     private final NotifiableItemStackHandler machineStorage;
-    private final Map<Integer, StorageCell> cellCache;
+    private record MountedCell(StorageCell cell, DeferredCellSave save) {}
+    private final Map<Integer, List<MountedCell>> cellCache = new HashMap<>();
     @Persisted
     private final GridNodeHolder nodeHolder;
     @DescSynced
@@ -96,7 +98,8 @@ IStorageProvider {
 
     public MEDrivePartMachine(@NotNull IMachineBlockEntity holder) {
         super(holder, DEFAULT_HOLDER_TIER, IO.BOTH);
-        this.machineStorage = new NotifiableItemStackHandler(this, SLOT_COUNT, IO.NONE, IO.BOTH) {
+        this.machineStorage = new NotifiableItemStackHandler(this, SLOT_COUNT, IO.NONE, IO.BOTH,
+                this::createCellStorage) {
             @Override
             public int getSlotLimit(int slot) { return 1; }
 
@@ -113,7 +116,6 @@ IStorageProvider {
         };
         this.machineStorage.setFilter(stack -> StorageCells.isCellHandled(stack)
                 || isCellPack(stack));
-        this.cellCache = new HashMap<Integer, StorageCell>();
         this.nodeHolder = new GridNodeHolder((IGridConnectedMachine)this);
         this.isOnline = false;
         this.autoFillCells = false;
@@ -128,39 +130,77 @@ IStorageProvider {
 
     public StorageCell getCellInventory(int index) {
         ItemStack stack = this.machineStorage.getStackInSlot(index);
-        if (stack.isEmpty()) {
-            return null;
-        }
-        return this.cellCache.computeIfAbsent(index, ignored -> this.createCellInventory(stack));
+        if (stack.isEmpty() || isCellPack(stack)) return null;
+        List<MountedCell> cells = cellsInSlot(index, stack);
+        return cells.isEmpty() ? null : cells.get(0).cell();
     }
 
-    private StorageCell createCellInventory(ItemStack stack) {
+    private MountedCell createCellInventory(ItemStack stack, Runnable afterPersist) {
         StorageCell[] cell = new StorageCell[1];
-        cell[0] = StorageCells.getCellInventory((ItemStack)stack, () -> {
-            if (cell[0] != null) {
-                cell[0].persist();
-            }
+        DeferredCellSave save = new DeferredCellSave(() -> {
+            cell[0].persist();
+            afterPersist.run();
+        });
+        cell[0] = StorageCells.getCellInventory(stack, () -> {
+            // ISaveProvider is a dirty notification, not a request to serialize every transfer.
+            save.markDirty();
             this.markDirty();
         });
-        return cell[0];
+        return cell[0] == null ? null : new MountedCell(cell[0], save);
     }
 
-    private StorageCell createInnerCellInventory(ItemStack innerStack, ItemStack packStack, int cellIndex) {
-        StorageCell[] cell = new StorageCell[1];
-        cell[0] = StorageCells.getCellInventory((ItemStack)innerStack, () -> {
+    private MountedCell createInnerCellInventory(ItemStack innerStack, ItemStack packStack, int cellIndex) {
+        return createCellInventory(innerStack, () -> {
             CompoundTag tag;
             ListTag keysList;
-            if (cell[0] != null) {
-                cell[0].persist();
-            }
             // 用 getTag() + 判空，绝不用 getOrCreateTag()：后者会给无 NBT 的物品创建空标签，影响堆叠判定。
             if ((tag = packStack.getTag()) != null
                     && cellIndex < (keysList = tag.getList("keys", 10)).size()) {
                 keysList.set(cellIndex, (Tag)innerStack.save(new CompoundTag()));
             }
-            this.markDirty();
         });
-        return cell[0];
+    }
+
+    private ItemStackTransfer createCellStorage(int slots) {
+        return new ItemStackTransfer(slots) {
+            @Override public int getSlotLimit(int slot) { return 1; }
+            @Override public ItemStack getStackInSlot(int slot) {
+                flushSlot(slot);
+                return super.getStackInSlot(slot);
+            }
+            @Override public void setStackInSlot(int slot, ItemStack stack) {
+                flushSlot(slot);
+                super.setStackInSlot(slot, stack);
+            }
+            @Override public ItemStack extractItem(int slot, int amount, boolean simulate, boolean notifyChange) {
+                // Flush before the transfer copies/removes the stack, including shift-click simulation.
+                flushSlot(slot);
+                return super.extractItem(slot, amount, simulate, notifyChange);
+            }
+            @Override public CompoundTag serializeNBT() {
+                // LDLib serializes the persisted storage field before custom machine data.
+                flushCells();
+                return super.serializeNBT();
+            }
+        };
+    }
+
+    private void flushSlot(int slot) {
+        List<MountedCell> cells = cellCache.get(slot);
+        if (cells != null) cells.forEach(cell -> cell.save().flush());
+    }
+
+    private void flushCells() {
+        cellCache.values().forEach(cells -> cells.forEach(cell -> cell.save().flush()));
+    }
+
+    private List<MountedCell> cellsInSlot(int slot, ItemStack stack) {
+        return cellCache.computeIfAbsent(slot, ignored -> {
+            List<MountedCell> packed = getInnerCellsFromPack(stack);
+            if (packed != null) return packed;
+            MountedCell cell = createCellInventory(stack, () -> {});
+            return cell == null ? List.of() : List.of(cell);
+        });
     }
 
     private void onMachineStorageContentsChanged() {
@@ -173,7 +213,7 @@ IStorageProvider {
     }
 
     private void invalidateCellCache() {
-        this.cellCache.values().forEach(StorageCell::persist);
+        this.flushCells();
         this.cellCache.clear();
     }
 
@@ -184,20 +224,13 @@ IStorageProvider {
         for (int slot = 0; slot < this.machineStorage.getSlots(); slot++) {
             ItemStack stack = this.machineStorage.getStackInSlot(slot);
             if (stack.isEmpty()) continue;
-            List<StorageCell> innerCells = this.getInnerCellsFromPack(stack);
-            if (innerCells != null) {
-                for (StorageCell innerCell : innerCells) {
-                    mounts.mount((MEStorage)innerCell, this.drivePriority);
-                }
-                continue;
+            for (MountedCell cell : cellsInSlot(slot, stack)) {
+                mounts.mount(cell.cell(), this.drivePriority);
             }
-            StorageCell cell = this.cellCache.computeIfAbsent(slot, k -> this.createCellInventory(stack));
-            if (cell == null) continue;
-            mounts.mount((MEStorage)cell, this.drivePriority);
         }
     }
 
-    private List<StorageCell> getInnerCellsFromPack(ItemStack stack) {
+    private List<MountedCell> getInnerCellsFromPack(ItemStack stack) {
         CompoundTag tag = stack.getTag();
         if (tag == null || !tag.contains("keys")) {
             return null;
@@ -210,9 +243,9 @@ IStorageProvider {
         if (!"expatternprovider:infinity_cell".equals(firstKey.getString("id"))) {
             return null;
         }
-        ArrayList<StorageCell> innerCells = new ArrayList<StorageCell>();
+        ArrayList<MountedCell> innerCells = new ArrayList<>();
         for (int i = 0; i < keysList.size(); ++i) {
-            StorageCell innerCell;
+            MountedCell innerCell;
             ItemStack innerStack;
             CompoundTag keyTag = keysList.getCompound(i).copy();
             if (!keyTag.contains("Count")) {
@@ -273,6 +306,7 @@ IStorageProvider {
         this.getMainNode().setExposedOnSides(EnumSet.allOf(Direction.class));
         if (this.isRemote()) return;
         this.cellPullSubs = this.subscribeServerTick(this.cellPullSubs, () -> {
+            this.flushCells();
             ++this.pullCounter;
             if (this.pullCounter >= 20) {
                 this.pullCounter = 0;
@@ -298,7 +332,7 @@ IStorageProvider {
 
     public void onMachineRemoved() {
         if (this.isRemote()) return;
-        this.cellCache.values().forEach(StorageCell::persist);
+        this.flushCells();
         this.clearInventory(this.machineStorage.storage);
         this.invalidateCellCache();
         IStorageProvider.requestUpdate(this.getMainNode());
@@ -390,8 +424,13 @@ IStorageProvider {
             this.cellPullSubs.unsubscribe();
             this.cellPullSubs = null;
         }
-        this.invalidateCellCache();
-        super.onUnload();
+        this.flushCells();
+        try {
+            super.onUnload();
+        } finally {
+            // Grid teardown may invoke providers; retain handlers until teardown has finished.
+            this.invalidateCellCache();
+        }
     }
 
     @NotNull

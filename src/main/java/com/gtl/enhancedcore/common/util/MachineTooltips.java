@@ -143,7 +143,20 @@ public final class MachineTooltips {
                 || key.equals(TooltipPolicy.SOURCE_KEY)) {
             return Component.translatable(key);
         }
-        var component = Component.translatable(key, arguments.getOrDefault(key, new Object[0]));
+        Object[] values = arguments.getOrDefault(key, key.endsWith(".shared")
+                ? new Object[]{Component.translatable("tooltip.gtl_enhancedcore.adaptive_maintenance_hatch.forbidden")
+                .withStyle(ChatFormatting.RED)} : new Object[0]);
+        var component = Component.translatable(key, values);
+        if (key.endsWith(".brand")) return component.withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.ITALIC);
+        if (key.endsWith(".intro") && key.startsWith("tooltip.gtl_enhancedcore.adaptive_maintenance_hatch.")) {
+            return component.withStyle(ChatFormatting.WHITE);
+        }
+        if (key.endsWith(".cleanroom_title")) return component.withStyle(ChatFormatting.WHITE);
+        if (key.endsWith(".cleanroom_absolute") || key.endsWith(".cleanroom_standard")
+                || key.endsWith(".cleanroom_sterile") || key.endsWith(".gravity")) {
+            return component.withStyle(ChatFormatting.GREEN);
+        }
+        if (key.endsWith(".credit")) return component.withStyle(ChatFormatting.AQUA);
         // Opening line: aqua, matching "具体用途" rows in the reference mods.
         if (key.endsWith(".intro") || key.endsWith(".summary") || key.endsWith(".tips") || key.endsWith(".efficient")) {
             return component.withStyle(ChatFormatting.AQUA);

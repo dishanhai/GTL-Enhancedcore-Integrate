@@ -1,20 +1,16 @@
 package com.gtl.enhancedcore.common.performance;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Properties;
+import com.gtl.enhancedcore.common.config.StartupConfig;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.loading.FMLPaths;
 
 /** Read before Minecraft initializes its shared worker pool; never loads game registries. */
 public final class ClientThreadSettings {
     private static final System.Logger LOG = System.getLogger("GTL-Enhancedcore/Threads");
     private static final ThreadBudget.Plan PLAN = ThreadBudget.plan(
             Runtime.getRuntime().availableProcessors(), Runtime.getRuntime().maxMemory());
-    private static final Properties SETTINGS = readSettings();
+    private static final StartupConfig.Settings SETTINGS = StartupConfig.current();
     private static final boolean ENABLED = FMLEnvironment.dist.isClient()
-            && Boolean.parseBoolean(SETTINGS.getProperty("autoThreads", "true"))
+            && SETTINGS.autoThreads()
             && !Boolean.getBoolean("gtl.enhancedcore.disableAutoThreads");
 
     private ClientThreadSettings() {}
@@ -51,28 +47,7 @@ public final class ClientThreadSettings {
     }
 
     private static int configured(String key, int fallback) {
-        String raw = SETTINGS.getProperty(key, "0").trim();
-        try {
-            int value = Integer.parseInt(raw);
-            if (value == 0) return fallback;
-            if (value >= 1 && value <= 255) return value;
-        } catch (NumberFormatException ignored) {
-        }
-        LOG.log(System.Logger.Level.WARNING, "Invalid {0}={1}; using automatic value {2}", key, raw, fallback);
-        return fallback;
-    }
-
-    private static Properties readSettings() {
-        var result = new Properties();
-        Path path = FMLPaths.CONFIGDIR.get().resolve("GTL-Enhancedcore/performance.properties");
-        if (Files.isRegularFile(path)) {
-            try (var reader = Files.newBufferedReader(path)) {
-                result.load(reader);
-            } catch (IOException | IllegalArgumentException error) {
-                LOG.log(System.Logger.Level.WARNING, "Cannot read performance.properties; retaining upstream thread settings", error);
-                result.setProperty("autoThreads", "false");
-            }
-        }
-        return result;
+        int value = key.equals("backgroundThreads") ? SETTINGS.backgroundThreads() : SETTINGS.builderThreads();
+        return value == 0 ? fallback : value;
     }
 }

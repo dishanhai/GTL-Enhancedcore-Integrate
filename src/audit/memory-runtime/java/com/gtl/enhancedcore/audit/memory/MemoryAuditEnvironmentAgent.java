@@ -19,10 +19,11 @@ public final class MemoryAuditEnvironmentAgent {
             @Override
             public byte[] transform(ClassLoader loader, String name, Class<?> type,
                     ProtectionDomain domain, byte[] bytes) {
-                boolean recipeTick = name.startsWith("com/gtl/enhancedcore/common/recipe/")
+                boolean recipeTick = !Boolean.getBoolean("gtl.enhancedcore.memoryAuditProductionTicks")
+                        && (name.startsWith("com/gtl/enhancedcore/common/recipe/")
                         || name.equals("com/gregtechceu/gtceu/api/machine/trait/RecipeLogic")
                         || name.startsWith("org/gtlcore/gtlcore/common/machine/trait/")
-                        || name.startsWith("com/gtladd/gtladditions/api/machine/logic/");
+                        || name.startsWith("com/gtladd/gtladditions/api/machine/logic/"));
                 if (!"org/lwjgl/glfw/GLFW".equals(name)
                         && !"oshi/util/platform/windows/WmiQueryHandler".equals(name) && !recipeTick) return null;
                 boolean glfw = "org/lwjgl/glfw/GLFW".equals(name);

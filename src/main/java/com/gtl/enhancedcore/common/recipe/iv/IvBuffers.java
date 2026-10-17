@@ -8,9 +8,13 @@ import com.gregtechceu.gtceu.api.recipe.GTRecipe;
 import com.gregtechceu.gtceu.common.item.IntCircuitBehaviour;
 import com.gtl.enhancedcore.common.machine.TieredParallelMachine;
 import com.gregtechceu.gtceu.api.machine.multiblock.WorkableElectricMultiblockMachine;
+import com.gregtechceu.gtceu.api.machine.IMachineBlockEntity;
+import com.gregtechceu.gtceu.api.machine.feature.multiblock.IMultiController;
+import com.gtl.enhancedcore.mixin.gtceu.MultiblockPartControllerPositionsAccessor;
 import java.util.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.ae.MEPatternBufferPartMachine;
 import org.gtlcore.gtlcore.common.machine.multiblock.part.ae.MEPatternBufferPartMachineBase;
@@ -44,14 +48,31 @@ public final class IvBuffers {
         IvBufferState state = state(buffer);
         if (state == null) return false;
         if(buffer.isRemote() && ((IvBufferAccess)buffer).iv$isDedicatedDisplay())return true;
-        boolean ivController = buffer.getControllers().stream().anyMatch(IvBuffers::targetController);
-        return state.dedicated() || ivController;
+        if (state.dedicated()) return true;
+        return loadedControllers(buffer).stream().anyMatch(IvBuffers::targetController);
+    }
+    /** AE may query patterns while chunks are unloading; never load a controller chunk here. */
+    private static List<IMultiController> loadedControllers(MEPatternBufferPartMachineBase buffer) {
+        if (!(buffer.getLevel() instanceof ServerLevel level)) return buffer.getControllers();
+        List<IMultiController> controllers = new ArrayList<>();
+        for (var pos : ((MultiblockPartControllerPositionsAccessor) buffer).enhancedcore$getControllerPositions()) {
+            var chunk = level.getChunkSource().getChunkNow(pos.getX() >> 4, pos.getZ() >> 4);
+            if (chunk != null && chunk.getBlockEntity(pos) instanceof IMachineBlockEntity holder
+                    && holder.getMetaMachine() instanceof IMultiController controller) controllers.add(controller);
+        }
+        return controllers;
+    }
+    private static boolean controllersLoaded(MEPatternBufferPartMachineBase buffer) {
+        if (!(buffer.getLevel() instanceof ServerLevel level)) return true;
+        return ((MultiblockPartControllerPositionsAccessor) buffer).enhancedcore$getControllerPositions().stream()
+                .allMatch(pos -> level.getChunkSource().getChunkNow(pos.getX() >> 4, pos.getZ() >> 4) != null);
     }
     public static String ownerKey(WorkableElectricMultiblockMachine machine) {
         return machine.getLevel().dimension().location() + "/" + machine.getPos().asLong() + "/" + machine.getDefinition().getId();
     }
     public static WorkableElectricMultiblockMachine controller(MEPatternBufferPartMachineBase buffer) {
-        var controllers = buffer.getControllers();
+        if (!controllersLoaded(buffer)) return null;
+        var controllers = loadedControllers(buffer);
         if (controllers.size() != 1 || !targetController(controllers.get(0)) || !(controllers.get(0) instanceof WorkableElectricMultiblockMachine machine) || !machine.isFormed()) return null;
         if (!buffer.getBoundProxyPositions().isEmpty()) return null;
         return machine;
@@ -83,14 +104,14 @@ public final class IvBuffers {
     private static boolean rejectBind(MEPatternBufferPartMachineBase buffer, String reason) {
         IvBufferState state = state(buffer);
         if (!reason.equals(state.message)) IvTaskLog.event(buffer, null, "BIND", "WAIT", "reason", reason,
-                "controllers", buffer.getControllers().stream().map(c -> c.self().getDefinition().getId() + "@" + c.self().getPos().toShortString()).toList(),
+                "controllers", loadedControllers(buffer).stream().map(c -> c.self().getDefinition().getId() + "@" + c.self().getPos().toShortString()).toList(),
                 "proxies", buffer.getBoundProxyPositions().stream().map(Object::toString).toList());
         state.message = reason; return false;
     }
     public static void refresh(MEPatternBufferPartMachineBase buffer) {
         IvBufferState state = state(buffer);
         if (!buffer.isRemote() && state != null && state.dedicated() && state.healthy() && state.jobs.isEmpty()
-                && buffer.getControllers().stream().noneMatch(IvBuffers::targetController)) {
+                && controllersLoaded(buffer) && loadedControllers(buffer).stream().noneMatch(IvBuffers::targetController)) {
             state.owner = ""; state.refreshNeeded = true; buffer.markDirty();
         }
         if (state != null && state.refreshNeeded && buffer instanceof IvBufferMethods methods) {

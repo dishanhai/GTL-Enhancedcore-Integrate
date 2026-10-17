@@ -19,11 +19,17 @@ public final class GTLEnhancedcoreItems {
 
     /** 样板生成工具：gtlcore debug_pattern_test / 山海样板调试工具“生成”模块移植版（删分析、生成直接进背包）。 */
     public static ItemEntry<ComponentItem> PATTERN_GENERATOR;
+    public static ItemEntry<com.gtl.enhancedcore.common.item.PlotWorldControllerItem> PLOT_WORLD_CONTROLLER;
 
     private GTLEnhancedcoreItems() {
     }
 
     public static void init() {
+        PLOT_WORLD_CONTROLLER = GTLEnhancedcore.REGISTRATE
+                .item("plot_world_controller", com.gtl.enhancedcore.common.item.PlotWorldControllerItem::new)
+                .properties(properties -> properties.stacksTo(1))
+                .model(com.tterrag.registrate.util.nullness.NonNullBiConsumer.noop())
+                .register();
         // 注意：禁止用 GTItems.attach 挂组件——它会在 mod 构造期触发 GTCEu GTItems 类静态初始化，
         // 其链上 GTToolType.<clinit>（gtlcore fix10 GTToolTypeMixin）注册 gtceu:sound 时 registry 已冻结导致崩溃（2026-08-16 实证）。
         // 改在 onRegister 回调里直接调用 ComponentItem.attachComponents，不引用 GTItems 类。

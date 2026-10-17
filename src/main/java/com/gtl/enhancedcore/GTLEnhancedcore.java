@@ -65,6 +65,7 @@ public class GTLEnhancedcore {
         // Register common networking after mod registration.
         CommonProxy.register(FMLJavaModLoadingContext.get().getModEventBus());
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        com.gtl.enhancedcore.common.world.plot.PlotWorldRegistration.register(bus);
         REGISTRATE.registerEventListeners(bus);
         TABS.register(bus);
 
@@ -92,6 +93,7 @@ public class GTLEnhancedcore {
             GTLEnhancedcoreMachines.all().forEach(definition -> event.accept(definition.asStack()));
             Item patternGenerator = GTLEnhancedcoreItems.getPatternGenerator();
             if (patternGenerator != null) event.accept(patternGenerator.getDefaultInstance());
+            event.accept(GTLEnhancedcoreItems.PLOT_WORLD_CONTROLLER.get().getDefaultInstance());
         });
 
         LOGGER.info("GTL-Enhancedcore loaded");

@@ -1,7 +1,8 @@
 package com.gtl.enhancedcore;
 
 import com.gtl.enhancedcore.common.recipe.iv.IvPresentation;
-import com.gtl.enhancedcore.mixin.gtceu.IvNativeMachineUiMixin;
+import com.gtl.enhancedcore.common.recipe.iv.IvMachineDisplay;
+import com.gtl.enhancedcore.common.recipe.iv.IvMachineScope;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,13 @@ public final class IvDisplayRegression {
     private static int assertions;
 
     public static int run() throws Exception {
-        Method canonical = IvNativeMachineUiMixin.class.getDeclaredMethod(
-                "iv$canonicalLine", List.class, String.class, Component.class);
+        assertions = 0;
+        Method canonical = IvMachineDisplay.class.getDeclaredMethod(
+                "canonicalLine", List.class, String.class, Component.class);
         canonical.setAccessible(true);
-        Method plainBatch = IvNativeMachineUiMixin.class.getDeclaredMethod("iv$plainBatchThreads", int.class);
+        Method plainBatch = IvMachineDisplay.class.getDeclaredMethod("plainBatchThreads", int.class);
         plainBatch.setAccessible(true);
-        Method threadLine = IvNativeMachineUiMixin.class.getDeclaredMethod("iv$threadLine", int.class);
+        Method threadLine = IvMachineDisplay.class.getDeclaredMethod("threadLine", int.class);
         threadLine.setAccessible(true);
 
         Component tier = Component.translatable("gtceu.multiblock.max_recipe_tier", "IV");
@@ -96,6 +98,48 @@ public final class IvDisplayRegression {
         check(count(lines, "gtl_enhancedcore.gui.iv_budget") == 0
                         && count(lines, "gtl_enhancedcore.gui.iv_native_budget") == 0,
                 "the order section does not repeat upstream parallel and thread rows");
+
+        check(IvMachineDisplay.wrap(null, null) == null,
+                "the client null polling supplier remains null instead of activating an extra refresh path");
+        check(IvMachineDisplay.MODE_ID.replace(':', '.').equals(IvMachineDisplay.MODE_TRANSLATION),
+                "Jade's synthetic recipe mode and GUI translate exactly the same mode name");
+        var ids = new ArrayList<>(IvMachineScope.NATIVE_IDS);
+        IvMachineScope.FOREIGN_NATIVE_IDS.values().forEach(ids::addAll);
+        for (String id : ids) {
+            int expectedThreads = IvMachineScope.baseThreadsFor(id);
+            var rendered = new ArrayList<Component>();
+            // Model an override which never calls super and appends another stale mode after its base rows.
+            var callback = IvMachineDisplay.after(text -> {
+                text.add(tier);
+                text.add(Component.translatable("gtceu.gui.machinemode", "lathe"));
+                text.add(Component.translatable("gtceu.multiblock.parallel", 1000));
+                text.add(Component.translatable("gtladditions.multiblock.threads", 64));
+                text.add(diagnostic);
+                text.add(Component.translatable("gtceu.gui.machinemode", "late subclass mode"));
+            }, text -> IvMachineDisplay.isolation(text, 128, expectedThreads, summary));
+            callback.accept(rendered);
+            check(count(rendered, "gtceu.gui.machinemode") == 1
+                            && count(rendered, "gtladditions.multiblock.threads") == 1
+                            && count(rendered, "gtl_enhancedcore.gui.iv_queue") == 1,
+                    id + ": final projection handles complete overrides and late duplicate rows once");
+            var modeContents = (TranslatableContents) rendered.get(1).getContents();
+            check(modeContents.getArgs()[0] instanceof Component name
+                            && name.getContents() instanceof TranslatableContents translated
+                            && translated.getKey().equals(IvMachineDisplay.MODE_TRANSLATION),
+                    id + ": GUI reports the active isolation mode rather than the original recipe type");
+            var displayedThreads = rendered.stream().filter(line -> line.getContents() instanceof TranslatableContents t
+                    && t.getKey().equals("gtladditions.multiblock.threads")).findFirst().orElseThrow();
+            Object argument = ((TranslatableContents) displayedThreads.getContents()).getArgs()[0];
+            check(argument instanceof Component n && n.getString().equals(IvPresentation.number(expectedThreads))
+                            && rendered.contains(tier) && rendered.contains(diagnostic),
+                    id + ": effective threads agree with the shared policy and machine diagnostics survive");
+            // Subsequent server refresh re-evaluates the complete callback, without retaining the last list.
+            rendered.clear();
+            callback.accept(rendered);
+            check(count(rendered, "gtceu.gui.machinemode") == 1
+                            && count(rendered, "gtl_enhancedcore.gui.iv_remaining") == 1,
+                    id + ": live refresh uses the same projection as initial text");
+        }
         return assertions;
     }
 

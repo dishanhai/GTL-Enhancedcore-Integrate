@@ -15,7 +15,8 @@ public final class EquipmentRecipeCatalog {
     public static final List<String> TIERS = List.of("ulv", "lv", "mv", "hv", "ev", "iv", "luv", "zpm",
             "uv", "uhv", "uev", "uiv", "uxv", "opv", "max");
     /** 无限资源仓室只通过创造模式或命令获取，不生成生存配方。 */
-    public static final Set<String> CREATIVE_MODE_ONLY_OUTPUTS = Set.of("creative_computation_receiver_hatch");
+    public static final Set<String> CREATIVE_MODE_ONLY_OUTPUTS = Set.of(
+            "creative_computation_receiver_hatch", "plot_world_controller");
     public record Ingredient(String id, boolean tag, int count) {}
     public record Fluid(String id, int amount) {}
     public record Recipe(String output, int tier, String method, int duration, List<Ingredient> ingredients,
